@@ -1,8 +1,16 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaHome, FaChevronDown, FaUser, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaHome,
+  FaChevronDown,
+  FaUser,
+  FaSignOutAlt,
+  FaMapMarkerAlt,
+  FaTrash,
+} from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axiosInstance from "../api/axiosInstance";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const location = useLocation();
@@ -26,6 +34,48 @@ const Navbar = () => {
     window.location.reload();
   };
 
+  const handleDeleteAccount = async () => {
+    setIsDropdownOpen(false);
+
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete your account? This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E41E26",
+      cancelButtonColor: "#6B7280",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await axiosInstance.delete("/api/Account/DeleteAccount");
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your account has been deleted successfully.",
+          icon: "success",
+          confirmButtonColor: "#E41E26",
+        });
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/");
+        window.location.reload();
+      } catch (error) {
+        console.error("Failed to delete account", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to delete account. Please try again.",
+          icon: "error",
+          confirmButtonColor: "#E41E26",
+        });
+      }
+    }
+  };
+
   const handleAuthClick = (path) => {
     setIsDropdownOpen(false);
     navigate(path);
@@ -34,6 +84,11 @@ const Navbar = () => {
   const handleProfileClick = () => {
     setIsDropdownOpen(false);
     navigate("/profile");
+  };
+
+  const handleAddressesClick = () => {
+    setIsDropdownOpen(false);
+    navigate("/addresses");
   };
 
   // Close dropdown when clicking outside
@@ -194,6 +249,32 @@ const Navbar = () => {
                       >
                         <FaUser className="text-[#E41E26]" />
                         <span>My Profile</span>
+                      </button>
+                    </motion.div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <button
+                        onClick={handleAddressesClick}
+                        className="w-full text-left flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] transition-all duration-200 font-medium rounded-lg"
+                      >
+                        <FaMapMarkerAlt className="text-[#E41E26]" />
+                        <span>My Addresses</span>
+                      </button>
+                    </motion.div>
+
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <button
+                        onClick={handleDeleteAccount}
+                        className="w-full text-left flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-600 transition-all duration-200 font-medium rounded-lg"
+                      >
+                        <FaTrash className="text-red-500" />
+                        <span>Delete Account</span>
                       </button>
                     </motion.div>
 

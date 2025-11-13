@@ -5,6 +5,7 @@ import ConfirmEmail from "./pages/ConfirmEmail";
 import ResetPassword from "./pages/ResetPassword";
 import AuthPage from "./pages/AuthPage";
 import Profile from "./pages/Profile";
+import Addresses from "./pages/Addresses";
 
 function App() {
   const location = useLocation();
@@ -15,6 +16,7 @@ function App() {
     "/auth/verify-email-address",
     "/reset-password",
     "/profile",
+    "/addresses",
   ];
 
   const shouldShowNavbarFooter = !hideNavbarFooterPaths.includes(
@@ -35,6 +37,7 @@ function App() {
           <Route path="/auth/verify-email-address" element={<ConfirmEmail />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/addresses" element={<Addresses />} />
         </Routes>
       </main>
     </div>
