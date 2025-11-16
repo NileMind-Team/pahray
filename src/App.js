@@ -10,6 +10,7 @@ import Reviews from "./pages/Reviews";
 import Cart from "./pages/Cart";
 import OrderTracking from "./pages/OrderTracking";
 import MyOrders from "./pages/MyOrders";
+import ProductForm from "./pages/ProductForm";
 
 function App() {
   const location = useLocation();
@@ -47,6 +48,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/order-tracking" element={<OrderTracking />} />
           <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/products/new" element={<ProductForm />} />
+          <Route path="/products/edit" element={<ProductForm />} />
         </Routes>
       </main>
     </div>

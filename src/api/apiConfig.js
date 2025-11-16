@@ -1,5 +1,5 @@
 const apiConfig = {
-  baseURL: "https://nilefood.runasp.net",
+  baseURL: "https://restaurant-template.runasp.net/",
 };
 
 export default apiConfig;

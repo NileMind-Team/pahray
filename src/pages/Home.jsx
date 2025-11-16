@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaSearch,
@@ -16,6 +16,8 @@ import {
   FaEye,
   FaChevronLeft,
   FaChevronRight,
+  FaEdit,
+  FaTrash,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -28,12 +30,15 @@ const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [quantity, setQuantity] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
   const categoriesContainerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const navigate = useNavigate();
+
+  // Check user role from localStorage
+  const userRole = localStorage.getItem("userRole") || "user";
+  const isAdminOrRestaurant = userRole === "restaurant" || userRole === "admin";
 
   // Categories with icons
   const categories = [
@@ -201,7 +206,6 @@ const Home = () => {
 
     setProducts(mockProducts);
     setFilteredProducts(mockProducts);
-    setIsLoading(false);
   }, []);
 
   // Filter products based on category and search term
@@ -291,6 +295,42 @@ const Home = () => {
     });
 
     closeProductModal();
+  };
+
+  // Admin/Restaurant Functions - Only for Admin or Restaurant role
+  const handleEditProduct = (product, e) => {
+    e.stopPropagation();
+    // Navigate to edit form with product data
+    navigate("/products/edit", { state: { product } });
+  };
+
+  const handleDeleteProduct = (productId, e) => {
+    e.stopPropagation();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#E41E26",
+      cancelButtonColor: "#6B7280",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProducts(products.filter((product) => product.id !== productId));
+        Swal.fire({
+          title: "Deleted!",
+          text: "Product has been deleted.",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
+    });
+  };
+
+  const handleAddNewProduct = () => {
+    navigate("/products/new");
   };
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
@@ -503,8 +543,30 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 cursor-pointer group w-full"
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 cursor-pointer group w-full relative"
                 >
+                  {/* Admin/Restaurant Actions Overlay - Only show for Admin or Restaurant role */}
+                  {isAdminOrRestaurant && (
+                    <div className="absolute top-2 left-2 z-10 flex gap-1">
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={(e) => handleEditProduct(product, e)}
+                        className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-colors"
+                      >
+                        <FaEdit size={14} />
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={(e) => handleDeleteProduct(product.id, e)}
+                        className="bg-red-500 text-white p-2 rounded-lg shadow-lg hover:bg-red-600 transition-colors"
+                      >
+                        <FaTrash size={14} />
+                      </motion.button>
+                    </div>
+                  )}
+
                   {/* Product Image */}
                   <div className="relative h-40 sm:h-48 overflow-hidden">
                     <img
@@ -565,6 +627,20 @@ const Home = () => {
         )}
       </div>
 
+      {/* Add Product Button - Only for Admin or Restaurant role */}
+      {isAdminOrRestaurant && (
+        <motion.button
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={handleAddNewProduct}
+          className="fixed bottom-4 left-4 bg-green-500 text-white rounded-full p-4 shadow-2xl z-40 hover:bg-green-600 transition-colors duration-200"
+        >
+          <FaPlus size={24} />
+        </motion.button>
+      )}
+
       <AnimatePresence>
         {selectedProduct && (
           <>
@@ -603,6 +679,35 @@ const Home = () => {
                       alt={selectedProduct.name}
                       className="w-full h-64 sm:h-80 lg:h-full object-cover"
                     />
+                    {/* Admin/Restaurant Actions in Modal - Only show for Admin or Restaurant role */}
+                    {isAdminOrRestaurant && (
+                      <div className="absolute top-4 left-4 flex gap-2">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditProduct(selectedProduct, e);
+                          }}
+                          className="bg-blue-500 text-white p-2.5 rounded-lg shadow-lg hover:bg-blue-600 transition-colors flex items-center gap-1 text-sm"
+                        >
+                          <FaEdit size={16} />
+                          Edit
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteProduct(selectedProduct.id, e);
+                          }}
+                          className="bg-red-500 text-white p-2.5 rounded-lg shadow-lg hover:bg-red-600 transition-colors flex items-center gap-1 text-sm"
+                        >
+                          <FaTrash size={16} />
+                          Delete
+                        </motion.button>
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Details */}
