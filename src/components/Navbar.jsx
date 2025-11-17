@@ -12,6 +12,7 @@ import {
   FaTimes,
   FaUsers,
   FaUserShield,
+  FaBuilding,
 } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -122,9 +123,14 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const handleAdminClick = () => {
+  const handleAdminUsersClick = () => {
     setIsSidebarOpen(false);
     navigate("/admin/users");
+  };
+
+  const handleAdminBranchesClick = () => {
+    setIsSidebarOpen(false);
+    navigate("/admin/branches");
   };
 
   // Close sidebar and dropdown when clicking outside
@@ -412,22 +418,47 @@ const Navbar = () => {
                     </button>
                   </motion.div>
 
-                  {/* Admin Panel - Only show for admin users */}
+                  {/* Admin Panel Section - Only show for admin users */}
                   {isAdmin && (
-                    <motion.div
-                      whileHover={{ scale: 1.02, x: 4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <button
-                        onClick={handleAdminClick}
-                        className="w-full text-left flex items-center gap-4 px-2 py-2 text-gray-700 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30"
-                      >
-                        <div className="p-2 bg-[#E41E26]/10 rounded-lg">
-                          <FaUsers className="text-[#E41E26] text-lg" />
-                        </div>
-                        <span className="text-lg">Admin Panel</span>
-                      </button>
-                    </motion.div>
+                    <>
+                      <div className="border-t border-gray-200 my-4 pt-4">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-2 mb-2">
+                          Admin Panel
+                        </p>
+
+                        {/* Admin Users */}
+                        <motion.div
+                          whileHover={{ scale: 1.02, x: 4 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <button
+                            onClick={handleAdminUsersClick}
+                            className="w-full text-left flex items-center gap-4 px-2 py-2 text-gray-700 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30"
+                          >
+                            <div className="p-2 bg-[#E41E26]/10 rounded-lg">
+                              <FaUsers className="text-[#E41E26] text-lg" />
+                            </div>
+                            <span className="text-lg">Manage Users</span>
+                          </button>
+                        </motion.div>
+
+                        {/* Admin Branches */}
+                        <motion.div
+                          whileHover={{ scale: 1.02, x: 4 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <button
+                            onClick={handleAdminBranchesClick}
+                            className="w-full text-left flex items-center gap-4 px-2 py-2 text-gray-700 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30"
+                          >
+                            <div className="p-2 bg-[#E41E26]/10 rounded-lg">
+                              <FaBuilding className="text-[#E41E26] text-lg" />
+                            </div>
+                            <span className="text-lg">Manage Branches</span>
+                          </button>
+                        </motion.div>
+                      </div>
+                    </>
                   )}
 
                   <motion.div

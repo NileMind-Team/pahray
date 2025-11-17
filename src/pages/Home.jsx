@@ -18,6 +18,9 @@ import {
   FaChevronRight,
   FaEdit,
   FaTrash,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -106,6 +109,16 @@ const Home = () => {
         rating: 4.8,
         prepTime: "15-20 mins",
         calories: "420 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: true,
+          startTime: "",
+          endTime: "",
+        },
+        availabilityDays: {
+          everyday: true,
+          specificDays: [],
+        },
       },
       {
         id: 2,
@@ -126,6 +139,23 @@ const Home = () => {
         rating: 4.6,
         prepTime: "10-15 mins",
         calories: "320 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: false,
+          startTime: "11:00",
+          endTime: "23:00",
+        },
+        availabilityDays: {
+          everyday: false,
+          specificDays: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+        },
       },
       {
         id: 3,
@@ -146,6 +176,16 @@ const Home = () => {
         rating: 4.9,
         prepTime: "5 mins",
         calories: "280 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: true,
+          startTime: "",
+          endTime: "",
+        },
+        availabilityDays: {
+          everyday: true,
+          specificDays: [],
+        },
       },
       {
         id: 4,
@@ -160,6 +200,22 @@ const Home = () => {
         rating: 4.7,
         prepTime: "3 mins",
         calories: "110 kcal",
+        isActive: false,
+        availabilityTime: {
+          alwaysAvailable: false,
+          startTime: "08:00",
+          endTime: "20:00",
+        },
+        availabilityDays: {
+          everyday: false,
+          specificDays: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+          ],
+        },
       },
       {
         id: 5,
@@ -181,6 +237,16 @@ const Home = () => {
         rating: 4.9,
         prepTime: "12-15 mins",
         calories: "380 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: false,
+          startTime: "14:00",
+          endTime: "22:00",
+        },
+        availabilityDays: {
+          everyday: false,
+          specificDays: ["Friday", "Saturday", "Sunday"],
+        },
       },
       {
         id: 6,
@@ -201,6 +267,16 @@ const Home = () => {
         rating: 4.8,
         prepTime: "5 mins",
         calories: "250 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: true,
+          startTime: "",
+          endTime: "",
+        },
+        availabilityDays: {
+          everyday: true,
+          specificDays: [],
+        },
       },
       {
         id: 7,
@@ -222,6 +298,23 @@ const Home = () => {
         rating: 4.5,
         prepTime: "10-12 mins",
         calories: "450 kcal",
+        isActive: true,
+        availabilityTime: {
+          alwaysAvailable: false,
+          startTime: "11:00",
+          endTime: "23:00",
+        },
+        availabilityDays: {
+          everyday: false,
+          specificDays: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+        },
       },
       {
         id: 8,
@@ -236,6 +329,22 @@ const Home = () => {
         rating: 4.6,
         prepTime: "4 mins",
         calories: "80 kcal",
+        isActive: false,
+        availabilityTime: {
+          alwaysAvailable: false,
+          startTime: "07:00",
+          endTime: "18:00",
+        },
+        availabilityDays: {
+          everyday: false,
+          specificDays: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+          ],
+        },
       },
     ];
 
@@ -283,6 +392,18 @@ const Home = () => {
   const handleAddToCart = (product, e) => {
     e.stopPropagation(); // Prevent opening modal when adding to cart
 
+    // Check if product is active before adding to cart
+    if (!product.isActive) {
+      Swal.fire({
+        icon: "error",
+        title: "Product Not Available",
+        text: `${product.name} is currently not available`,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     const existingItem = cart.find((item) => item.id === product.id);
 
     if (existingItem) {
@@ -307,6 +428,18 @@ const Home = () => {
   };
 
   const handleAddToCartFromModal = (product) => {
+    // Check if product is active before adding to cart
+    if (!product.isActive) {
+      Swal.fire({
+        icon: "error",
+        title: "Product Not Available",
+        text: `${product.name} is currently not available`,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     const existingItem = cart.find((item) => item.id === product.id);
 
     if (existingItem) {
@@ -361,6 +494,31 @@ const Home = () => {
           showConfirmButton: false,
         });
       }
+    });
+  };
+
+  // Toggle product active status
+  const handleToggleActive = (productId, e) => {
+    e.stopPropagation();
+
+    setProducts(
+      products.map((product) =>
+        product.id === productId
+          ? { ...product, isActive: !product.isActive }
+          : product
+      )
+    );
+
+    Swal.fire({
+      icon: "success",
+      title: "Status Updated!",
+      text: `Product ${
+        products.find((p) => p.id === productId).isActive
+          ? "deactivated"
+          : "activated"
+      }`,
+      timer: 1500,
+      showConfirmButton: false,
     });
   };
 
@@ -438,6 +596,20 @@ const Home = () => {
         ))}
       </div>
     );
+  };
+
+  const formatAvailabilityTime = (product) => {
+    if (product.availabilityTime.alwaysAvailable) {
+      return "24/7";
+    }
+    return `${product.availabilityTime.startTime} - ${product.availabilityTime.endTime}`;
+  };
+
+  const formatAvailabilityDays = (product) => {
+    if (product.availabilityDays.everyday) {
+      return "Every day";
+    }
+    return product.availabilityDays.specificDays.join(", ");
   };
 
   if (loading) {
@@ -586,18 +758,47 @@ const Home = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -5 }}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 cursor-pointer group w-full relative"
+                  className={`bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-gray-100 cursor-pointer group w-full relative ${
+                    !product.isActive ? "opacity-70" : ""
+                  }`}
                 >
+                  {/* Product Status Badge */}
+                  <div
+                    className={`absolute top-2 right-2 z-10 px-2 py-1 rounded-full text-xs font-semibold ${
+                      product.isActive
+                        ? "bg-green-500 text-white"
+                        : "bg-red-500 text-white"
+                    }`}
+                  >
+                    {product.isActive ? "Active" : "Inactive"}
+                  </div>
+
                   {/* Admin/Restaurant Actions Overlay - Only show for Admin or Restaurant role */}
                   {isAdminOrRestaurant && (
                     <div className="absolute top-2 left-2 z-10 flex gap-1">
                       <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        onClick={(e) => handleToggleActive(product.id, e)}
+                        className={`p-2 rounded-lg shadow-lg transition-colors flex items-center gap-1 text-xs ${
+                          product.isActive
+                            ? "bg-yellow-500 text-white hover:bg-yellow-600"
+                            : "bg-green-500 text-white hover:bg-green-600"
+                        }`}
+                      >
+                        {product.isActive ? (
+                          <FaTimesCircle size={12} />
+                        ) : (
+                          <FaCheckCircle size={12} />
+                        )}
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                         onClick={(e) => handleEditProduct(product, e)}
                         className="bg-blue-500 text-white p-2 rounded-lg shadow-lg hover:bg-blue-600 transition-colors"
                       >
-                        <FaEdit size={14} />
+                        <FaEdit size={12} />
                       </motion.button>
                       <motion.button
                         whileHover={{ scale: 1.1 }}
@@ -605,7 +806,7 @@ const Home = () => {
                         onClick={(e) => handleDeleteProduct(product.id, e)}
                         className="bg-red-500 text-white p-2 rounded-lg shadow-lg hover:bg-red-600 transition-colors"
                       >
-                        <FaTrash size={14} />
+                        <FaTrash size={12} />
                       </motion.button>
                     </div>
                   )}
@@ -617,9 +818,6 @@ const Home = () => {
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white/90 backdrop-blur-sm rounded-full p-1 sm:p-2 shadow-lg">
-                      {renderStars(product.rating)}
-                    </div>
                   </div>
 
                   {/* Product Info */}
@@ -646,10 +844,17 @@ const Home = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={(e) => handleAddToCart(product, e)}
-                        className="flex-1 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white py-2 sm:py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm"
+                        disabled={!product.isActive}
+                        className={`flex-1 py-2 sm:py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm ${
+                          product.isActive
+                            ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white"
+                            : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                        }`}
                       >
                         <FaShoppingCart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                        <span className="xs:hidden">Add to Cart</span>
+                        <span className="xs:hidden">
+                          {product.isActive ? "Add to Cart" : "Not Available"}
+                        </span>
                       </motion.button>
 
                       <motion.button
@@ -722,9 +927,41 @@ const Home = () => {
                       alt={selectedProduct.name}
                       className="w-full h-64 sm:h-80 lg:h-full object-cover"
                     />
-                    {/* Admin/Restaurant Actions in Modal - Only show for Admin or Restaurant role */}
+
+                    {/* Product Status Badge - Moved to right */}
+                    <div
+                      className={`absolute top-4 right-4 px-3 py-2 rounded-full text-sm font-semibold ${
+                        selectedProduct.isActive
+                          ? "bg-green-500 text-white"
+                          : "bg-red-500 text-white"
+                      }`}
+                    >
+                      {selectedProduct.isActive ? "Active" : "Inactive"}
+                    </div>
+
+                    {/* Admin/Restaurant Actions in Modal - Moved to left */}
                     {isAdminOrRestaurant && (
                       <div className="absolute top-4 left-4 flex gap-2">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleActive(selectedProduct.id, e);
+                          }}
+                          className={`p-2.5 rounded-lg shadow-lg transition-colors flex items-center gap-1 text-sm ${
+                            selectedProduct.isActive
+                              ? "bg-yellow-500 text-white hover:bg-yellow-600"
+                              : "bg-green-500 text-white hover:bg-green-600"
+                          }`}
+                        >
+                          {selectedProduct.isActive ? (
+                            <FaTimesCircle size={16} />
+                          ) : (
+                            <FaCheckCircle size={16} />
+                          )}
+                          {selectedProduct.isActive ? "Deactivate" : "Activate"}
+                        </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
@@ -776,21 +1013,41 @@ const Home = () => {
                         {selectedProduct.description}
                       </p>
 
-                      <div className="grid grid-cols-2 gap-3 sm:gap-4 py-3 sm:py-4">
-                        <div className="text-center bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] p-2 sm:p-3 rounded-xl">
-                          <div className="font-semibold text-gray-700 text-sm sm:text-base">
+                      {/* Three Info Boxes in One Row */}
+                      <div className="grid grid-cols-3 gap-3 sm:gap-4 py-3 sm:py-4">
+                        {/* Prep Time */}
+                        <div className="text-center bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] p-3 sm:p-4 rounded-xl flex flex-col justify-center items-center h-full">
+                          <FaClock className="mx-auto text-[#E41E26] text-lg sm:text-xl mb-2" />
+                          <div className="font-semibold text-gray-700 text-xs sm:text-sm mb-1">
                             Prep Time
                           </div>
                           <div className="text-[#E41E26] font-bold text-sm sm:text-base">
                             {selectedProduct.prepTime}
                           </div>
                         </div>
-                        <div className="text-center bg-gradient-to-r from-blue-50 to-blue-100 p-2 sm:p-3 rounded-xl">
-                          <div className="font-semibold text-gray-700 text-sm sm:text-base">
+
+                        {/* Calories */}
+                        <div className="text-center bg-gradient-to-r from-blue-50 to-blue-100 p-3 sm:p-4 rounded-xl flex flex-col justify-center items-center h-full">
+                          <FaStar className="mx-auto text-blue-500 text-lg sm:text-xl mb-2" />
+                          <div className="font-semibold text-gray-700 text-xs sm:text-sm mb-1">
                             Calories
                           </div>
                           <div className="text-blue-600 font-bold text-sm sm:text-base">
                             {selectedProduct.calories}
+                          </div>
+                        </div>
+
+                        {/* Availability */}
+                        <div className="text-center bg-gradient-to-r from-green-50 to-green-100 p-3 sm:p-4 rounded-xl flex flex-col justify-center items-center h-full">
+                          <FaCalendarAlt className="mx-auto text-green-500 text-lg sm:text-xl mb-2" />
+                          <div className="font-semibold text-gray-700 text-xs sm:text-sm mb-1">
+                            Availability
+                          </div>
+                          <div className="text-green-600 font-bold text-xs sm:text-sm leading-tight">
+                            {formatAvailabilityTime(selectedProduct)}
+                          </div>
+                          <div className="text-green-500 font-semibold text-xs leading-tight mt-1">
+                            {formatAvailabilityDays(selectedProduct)}
                           </div>
                         </div>
                       </div>
@@ -845,11 +1102,19 @@ const Home = () => {
                           onClick={() =>
                             handleAddToCartFromModal(selectedProduct)
                           }
-                          className="w-full bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3"
+                          disabled={!selectedProduct.isActive}
+                          className={`w-full py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 ${
+                            selectedProduct.isActive
+                              ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white"
+                              : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                          }`}
                         >
                           <FaShoppingCart size={16} className="sm:w-5" />
-                          Add to Cart - EGP{" "}
-                          {(selectedProduct.price * quantity).toFixed(2)}
+                          {selectedProduct.isActive
+                            ? `Add to Cart - EGP ${(
+                                selectedProduct.price * quantity
+                              ).toFixed(2)}`
+                            : "Product Not Available"}
                         </motion.button>
                       </div>
                     </div>

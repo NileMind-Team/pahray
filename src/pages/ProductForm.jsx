@@ -12,6 +12,8 @@ import {
   FaPlus,
   FaMinus,
   FaChevronDown,
+  FaClock,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 
@@ -32,6 +34,12 @@ const ProductForm = () => {
     rating: product.rating || "4.5",
     prepTime: product.prepTime || "",
     calories: product.calories || "",
+    availabilityType: product.availabilityType || "always",
+    customAvailability: product.customAvailability || {
+      days: [],
+      startTime: "09:00",
+      endTime: "22:00",
+    },
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -60,11 +68,57 @@ const ProductForm = () => {
     "4.0",
   ];
 
+  const daysOfWeek = [
+    { id: "sunday", name: "Sunday" },
+    { id: "monday", name: "Monday" },
+    { id: "tuesday", name: "Tuesday" },
+    { id: "wednesday", name: "Wednesday" },
+    { id: "thursday", name: "Thursday" },
+    { id: "friday", name: "Friday" },
+    { id: "saturday", name: "Saturday" },
+  ];
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
+    });
+  };
+
+  const handleAvailabilityTypeChange = (type) => {
+    setFormData({
+      ...formData,
+      availabilityType: type,
+    });
+  };
+
+  const handleDayToggle = (dayId) => {
+    const currentDays = [...formData.customAvailability.days];
+    const dayIndex = currentDays.indexOf(dayId);
+
+    if (dayIndex > -1) {
+      currentDays.splice(dayIndex, 1);
+    } else {
+      currentDays.push(dayId);
+    }
+
+    setFormData({
+      ...formData,
+      customAvailability: {
+        ...formData.customAvailability,
+        days: currentDays,
+      },
+    });
+  };
+
+  const handleTimeChange = (field, value) => {
+    setFormData({
+      ...formData,
+      customAvailability: {
+        ...formData.customAvailability,
+        [field]: value,
+      },
     });
   };
 
@@ -484,6 +538,143 @@ const ProductForm = () => {
                       />
                     </div>
                   </div>
+                </div>
+
+                {/* Availability Time */}
+                <div className="bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] rounded-lg xs:rounded-xl sm:rounded-2xl p-3 xs:p-4 sm:p-6 border border-[#FDB913]/30">
+                  <div className="flex items-center gap-2 xs:gap-3 mb-3 xs:mb-4">
+                    <FaClock className="text-[#E41E26] text-base xs:text-lg sm:text-xl" />
+                    <h3 className="text-sm xs:text-base sm:text-lg font-bold text-gray-800">
+                      Availability Time
+                    </h3>
+                  </div>
+
+                  {/* Availability Type Selection */}
+                  <div className="grid grid-cols-2 gap-2 xs:gap-3 mb-4 xs:mb-5">
+                    <motion.button
+                      type="button"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleAvailabilityTypeChange("always")}
+                      className={`flex items-center justify-center gap-1.5 xs:gap-2 p-2 xs:p-3 rounded-lg border-2 transition-all duration-200 ${
+                        formData.availabilityType === "always"
+                          ? "border-[#E41E26] bg-white text-[#E41E26] shadow-md"
+                          : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                      }`}
+                    >
+                      <FaClock className="text-xs xs:text-sm" />
+                      <span className="text-xs xs:text-sm font-medium">
+                        Always Available
+                      </span>
+                    </motion.button>
+
+                    <motion.button
+                      type="button"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => handleAvailabilityTypeChange("custom")}
+                      className={`flex items-center justify-center gap-1.5 xs:gap-2 p-2 xs:p-3 rounded-lg border-2 transition-all duration-200 ${
+                        formData.availabilityType === "custom"
+                          ? "border-[#E41E26] bg-white text-[#E41E26] shadow-md"
+                          : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                      }`}
+                    >
+                      <FaCalendarAlt className="text-xs xs:text-sm" />
+                      <span className="text-xs xs:text-sm font-medium">
+                        Custom Schedule
+                      </span>
+                    </motion.button>
+                  </div>
+
+                  {/* Custom Availability Settings */}
+                  {formData.availabilityType === "custom" && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-4 xs:space-y-5"
+                    >
+                      {/* Days Selection */}
+                      <div>
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-2 xs:mb-3">
+                          Available Days *
+                        </label>
+                        <div className="grid grid-cols-4 xs:grid-cols-7 gap-1.5 xs:gap-2">
+                          {daysOfWeek.map((day) => (
+                            <motion.button
+                              key={day.id}
+                              type="button"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => handleDayToggle(day.id)}
+                              className={`p-1.5 xs:p-2 rounded-lg border transition-all duration-200 text-[10px] xs:text-xs font-medium ${
+                                formData.customAvailability.days.includes(
+                                  day.id
+                                )
+                                  ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white border-transparent shadow-md"
+                                  : "bg-white border-gray-200 text-gray-600 hover:border-[#E41E26]"
+                              }`}
+                            >
+                              {day.name.slice(0, 3)}
+                            </motion.button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Time Range */}
+                      <div className="grid grid-cols-2 gap-3 xs:gap-4">
+                        <div>
+                          <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                            Start Time *
+                          </label>
+                          <input
+                            type="time"
+                            value={formData.customAvailability.startTime}
+                            onChange={(e) =>
+                              handleTimeChange("startTime", e.target.value)
+                            }
+                            className="w-full border border-gray-200 bg-white rounded-lg px-3 py-2 xs:py-2.5 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-xs sm:text-sm"
+                            required
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 xs:mb-2">
+                            End Time *
+                          </label>
+                          <input
+                            type="time"
+                            value={formData.customAvailability.endTime}
+                            onChange={(e) =>
+                              handleTimeChange("endTime", e.target.value)
+                            }
+                            className="w-full border border-gray-200 bg-white rounded-lg px-3 py-2 xs:py-2.5 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-xs sm:text-sm"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      {/* Schedule Preview */}
+                      {formData.customAvailability.days.length > 0 && (
+                        <div className="bg-white/80 rounded-lg p-3 xs:p-4 border border-gray-200">
+                          <p className="text-xs xs:text-sm font-semibold text-gray-700 mb-2">
+                            Schedule Preview:
+                          </p>
+                          <p className="text-xs xs:text-sm text-gray-600">
+                            Available on{" "}
+                            {formData.customAvailability.days
+                              .map(
+                                (day) =>
+                                  daysOfWeek.find((d) => d.id === day)?.name
+                              )
+                              .join(", ")}{" "}
+                            from {formData.customAvailability.startTime} to{" "}
+                            {formData.customAvailability.endTime}
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  )}
                 </div>
 
                 {/* Ingredients */}

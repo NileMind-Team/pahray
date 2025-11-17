@@ -13,6 +13,7 @@ import MyOrders from "./pages/MyOrders";
 import ProductForm from "./pages/ProductForm";
 import Footer from "./components/Footer";
 import AdminUsers from "./pages/AdminUsers";
+import AdminBranches from "./pages/AdminBranches";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
     "/addresses",
     "/reviews",
     "/admin/users",
+    "/admin/branches",
   ];
 
   const shouldShowNavbarFooter = !hideNavbarFooterPaths.includes(
@@ -54,6 +56,7 @@ function App() {
           <Route path="/products/new" element={<ProductForm />} />
           <Route path="/products/edit" element={<ProductForm />} />
           <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/branches" element={<AdminBranches />} />
         </Routes>
       </main>
 
