@@ -21,6 +21,7 @@ import CitiesManagement from "./pages/CitiesManagement";
 import ProductDetails from "./pages/ProductDetails";
 import Cashier from "./pages/Cashier";
 import Favorites from "./pages/Favorites";
+import Branches from "./pages/Branches";
 
 function App() {
   const location = useLocation();
@@ -99,6 +100,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cashier" element={<Cashier />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/branches" element={<Branches />} />
         </Routes>
       </main>
 
