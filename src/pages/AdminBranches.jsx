@@ -17,6 +17,8 @@ import {
   FaUser,
   FaChevronDown,
   FaGlobe,
+  FaPhone,
+  FaWhatsapp,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axiosInstance from "../api/axiosInstance";
@@ -45,6 +47,13 @@ export default function AdminBranches() {
     isActive: true,
     cityId: "",
     managerId: "",
+    phoneNumbers: [],
+  });
+
+  const [phoneNumber, setPhoneNumber] = useState({
+    phone: "",
+    type: "Mobile",
+    isWhatsapp: false,
   });
 
   const isFormValid = () => {
@@ -55,7 +64,8 @@ export default function AdminBranches() {
       formData.openingTime.trim() !== "" &&
       formData.closingTime.trim() !== "" &&
       formData.cityId !== "" &&
-      formData.managerId !== ""
+      formData.managerId !== "" &&
+      formData.phoneNumbers.length > 0
     );
   };
 
@@ -161,7 +171,8 @@ export default function AdminBranches() {
         branch.name?.toLowerCase().includes(searchLower) ||
         branch.address?.toLowerCase().includes(searchLower) ||
         branch.email?.toLowerCase().includes(searchLower) ||
-        branch.city?.name?.toLowerCase().includes(searchLower)
+        branch.city?.name?.toLowerCase().includes(searchLower) ||
+        branch.phoneNumbers?.some((phone) => phone.phone?.includes(searchTerm))
       );
     });
 
@@ -176,12 +187,80 @@ export default function AdminBranches() {
     });
   };
 
+  const handlePhoneInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPhoneNumber({
+      ...phoneNumber,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
   const handleSelectChange = (name, value) => {
     setFormData({
       ...formData,
       [name]: value,
     });
     setOpenDropdown(null);
+  };
+
+  const handlePhoneTypeSelect = (type) => {
+    setPhoneNumber({
+      ...phoneNumber,
+      type: type,
+    });
+    setOpenDropdown(null);
+  };
+
+  const getPhoneTypeArabic = (type) => {
+    switch (type) {
+      case "Mobile":
+        return "موبايل";
+      case "Landline":
+        return "أرضي";
+      case "Other":
+        return "آخر";
+      default:
+        return type;
+    }
+  };
+
+  const addPhoneNumber = () => {
+    if (!phoneNumber.phone.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "رقم غير صالح",
+        text: "يرجى إدخال رقم هاتف صحيح.",
+        confirmButtonColor: "#E41E26",
+      });
+      return;
+    }
+
+    const newPhoneNumber = {
+      phone: phoneNumber.phone,
+      type: phoneNumber.type,
+      isWhatsapp: phoneNumber.isWhatsapp,
+    };
+
+    setFormData({
+      ...formData,
+      phoneNumbers: [...formData.phoneNumbers, newPhoneNumber],
+    });
+
+    setPhoneNumber({
+      phone: "",
+      type: "Mobile",
+      isWhatsapp: false,
+    });
+  };
+
+  const removePhoneNumber = (index) => {
+    const updatedPhoneNumbers = formData.phoneNumbers.filter(
+      (_, i) => i !== index
+    );
+    setFormData({
+      ...formData,
+      phoneNumbers: updatedPhoneNumbers,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -191,13 +270,21 @@ export default function AdminBranches() {
       Swal.fire({
         icon: "warning",
         title: "نموذج غير مكتمل",
-        text: "يرجى ملء جميع الحقول المطلوبة.",
+        text: "يرجى ملء جميع الحقول المطلوبة بما في ذلك إضافة رقم هاتف واحد على الأقل.",
         confirmButtonColor: "#E41E26",
       });
       return;
     }
 
-    const submitData = { ...formData };
+    const submitData = {
+      ...formData,
+      phoneNumbers: formData.phoneNumbers.map((phone) => ({
+        phone: phone.phone,
+        type: phone.type,
+        isWhatsapp: phone.isWhatsapp,
+      })),
+    };
+
     if (!submitData.locationUrl.trim()) {
       delete submitData.locationUrl;
     }
@@ -255,6 +342,13 @@ export default function AdminBranches() {
       isActive: branch.isActive !== undefined ? branch.isActive : true,
       cityId: branch.city?.id || "",
       managerId: branch.managerId || "",
+      phoneNumbers: branch.phoneNumbers
+        ? branch.phoneNumbers.map((phone) => ({
+            phone: phone.phone,
+            type: phone.type,
+            isWhatsapp: phone.isWhatsapp,
+          }))
+        : [],
     });
     setEditingId(branch.id);
     setIsAdding(true);
@@ -334,6 +428,12 @@ export default function AdminBranches() {
       isActive: true,
       cityId: "",
       managerId: "",
+      phoneNumbers: [],
+    });
+    setPhoneNumber({
+      phone: "",
+      type: "Mobile",
+      isWhatsapp: false,
     });
     setEditingId(null);
     setIsAdding(false);
@@ -453,7 +553,7 @@ export default function AdminBranches() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-xl sm:rounded-2xl pl-10 pr-4 py-3 sm:py-4 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base shadow-lg"
-                  placeholder="البحث بالاسم، العنوان، البريد الإلكتروني، أو المدينة..."
+                  placeholder="البحث بالاسم، العنوان، البريد الإلكتروني، المدينة، أو رقم الهاتف..."
                 />
                 {searchTerm && (
                   <button
@@ -537,6 +637,26 @@ export default function AdminBranches() {
                               <span>{branch.city.name}</span>
                             </div>
                           )}
+                          {branch.phoneNumbers &&
+                            branch.phoneNumbers.length > 0 && (
+                              <div className="flex flex-wrap items-center gap-2 mt-2">
+                                <FaPhone className="text-[#E41E26] flex-shrink-0 text-xs sm:text-sm" />
+                                {branch.phoneNumbers.map((phone, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="flex items-center gap-1 bg-gray-100 dark:bg-gray-600 px-2 py-1 rounded-lg text-xs"
+                                  >
+                                    <span>{phone.phone}</span>
+                                    <span className="text-gray-500">
+                                      ({getPhoneTypeArabic(phone.type)})
+                                    </span>
+                                    {phone.isWhatsapp && (
+                                      <FaWhatsapp className="text-green-500 text-xs" />
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -919,6 +1039,166 @@ export default function AdminBranches() {
                           </div>
                         </div>
                       </div>
+
+                      {/* Phone Numbers Section */}
+                      <div className="pt-2 sm:pt-3">
+                        <label className="block text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
+                          أرقام الهاتف *
+                        </label>
+
+                        {/* Add Phone Number Form */}
+                        <div className="bg-gray-50 dark:bg-gray-600/50 rounded-lg sm:rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
+                          <div className="grid grid-cols-1 gap-2 sm:gap-3">
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">
+                                رقم الهاتف *
+                              </label>
+                              <div className="relative group">
+                                <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-xs" />
+                                <input
+                                  type="text"
+                                  name="phone"
+                                  value={phoneNumber.phone}
+                                  onChange={handlePhoneInputChange}
+                                  className="w-full border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg pl-9 pr-3 py-2 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm"
+                                  placeholder="أدخل رقم الهاتف"
+                                />
+                              </div>
+                            </div>
+
+                            <div>
+                              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1">
+                                النوع *
+                              </label>
+                              <div className="relative">
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setOpenDropdown(
+                                      openDropdown === "phoneType"
+                                        ? null
+                                        : "phoneType"
+                                    )
+                                  }
+                                  className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-500 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm"
+                                >
+                                  <span className="flex items-center gap-2">
+                                    <FaPhone className="text-[#E41E26] text-xs" />
+                                    {getPhoneTypeArabic(phoneNumber.type)}
+                                  </span>
+                                  <motion.div
+                                    animate={{
+                                      rotate:
+                                        openDropdown === "phoneType" ? 180 : 0,
+                                    }}
+                                    transition={{ duration: 0.3 }}
+                                  >
+                                    <FaChevronDown className="text-[#E41E26] text-xs" />
+                                  </motion.div>
+                                </button>
+
+                                <AnimatePresence>
+                                  {openDropdown === "phoneType" && (
+                                    <motion.ul
+                                      initial={{ opacity: 0, y: -5 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      exit={{ opacity: 0, y: -5 }}
+                                      transition={{ duration: 0.2 }}
+                                      className="absolute z-50 mt-2 w-full bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 shadow-2xl rounded-xl overflow-hidden max-h-48 overflow-y-auto"
+                                    >
+                                      {[
+                                        { value: "Mobile", label: "موبايل" },
+                                        { value: "Landline", label: "أرضي" },
+                                        { value: "Other", label: "آخر" },
+                                      ].map((type) => (
+                                        <li
+                                          key={type.value}
+                                          onClick={() =>
+                                            handlePhoneTypeSelect(type.value)
+                                          }
+                                          className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm border-b border-gray-100 dark:border-gray-500 last:border-b-0"
+                                        >
+                                          {type.label}
+                                        </li>
+                                      ))}
+                                    </motion.ul>
+                                  )}
+                                </AnimatePresence>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-center gap-2 py-2">
+                              <label className="flex items-center gap-2 text-xs font-semibold text-gray-600 dark:text-gray-400 cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  name="isWhatsapp"
+                                  checked={phoneNumber.isWhatsapp}
+                                  onChange={handlePhoneInputChange}
+                                  className="w-3 h-3 text-[#E41E26] bg-gray-100 border-gray-300 rounded focus:ring-[#E41E26] focus:ring-1"
+                                />
+                                <FaWhatsapp className="text-green-500 text-sm" />
+                                <span>واتساب</span>
+                              </label>
+                            </div>
+
+                            <motion.button
+                              type="button"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                              onClick={addPhoneNumber}
+                              disabled={!phoneNumber.phone.trim()}
+                              className={`py-2 rounded-lg font-semibold transition-all duration-300 text-sm flex items-center justify-center gap-2 ${
+                                phoneNumber.phone.trim()
+                                  ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white hover:shadow-lg"
+                                  : "bg-gray-300 dark:bg-gray-500 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                              }`}
+                            >
+                              <FaPlus className="text-xs" />
+                              إضافة رقم
+                            </motion.button>
+                          </div>
+                        </div>
+
+                        {/* Display Added Phone Numbers */}
+                        {formData.phoneNumbers.length > 0 && (
+                          <div className="space-y-2 sm:space-y-3">
+                            <h4 className="text-xs font-semibold text-gray-600 dark:text-gray-400">
+                              الأرقام المضافة ({formData.phoneNumbers.length})
+                            </h4>
+                            {formData.phoneNumbers.map((phone, index) => (
+                              <div
+                                key={index}
+                                className="flex items-center justify-between bg-white dark:bg-gray-600 border border-gray-200 dark:border-gray-500 rounded-lg p-2 sm:p-3"
+                              >
+                                <div className="flex items-center gap-2 sm:gap-3 flex-1">
+                                  <FaPhone className="text-[#E41E26] text-xs sm:text-sm" />
+                                  <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-sm font-medium text-gray-800 dark:text-white">
+                                        {phone.phone}
+                                      </span>
+                                      {phone.isWhatsapp && (
+                                        <FaWhatsapp className="text-green-500 text-xs" />
+                                      )}
+                                    </div>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                      ({getPhoneTypeArabic(phone.type)})
+                                    </span>
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => removePhoneNumber(index)}
+                                  className="text-red-500 hover:text-red-700 transition-colors duration-200 flex-shrink-0 ml-2"
+                                >
+                                  <FaTimes size={14} />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
                       <div className="flex items-center gap-2 pt-1 sm:pt-2">
                         <input
                           type="checkbox"
