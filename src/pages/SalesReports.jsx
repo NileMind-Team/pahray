@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import {
   FaCalendarAlt,
   FaChartBar,
-  FaDollarSign,
   FaShoppingCart,
   FaTruck,
   FaStore,
@@ -16,6 +15,13 @@ import {
   FaTimes,
   FaEye,
   FaClipboardList,
+  FaMoneyBill,
+  FaCheckCircle,
+  FaClock,
+  FaUtensils,
+  FaMotorcycle,
+  FaCheck,
+  FaBan,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
@@ -142,11 +148,68 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
 
   const BASE_URL = "https://restaurant-template.runasp.net";
 
-  // البحث عن اسم المستخدم بناءً على الـ userId
   const findUserName = (userId) => {
     if (!userId || !users) return "غير معروف";
     const user = users.find((u) => u.id === userId);
     return user ? `${user.firstName} ${user.lastName}` : userId.substring(0, 8);
+  };
+
+  // دالة للحصول على أيقونة الحالة
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "Pending":
+        return <FaClock className="text-yellow-500" />;
+      case "Confirmed":
+        return <FaCheckCircle className="text-blue-500" />;
+      case "Preparing":
+        return <FaUtensils className="text-orange-500" />;
+      case "OutForDelivery":
+        return <FaMotorcycle className="text-purple-500" />;
+      case "Delivered":
+        return <FaCheck className="text-green-500" />;
+      case "Cancelled":
+        return <FaBan className="text-red-500" />;
+      default:
+        return <FaClock className="text-gray-500" />;
+    }
+  };
+
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "Pending":
+        return "قيد الانتظار";
+      case "Confirmed":
+        return "تم التأكيد";
+      case "Preparing":
+        return "قيد التحضير";
+      case "OutForDelivery":
+        return "قيد التوصيل";
+      case "Delivered":
+        return "تم التوصيل";
+      case "Cancelled":
+        return "ملغي";
+      default:
+        return status;
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Pending":
+        return "text-yellow-600 dark:text-yellow-400";
+      case "Confirmed":
+        return "text-blue-600 dark:text-blue-400";
+      case "Preparing":
+        return "text-orange-600 dark:text-orange-400";
+      case "OutForDelivery":
+        return "text-purple-600 dark:text-purple-400";
+      case "Delivered":
+        return "text-green-600 dark:text-green-400";
+      case "Cancelled":
+        return "text-red-600 dark:text-red-400";
+      default:
+        return "text-gray-600 dark:text-gray-400";
+    }
   };
 
   return (
@@ -277,7 +340,6 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                     className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:shadow-lg transition-shadow duration-200"
                   >
                     <div className="flex flex-col md:flex-row gap-4">
-                      {/* صورة المنتج */}
                       {(item.menuItem?.imageUrl ||
                         item.menuItemImageUrlSnapshotAtOrder) && (
                         <div className="md:w-1/4">
@@ -302,7 +364,6 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                         </div>
                       )}
 
-                      {/* معلومات المنتج */}
                       <div
                         className={`${
                           item.menuItem?.imageUrl ||
@@ -343,7 +404,7 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
 
                           <div className="text-center">
                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                              السعر
+                              السعر الأساسي
                             </p>
                             <p className="font-bold text-lg text-green-600 dark:text-green-400">
                               {item.menuItem?.basePrice?.toFixed(2) || "0.00"}{" "}
@@ -351,6 +412,48 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                             </p>
                           </div>
                         </div>
+
+                        {item.options && item.options.length > 0 && (
+                          <div className="mt-4 bg-gray-50 dark:bg-gray-700/30 rounded-lg p-3">
+                            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              الاضافات المختارة:
+                            </p>
+                            <div className="space-y-2">
+                              {item.options.map((option, optionIndex) => (
+                                <div
+                                  key={optionIndex}
+                                  className="flex justify-between items-center bg-white dark:bg-gray-800 px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700"
+                                >
+                                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                                    {option.optionNameAtOrder ||
+                                      `إضافة ${optionIndex + 1}`}
+                                  </span>
+                                  <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                                    +
+                                    {option.optionPriceAtOrder?.toFixed(2) ||
+                                      "0.00"}{" "}
+                                    ج.م
+                                  </span>
+                                </div>
+                              ))}
+                              <div className="flex justify-between items-center pt-2 border-t border-gray-300 dark:border-gray-600">
+                                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                                  إجمالي الاضافات:
+                                </span>
+                                <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                                  {item.options
+                                    .reduce(
+                                      (sum, option) =>
+                                        sum + (option.optionPriceAtOrder || 0),
+                                      0
+                                    )
+                                    .toFixed(2)}{" "}
+                                  ج.م
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
 
                         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                           <div className="flex justify-between items-center">
@@ -423,27 +526,14 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                   حالة الطلب
                 </p>
                 <p
-                  className={`text-lg font-bold ${
-                    order.status === "Pending"
-                      ? "text-yellow-600 dark:text-yellow-400"
-                      : order.status === "Preparing"
-                      ? "text-blue-600 dark:text-blue-400"
-                      : order.status === "Delivered"
-                      ? "text-green-600 dark:text-green-400"
-                      : order.status === "Cancelled"
-                      ? "text-red-600 dark:text-red-400"
-                      : "text-gray-600 dark:text-gray-400"
-                  }`}
+                  className={`text-lg font-bold ${getStatusColor(
+                    order.status
+                  )}`}
                 >
-                  {order.status === "Pending"
-                    ? "قيد الانتظار"
-                    : order.status === "Preparing"
-                    ? "قيد التحضير"
-                    : order.status === "Delivered"
-                    ? "تم التوصيل"
-                    : order.status === "Cancelled"
-                    ? "ملغي"
-                    : order.status}
+                  <span className="flex items-center gap-2">
+                    {getStatusIcon(order.status)}
+                    {getStatusLabel(order.status)}
+                  </span>
                 </p>
               </div>
             </div>
@@ -476,6 +566,7 @@ const SalesReports = () => {
   const [users, setUsers] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [loadingUsers, setLoadingUsers] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
 
   useEffect(() => {
     setSummary({
@@ -487,7 +578,6 @@ const SalesReports = () => {
       dateRange: "لم يتم تحديد فترة",
     });
 
-    // جلب بيانات المستخدمين
     const loadUsers = async () => {
       setLoadingUsers(true);
       try {
@@ -511,6 +601,8 @@ const SalesReports = () => {
         text: "يرجى تحديد تاريخ البداية والنهاية أولاً",
         timer: 3000,
         showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
       });
       return;
     }
@@ -522,6 +614,8 @@ const SalesReports = () => {
         text: "تاريخ البداية يجب أن يكون قبل تاريخ النهاية",
         timer: 3000,
         showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
       });
       return;
     }
@@ -539,6 +633,8 @@ const SalesReports = () => {
         text: `تم تحميل ${orders.length} طلب`,
         timer: 1500,
         showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
       });
     } catch (error) {
       console.error("Error fetching report data:", error);
@@ -548,6 +644,8 @@ const SalesReports = () => {
         text: "فشل في تحميل بيانات التقرير",
         timer: 2000,
         showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
       });
     } finally {
       setLoading(false);
@@ -567,6 +665,8 @@ const SalesReports = () => {
         text: "فشل في تحميل تفاصيل الطلب",
         timer: 2000,
         showConfirmButton: false,
+        background: "#fff",
+        color: "#333",
       });
     } finally {
       setLoadingDetails(false);
@@ -578,7 +678,6 @@ const SalesReports = () => {
     setOrderDetails(null);
   };
 
-  // دالة للبحث عن اسم المستخدم بناءً على الـ userId
   const findUserName = (userId) => {
     if (!userId || !users || users.length === 0)
       return userId?.substring(0, 8) || "غير معروف";
@@ -586,314 +685,497 @@ const SalesReports = () => {
     return user ? `${user.firstName} ${user.lastName}` : userId.substring(0, 8);
   };
 
-  const handlePrint = () => {
-    if (!reportData || reportData.length === 0) {
-      Swal.fire({
-        icon: "warning",
-        title: "لا توجد بيانات",
-        text: "لا توجد بيانات لعرضها في التقرير",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-      return;
+  const formatCurrency = (amount) => {
+    if (amount === null || amount === undefined || isNaN(amount)) {
+      return "0.00 ج.م";
     }
+    return `${Number(amount).toLocaleString("ar-EG")} ج.م`;
+  };
 
-    const printContent = `
-      <!DOCTYPE html>
-      <html dir="rtl" lang="ar">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>تقرير المبيعات - Chicken One</title>
-        <style>
-          @media print {
-            body { margin: 0; padding: 20px; font-family: 'Arial', sans-serif; }
-            .no-print { display: none !important; }
-          }
-          body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            max-width: 100%;
-          }
-          .header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid #E41E26;
-            padding-bottom: 20px;
-          }
-          .header h1 {
-            color: #E41E26;
-            margin: 0;
-            font-size: 28px;
-          }
-          .header .date-range {
-            color: #666;
-            font-size: 16px;
-            margin-top: 10px;
-          }
-          .summary-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-right: 4px solid #FDB913;
-          }
-          .summary-section h2 {
-            color: #333;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 20px;
-          }
-          .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-          }
-          .summary-item {
-            background: white;
-            padding: 15px;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          }
-          .summary-item .label {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 5px;
-          }
-          .summary-item .value {
-            color: #E41E26;
-            font-size: 24px;
-            font-weight: bold;
-          }
-          .table-section {
-            margin-top: 30px;
-            overflow-x: auto;
-          }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-size: 12px;
-          }
-          th {
-            background: #E41E26;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 12px;
-          }
-          td {
-            padding: 6px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-            font-size: 11px;
-          }
-          tr:nth-child(even) {
-            background: #f9f9f9;
-          }
-          .total-row {
-            background: #f8f9fa !important;
-            font-weight: bold;
-          }
-          .delivery { color: #2196F3; }
-          .pickup { color: #4CAF50; }
-          .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 12px;
-          }
-          .status-badge {
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: bold;
-          }
-          .status-pending { background: #fff3cd; color: #856404; }
-          .status-preparing { background: #cce5ff; color: #004085; }
-          .status-delivered { background: #d4edda; color: #155724; }
-          .status-cancelled { background: #f8d7da; color: #721c24; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>تقرير المبيعات - Chicken One</h1>
-          <div class="date-range">${
-            summary?.dateRange || "فترة غير محددة"
-          }</div>
-        </div>
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "Pending":
+        return <FaClock className="text-xs" />;
+      case "Confirmed":
+        return <FaCheckCircle className="text-xs" />;
+      case "Preparing":
+        return <FaUtensils className="text-xs" />;
+      case "OutForDelivery":
+        return <FaMotorcycle className="text-xs" />;
+      case "Delivered":
+        return <FaCheck className="text-xs" />;
+      case "Cancelled":
+        return <FaBan className="text-xs" />;
+      default:
+        return <FaClock className="text-xs" />;
+    }
+  };
 
-        <div class="summary-section">
-          <h2>ملخص التقرير</h2>
-          <div class="summary-grid">
-            <div class="summary-item">
-              <div class="label">إجمالي المبيعات</div>
-              <div class="value">${
-                summary?.totalSales?.toFixed(2) || "0.00"
-              } ج.م</div>
-            </div>
-            <div class="summary-item">
-              <div class="label">عدد الطلبات</div>
-              <div class="value">${summary?.totalOrders || "0"}</div>
-            </div>
-            <div class="summary-item">
-              <div class="label">طلبات التوصيل</div>
-              <div class="value">${summary?.deliveryOrders || "0"}</div>
-            </div>
-            <div class="summary-item">
-              <div class="label">طلبات الاستلام</div>
-              <div class="value">${summary?.pickupOrders || "0"}</div>
-            </div>
-          </div>
-        </div>
+  const getStatusLabel = (status) => {
+    switch (status) {
+      case "Pending":
+        return "قيد الانتظار";
+      case "Confirmed":
+        return "تم التأكيد";
+      case "Preparing":
+        return "قيد التحضير";
+      case "OutForDelivery":
+        return "قيد التوصيل";
+      case "Delivered":
+        return "تم التوصيل";
+      case "Cancelled":
+        return "ملغي";
+      default:
+        return status;
+    }
+  };
 
-        <div class="table-section">
-          <h2>تفاصيل الطلبات</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>رقم الطلب</th>
-                <th>اسم العميل</th>
-                <th>رقم الهاتف</th>
-                <th>نوع الطلب</th>
-                <th>المدينة</th>
-                <th>العنوان</th>
-                <th>الحالة</th>
-                <th>الإجمالي</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${reportData
-                .map((order) => {
-                  const userName = findUserName(order.userId);
-                  const statusClass = `status-${order.status.toLowerCase()}`;
-                  return `
-                    <tr>
-                      <td>${order.orderNumber}</td>
-                      <td>${userName}</td>
-                      <td>${order.location?.phoneNumber || "غير متوفر"}</td>
-                      <td class="${
-                        order.deliveryFee?.fee > 0 ? "delivery" : "pickup"
-                      }">
-                        ${order.deliveryFee?.fee > 0 ? "توصيل" : "استلام"}
-                      </td>
-                      <td>${
-                        order.location?.city?.name ||
-                        order.location?.city ||
-                        "غير متوفر"
-                      }</td>
-                      <td>${order.location?.streetName || "غير متوفر"}</td>
-                      <td>
-                        <span class="status-badge ${statusClass}">
-                          ${
-                            order.status === "Pending"
-                              ? "قيد الانتظار"
-                              : order.status === "Preparing"
-                              ? "قيد التحضير"
-                              : order.status === "Delivered"
-                              ? "تم التوصيل"
-                              : order.status === "Cancelled"
-                              ? "ملغي"
-                              : order.status
-                          }
-                        </span>
-                      </td>
-                      <td><strong>${
-                        order.totalWithFee?.toFixed(2) || "0.00"
-                      } ج.م</strong></td>
-                    </tr>
-                  `;
-                })
-                .join("")}
-              <tr class="total-row">
-                <td colspan="7"><strong>المجموع الكلي:</strong></td>
-                <td>
-                  <strong>${reportData
-                    .reduce((sum, order) => sum + (order.totalWithFee || 0), 0)
-                    .toFixed(2)} ج.م</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+      case "Confirmed":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+      case "Preparing":
+        return "bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300";
+      case "OutForDelivery":
+        return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300";
+      case "Delivered":
+        return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+      case "Cancelled":
+        return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
+    }
+  };
 
-        ${
-          summary?.topProducts && summary.topProducts.length > 0
-            ? `
-        <div class="table-section">
-          <h2>المنتجات الأكثر مبيعاً</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>اسم المنتج</th>
-                <th>الكمية</th>
-                <th>الإيرادات</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${summary.topProducts
-                .map(
-                  (product, index) => `
-                  <tr>
-                    <td>${index + 1}</td>
-                    <td>${product.name}</td>
-                    <td>${product.quantity}</td>
-                    <td>${product.revenue?.toFixed(2) || "0.00"} ج.م</td>
-                  </tr>
-                `
-                )
-                .join("")}
-            </tbody>
-          </table>
-        </div>
-        `
-            : ""
+  const getPrintStatusClass = (status) => {
+    switch (status) {
+      case "Pending":
+        return "status-pending";
+      case "Confirmed":
+        return "status-confirmed";
+      case "Preparing":
+        return "status-preparing";
+      case "OutForDelivery":
+        return "status-outfordelivery";
+      case "Delivered":
+        return "status-delivered";
+      case "Cancelled":
+        return "status-cancelled";
+      default:
+        return "";
+    }
+  };
+
+  const handlePrint = async () => {
+    return new Promise((resolve, reject) => {
+      try {
+        setIsPrinting(true);
+
+        if (!reportData || reportData.length === 0) {
+          Swal.fire({
+            icon: "warning",
+            title: "لا توجد بيانات",
+            text: "لا توجد بيانات لعرضها في التقرير",
+            timer: 2000,
+            showConfirmButton: false,
+            background: "#fff",
+            color: "#333",
+          });
+          setIsPrinting(false);
+          return;
         }
 
-        <div class="footer">
-          <p>تم الإنشاء في: ${format(new Date(), "yyyy-MM-dd HH:mm")}</p>
-          <p>Chicken One © ${new Date().getFullYear()}</p>
-        </div>
-      </body>
-      </html>
-    `;
+        Swal.fire({
+          title: "جاري الطباعة",
+          text: "يتم تحضير التقرير للطباعة...",
+          icon: "info",
+          timer: 500,
+          showConfirmButton: false,
+          background: "#fff",
+          color: "#333",
+        }).then(() => {
+          const printContent = `
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير المبيعات - Chicken One</title>
+<style>
+  @media print {
+    @page { margin: 0; size: A4 portrait; }
+    body {
+      margin: 0; padding: 15px;
+      font-family: 'Arial', sans-serif;
+      background: white !important;
+      color: black !important;
+      direction: rtl;
+      font-size: 15px;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  
+  body {
+    margin: 0; padding: 15px;
+    font-family: 'Arial', sans-serif;
+    background: white !important;
+    color: black !important;
+    direction: rtl;
+    font-size: 11px;
+  }
+  
+  .print-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+  }
+  
+  .print-header h1 {
+    color: black !important;
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .print-header p {
+    color: #666 !important;
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .print-info {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .print-info div {
+    margin: 5px 0;
+  }
+  
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 15px 0;
+    text-align: center;
+  }
+  
+  .stat-card {
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  
+  .stat-card h3 {
+    color: #666 !important;
+    margin: 0 0 6px 0;
+    font-size: 10px;
+    font-weight: normal;
+  }
+  
+  .stat-card p {
+    color: black !important;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 9px;
+    table-layout: fixed;
+  }
+  
+  .print-table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    padding: 6px 3px;
+    text-align: center;
+    border: 1px solid #ccc !important;
+    font-weight: bold;
+    font-size: 9px;
+  }
+  
+  .print-table td {
+    padding: 5px 3px;
+    border: 1px solid #ddd !important;
+    text-align: center;
+    color: black !important;
+    font-size: 8px;
+  }
+  
+  .print-table tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+  }
+  
+  .customer-name {
+    font-weight: bold;
+  }
+  
+  .status-badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: bold;
+  }
+  
+  .status-pending {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+  }
+  
+  .status-confirmed {
+    background: #dbeafe !important;
+    color: #1e40af !important;
+  }
+  
+  .status-preparing {
+    background: #ffedd5 !important;
+    color: #92400e !important;
+  }
+  
+  .status-outfordelivery {
+    background: #f3e8ff !important;
+    color: #6b21a8 !important;
+  }
+  
+  .status-delivered {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+  }
+  
+  .status-cancelled {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+  }
+  
+  .order-type-delivery {
+    color: #1d4ed8 !important;
+  }
+  
+  .order-type-pickup {
+    color: #059669 !important;
+  }
+  
+  .total-amount {
+    font-weight: bold;
+  }
+  
+  .print-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666 !important;
+    font-size: 9px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 40px;
+    color: #666 !important;
+  }
+</style>
+</head>
+<body>
 
-    const printWindow = document.createElement("iframe");
-    printWindow.style.position = "absolute";
-    printWindow.style.width = "0";
-    printWindow.style.height = "0";
-    printWindow.style.border = "none";
+<div class="print-header">
+  <h1>تقرير المبيعات - Chicken One</h1>
+  <p>نظام إدارة المطاعم</p>
+</div>
 
-    document.body.appendChild(printWindow);
+<div class="print-info">
+  <div>تاريخ التقرير: ${new Date().toLocaleDateString("ar-EG")}</div>
+  ${
+    startDate
+      ? `<div>من: ${new Date(startDate).toLocaleDateString("ar-EG")}</div>`
+      : ""
+  }
+  ${
+    endDate
+      ? `<div>إلى: ${new Date(endDate).toLocaleDateString("ar-EG")}</div>`
+      : ""
+  }
+  <div>عدد السجلات: ${reportData.length}</div>
+</div>
 
-    const printDoc = printWindow.contentWindow.document;
-    printDoc.open();
-    printDoc.write(printContent);
-    printDoc.close();
+<div class="stats-container">
+  <div class="stat-card">
+    <h3>إجمالي المبيعات</h3>
+    <p>${formatCurrency(summary?.totalSales || 0)}</p>
+  </div>
+  <div class="stat-card">
+    <h3>إجمالي الطلبات</h3>
+    <p>${summary?.totalOrders || 0}</p>
+  </div>
+  <div class="stat-card">
+    <h3>طلبات التوصيل</h3>
+    <p>${summary?.deliveryOrders || 0}</p>
+  </div>
+  <div class="stat-card">
+    <h3>طلبات الاستلام</h3>
+    <p>${summary?.pickupOrders || 0}</p>
+  </div>
+</div>
 
-    setTimeout(() => {
-      printWindow.contentWindow.focus();
-      printWindow.contentWindow.print();
+${
+  reportData.length === 0
+    ? `
+  <div class="no-data">
+    <h3>لا توجد طلبات في الفترة المحددة</h3>
+  </div>
+`
+    : `
+  <table class="print-table">
+    <thead>
+      <tr>
+        <th width="10%">رقم الطلب</th>
+        <th width="15%">العميل</th>
+        <th width="10%">الهاتف</th>
+        <th width="10%">نوع الطلب</th>
+        <th width="20%">العنوان</th>
+        <th width="10%">الحالة</th>
+        <th width="15%">المبلغ النهائي</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${reportData
+        .map((order) => {
+          const userName = findUserName(order.userId);
+          const statusClass = getPrintStatusClass(order.status);
+          const orderTypeClass = `order-type-${
+            order.deliveryFee?.fee > 0 ? "delivery" : "pickup"
+          }`;
+          return `
+          <tr>
+            <td class="customer-name">${order.orderNumber}</td>
+            <td>${userName}</td>
+            <td>${order.location?.phoneNumber || "غير متوفر"}</td>
+            <td class="${orderTypeClass}">${
+            order.deliveryFee?.fee > 0 ? "توصيل" : "استلام"
+          }</td>
+            <td>${order.location?.streetName || "غير متوفر"}</td>
+            <td><span class="status-badge ${statusClass}">${getStatusLabel(
+            order.status
+          )}</span></td>
+            <td class="total-amount">${formatCurrency(
+              order.totalWithFee || 0
+            )}</td>
+          </tr>
+        `;
+        })
+        .join("")}
+      <tr style="background-color: #f0f0f0 !important; font-weight: bold;">
+        <td colspan="6" style="text-align: left; padding-right: 20px;">المجموع الكلي:</td>
+        <td class="total-amount" style="text-align: center;">${formatCurrency(
+          reportData.reduce((sum, order) => sum + (order.totalWithFee || 0), 0)
+        )}</td>
+      </tr>
+    </tbody>
+  </table>
+`
+}
 
-      setTimeout(() => {
-        document.body.removeChild(printWindow);
-      }, 100);
-    }, 100);
+${
+  summary?.topProducts && summary.topProducts.length > 0
+    ? `
+<div style="margin-top: 30px;">
+  <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #ddd;">
+    <h2 style="margin: 0; font-size: 16px; color: black;">المنتجات الأكثر مبيعاً</h2>
+  </div>
+  <table class="print-table">
+    <thead>
+      <tr>
+        <th width="5%">#</th>
+        <th width="45%">اسم المنتج</th>
+        <th width="20%">الكمية</th>
+        <th width="30%">الإيرادات</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${summary.topProducts
+        .map(
+          (product, index) => `
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td style="text-align: center;">${product.name}</td>
+          <td style="text-align: center;">${product.quantity}</td>
+          <td class="total-amount" style="text-align: center;">${formatCurrency(
+            product.revenue
+          )}</td>
+        </tr>
+      `
+        )
+        .join("")}
+    </tbody>
+  </table>
+</div>
+`
+    : ""
+}
+
+<div class="print-footer">
+  <p>تم الإنشاء في: ${format(new Date(), "yyyy/MM/dd HH:mm")}</p>
+  <p>Chicken One © ${new Date().getFullYear()}</p>
+</div>
+
+</body>
+</html>
+          `;
+
+          const printFrame = document.createElement("iframe");
+          printFrame.style.display = "none";
+          printFrame.style.position = "absolute";
+          printFrame.style.top = "-9999px";
+          printFrame.style.left = "-9999px";
+          document.body.appendChild(printFrame);
+
+          const printWindow = printFrame.contentWindow;
+
+          printWindow.document.open();
+          printWindow.document.write(printContent);
+          printWindow.document.close();
+
+          printWindow.onload = () => {
+            try {
+              setTimeout(() => {
+                printWindow.focus();
+                printWindow.print();
+
+                setTimeout(() => {
+                  document.body.removeChild(printFrame);
+                  setIsPrinting(false);
+                  resolve();
+                }, 1000);
+              }, 500);
+            } catch (err) {
+              document.body.removeChild(printFrame);
+              setIsPrinting(false);
+              reject(err);
+            }
+          };
+        });
+      } catch (error) {
+        setIsPrinting(false);
+        reject(error);
+      }
+    });
   };
 
   const handleDateFilter = () => {
     fetchReportData();
-  };
-
-  const formatCurrency = (amount) => {
-    return `${amount?.toFixed(2) || "0.00"} ج.م`;
   };
 
   if (loading) {
@@ -1023,6 +1305,31 @@ const SalesReports = () => {
                     <FaFilter />
                     تطبيق الفلترة
                   </motion.button>
+                  {reportData && reportData.length > 0 && (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handlePrint}
+                      disabled={isPrinting}
+                      className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 ${
+                        isPrinting
+                          ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                          : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white cursor-pointer"
+                      }`}
+                    >
+                      {isPrinting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                          جاري الطباعة...
+                        </>
+                      ) : (
+                        <>
+                          <FaPrint />
+                          طباعة
+                        </>
+                      )}
+                    </motion.button>
+                  )}
                 </div>
               </div>
             </div>
@@ -1046,7 +1353,7 @@ const SalesReports = () => {
                     </p>
                   </div>
                   <div className="p-3 bg-white/20 rounded-xl">
-                    <FaDollarSign className="text-2xl" />
+                    <FaMoneyBill className="text-2xl" />
                   </div>
                 </div>
               </div>
@@ -1164,6 +1471,9 @@ const SalesReports = () => {
                       تفاصيل الطلبات
                     </h3>
                   </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                    إجمالي الطلبات: {reportData.length}
+                  </div>
                 </div>
               </div>
 
@@ -1238,27 +1548,12 @@ const SalesReports = () => {
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${
-                              order.status === "Pending"
-                                ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300"
-                                : order.status === "Preparing"
-                                ? "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300"
-                                : order.status === "Delivered"
-                                ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-                                : order.status === "Cancelled"
-                                ? "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
-                                : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-                            }`}
+                            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getStatusClass(
+                              order.status
+                            )}`}
                           >
-                            {order.status === "Pending"
-                              ? "قيد الانتظار"
-                              : order.status === "Preparing"
-                              ? "قيد التحضير"
-                              : order.status === "Delivered"
-                              ? "تم التوصيل"
-                              : order.status === "Cancelled"
-                              ? "ملغي"
-                              : order.status}
+                            {getStatusIcon(order.status)}
+                            {getStatusLabel(order.status)}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-center font-bold text-[#E41E26] dark:text-[#FDB913]">
@@ -1322,29 +1617,6 @@ const SalesReports = () => {
               <p className="text-gray-500 dark:text-gray-400">
                 يرجى تحديد فترة زمنية وتطبيق الفلترة لعرض التقرير
               </p>
-            </motion.div>
-          )}
-
-          {/* Quick Actions */}
-          {reportData && reportData.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="flex justify-center mt-6"
-            >
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handlePrint}
-                className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white p-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                <FaPrint className="text-2xl" />
-                <div className="text-right">
-                  <p className="font-bold">طباعة التقرير</p>
-                  <p className="text-sm opacity-90">طباعة التقرير الحالي</p>
-                </div>
-              </motion.button>
             </motion.div>
           )}
         </div>
