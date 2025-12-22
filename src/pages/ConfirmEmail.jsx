@@ -21,8 +21,8 @@ export default function ConfirmEmail() {
     if (!userId || !decodedCode) {
       Swal.fire({
         icon: "error",
-        title: "Invalid Link",
-        text: "The link you used is incomplete or invalid.",
+        title: "رابط غير صالح",
+        text: "الرابط الذي استخدمته غير مكتمل أو غير صالح.",
         customClass: {
           popup: "rounded-3xl shadow-2xl dark:bg-gray-800 dark:text-white",
         },
@@ -42,16 +42,13 @@ export default function ConfirmEmail() {
           code: decodedCode,
         });
 
-        setMessage(
-          res.data.message || "Your email has been confirmed successfully."
-        );
+        setMessage(res.data.message || "تم تأكيد بريدك الإلكتروني بنجاح.");
         setSuccess(true);
 
         Swal.fire({
           icon: "success",
-          title: "Email Confirmed",
-          text:
-            res.data.message || "Your email has been confirmed successfully.",
+          title: "تم تأكيد البريد الإلكتروني",
+          text: res.data.message || "تم تأكيد بريدك الإلكتروني بنجاح.",
           showConfirmButton: false,
           timer: 2000,
           customClass: {
@@ -63,12 +60,12 @@ export default function ConfirmEmail() {
       } catch (err) {
         const errorCode = err.response?.data?.errors?.[0]?.code || "";
         if (errorCode === "User.DuplicatedConfirmation") {
-          setMessage("Your email has already been confirmed.");
+          setMessage("تم تأكيد بريدك الإلكتروني مسبقاً.");
           setSuccess(true);
           Swal.fire({
             icon: "info",
-            title: "Already Confirmed",
-            text: "Your email was already confirmed previously.",
+            title: "تم التأكيد مسبقاً",
+            text: "تم تأكيد بريدك الإلكتروني مسبقاً.",
             showConfirmButton: false,
             timer: 2000,
             customClass: {
@@ -78,15 +75,15 @@ export default function ConfirmEmail() {
         } else {
           setMessage(
             err.response?.data?.errors?.[0]?.description ||
-              "An error occurred while confirming your email."
+              "حدث خطأ أثناء تأكيد بريدك الإلكتروني."
           );
           setSuccess(false);
           Swal.fire({
             icon: "error",
-            title: "Email Confirmation Failed",
+            title: "فشل تأكيد البريد الإلكتروني",
             text:
               err.response?.data?.errors?.[0]?.description ||
-              "An error occurred while confirming your email.",
+              "حدث خطأ أثناء تأكيد بريدك الإلكتروني.",
             customClass: {
               popup: "rounded-3xl shadow-2xl dark:bg-gray-800 dark:text-white",
             },
@@ -130,11 +127,11 @@ export default function ConfirmEmail() {
               </div>
 
               <h2 className="text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent text-center">
-                Confirming Your Email...
+                جاري تأكيد بريدك الإلكتروني...
               </h2>
 
               <p className="text-gray-600 dark:text-gray-300 text-center text-lg leading-relaxed">
-                Please wait a moment while we verify your email.
+                يرجى الانتظار لحظة بينما نقوم بالتحقق من بريدك الإلكتروني.
               </p>
 
               {/* Animated Dots */}
@@ -171,7 +168,7 @@ export default function ConfirmEmail() {
               </div>
 
               <h2 className="text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent text-center">
-                {success ? "Email Confirmed" : "Confirmation Failed"}
+                {success ? "تم تأكيد البريد الإلكتروني" : "فشل التأكيد"}
               </h2>
 
               <p className="text-gray-600 dark:text-gray-300 text-center text-lg leading-relaxed">
@@ -185,7 +182,7 @@ export default function ConfirmEmail() {
                   onClick={() => navigate("/login")}
                   className="mt-4 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#E41E26]/25 transition-all duration-300"
                 >
-                  Back to Login
+                  العودة لتسجيل الدخول
                 </motion.button>
               )}
 
@@ -196,7 +193,7 @@ export default function ConfirmEmail() {
                   onClick={() => navigate("/register")}
                   className="mt-4 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#E41E26]/25 transition-all duration-300"
                 >
-                  Try Again
+                  المحاولة مرة أخرى
                 </motion.button>
               )}
 
