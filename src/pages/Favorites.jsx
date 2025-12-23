@@ -11,6 +11,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstance from "../api/axiosInstance";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -18,6 +20,75 @@ const Favorites = () => {
   const [loading, setLoading] = useState(true);
   const [cartItemsCount, setCartItemsCount] = useState(0);
   const navigate = useNavigate();
+
+  // Function to check if device is mobile
+  const isMobile = () => {
+    return window.innerWidth <= 768;
+  };
+
+  // Function to show notification based on device and content
+  const showNotification = (type, title, text, options = {}) => {
+    // Always use Swal for notifications with buttons
+    if (options.showConfirmButton || options.showCancelButton) {
+      Swal.fire({
+        icon: type,
+        title: title,
+        text: text,
+        timer: options.timer || null,
+        showConfirmButton: options.showConfirmButton || false,
+        confirmButtonText: options.confirmButtonText,
+        showCancelButton: options.showCancelButton,
+        cancelButtonText: options.cancelButtonText,
+        confirmButtonColor: "#E41E26",
+        cancelButtonColor: "#6B7280",
+        ...options.swalOptions,
+      });
+      return;
+    }
+
+    // Use toast for simple notifications on mobile only
+    if (isMobile()) {
+      const toastOptions = {
+        position: "top-right",
+        autoClose: options.timer || 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        rtl: true,
+        style: {
+          width: "70%",
+          margin: "10px auto",
+          borderRadius: "12px",
+          fontSize: "14px",
+          fontWeight: "500",
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
+          maxWidth: "400px",
+          minWidth: "250px",
+        },
+        ...options.toastOptions,
+      };
+
+      if (type === "success") {
+        toast.success(text, toastOptions);
+      } else if (type === "error") {
+        toast.error(text, toastOptions);
+      } else if (type === "warning") {
+        toast.warning(text, toastOptions);
+      }
+    } else {
+      Swal.fire({
+        icon: type,
+        title: title,
+        text: text,
+        timer: options.timer || 2000,
+        showConfirmButton: false,
+        confirmButtonColor: "#E41E26",
+        ...options.swalOptions,
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -99,12 +170,8 @@ const Favorites = () => {
         setFavoriteProducts(validProducts);
       } catch (error) {
         console.error("Error fetching favorites:", error);
-        Swal.fire({
-          icon: "error",
-          title: "خطأ",
-          text: "فشل في تحميل المفضلة",
+        showNotification("error", "خطأ", "فشل في تحميل المفضلة", {
           timer: 2000,
-          showConfirmButton: false,
         });
       } finally {
         setLoading(false);
@@ -113,6 +180,7 @@ const Favorites = () => {
 
     fetchFavorites();
     fetchCartItemsCount();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const fetchCartItemsCount = async () => {
@@ -204,13 +272,12 @@ const Favorites = () => {
     }
 
     if (!product.isActive) {
-      Swal.fire({
-        icon: "error",
-        title: "المنتج غير متوفر",
-        text: `${product.name} غير متوفر حالياً`,
-        timer: 2000,
-        showConfirmButton: false,
-      });
+      showNotification(
+        "error",
+        "المنتج غير متوفر",
+        `${product.name} غير متوفر حالياً`,
+        { timer: 2000 }
+      );
       return;
     }
 
@@ -223,13 +290,12 @@ const Favorites = () => {
 
       await fetchCartItemsCount();
 
-      Swal.fire({
-        icon: "success",
-        title: "تم الإضافة إلى السلة!",
-        text: `تم إضافة ${product.name} إلى سلة التسوق`,
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      showNotification(
+        "success",
+        "تم الإضافة إلى السلة!",
+        `تم إضافة ${product.name} إلى سلة التسوق`,
+        { timer: 1500 }
+      );
     } catch (error) {
       console.error("Error adding to cart:", error);
 
@@ -274,12 +340,8 @@ const Favorites = () => {
         }
       }
 
-      Swal.fire({
-        icon: "error",
-        title: "خطأ",
-        text: "فشل في إضافة المنتج إلى السلة",
+      showNotification("error", "خطأ", "فشل في إضافة المنتج إلى السلة", {
         timer: 2000,
-        showConfirmButton: false,
       });
     }
   };
@@ -293,21 +355,16 @@ const Favorites = () => {
         favoriteProducts.filter((product) => product.favoriteId !== favoriteId)
       );
 
-      Swal.fire({
-        icon: "success",
-        title: "تم الإزالة من المفضلة",
-        text: `تم إزالة ${productName} من المفضلة`,
-        timer: 1500,
-        showConfirmButton: false,
-      });
+      showNotification(
+        "success",
+        "تم الإزالة من المفضلة",
+        `تم إزالة ${productName} من المفضلة`,
+        { timer: 1500 }
+      );
     } catch (error) {
       console.error("Error removing from favorites:", error);
-      Swal.fire({
-        icon: "error",
-        title: "خطأ",
-        text: "فشل في إزالة المنتج من المفضلة",
+      showNotification("error", "خطأ", "فشل في إزالة المنتج من المفضلة", {
         timer: 2000,
-        showConfirmButton: false,
       });
     }
   };
@@ -344,6 +401,41 @@ const Favorites = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300">
+      {/* Toast Container - Custom styled for mobile */}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        style={{
+          zIndex: 9999,
+          width: isMobile() ? "70%" : "auto",
+          maxWidth: "400px",
+          margin: "10px auto",
+        }}
+        toastStyle={{
+          width: "100%",
+          borderRadius: "12px",
+          fontSize: "14px",
+          fontWeight: "500",
+          boxShadow: "0 10px 25px rgba(0, 0, 0, 0.15)",
+          marginBottom: "10px",
+          minWidth: "250px",
+          maxWidth: "400px",
+          textAlign: "right",
+        }}
+        bodyStyle={{
+          fontFamily: "inherit",
+          padding: "12px 16px",
+        }}
+      />
+
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-10 sm:-left-20 -top-10 sm:-top-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#E41E26]/10 to-[#FDB913]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
         <div className="absolute -right-10 sm:-right-20 -bottom-10 sm:-bottom-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#FDB913]/10 to-[#E41E26]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>

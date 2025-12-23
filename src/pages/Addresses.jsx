@@ -230,6 +230,29 @@ export default function Addresses() {
     }));
   };
 
+  const arabicToEnglishNumbers = (str) => {
+    if (!str) return str;
+
+    const arabicToEngMap = {
+      "٠": "0",
+      "١": "1",
+      "٢": "2",
+      "٣": "3",
+      "٤": "4",
+      "٥": "5",
+      "٦": "6",
+      "٧": "7",
+      "٨": "8",
+      "٩": "9",
+    };
+
+    return str
+      .toString()
+      .split("")
+      .map((char) => arabicToEngMap[char] || char)
+      .join("");
+  };
+
   useEffect(() => {
     const savedDarkMode = localStorage.getItem("darkMode");
     if (savedDarkMode) {
@@ -300,16 +323,32 @@ export default function Addresses() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (
+    if (name === "phoneNumber") {
+      let cleanedValue = value;
+      if (value.startsWith("+")) {
+        cleanedValue = "+" + value.slice(1).replace(/[^0-9٠-٩]/g, "");
+      } else {
+        cleanedValue = value.replace(/[^0-9٠-٩]/g, "");
+      }
+
+      setFormData({
+        ...formData,
+        [name]: cleanedValue,
+      });
+    }
+    else if (
       name === "buildingNumber" ||
       name === "floorNumber" ||
       name === "flatNumber"
     ) {
-      const numValue = parseInt(value);
-      if (value === "" || numValue > 0) {
+      const cleanedValue = value.replace(/[^0-9٠-٩]/g, "");
+      const englishNumber = arabicToEnglishNumbers(cleanedValue);
+      const numValue = parseInt(englishNumber || 0);
+
+      if (cleanedValue === "" || numValue > 0) {
         setFormData({
           ...formData,
-          [name]: value,
+          [name]: cleanedValue,
         });
       }
     } else {
@@ -350,13 +389,53 @@ export default function Addresses() {
     try {
       const submitData = { ...formData };
 
+      const fieldsToConvert = [
+        "buildingNumber",
+        "floorNumber",
+        "flatNumber",
+        "phoneNumber",
+      ];
+
+      fieldsToConvert.forEach((field) => {
+        if (submitData[field]) {
+          submitData[field] = arabicToEnglishNumbers(submitData[field]);
+        }
+      });
+
+      const phoneNumber = submitData.phoneNumber;
+      if (phoneNumber) {
+        if (phoneNumber.startsWith("0")) {
+          if (phoneNumber.length !== 11) {
+            showAddressErrorAlert({
+              errors: {
+                PhoneNumber: ["رقم الهاتف يجب أن يكون 11 رقمًا"],
+              },
+            });
+            return;
+          }
+
+          const validPrefixes = ["010", "011", "012", "015"];
+          const prefix = phoneNumber.substring(0, 3);
+          if (!validPrefixes.includes(prefix)) {
+            showAddressErrorAlert({
+              errors: {
+                PhoneNumber: [
+                  "رقم الهاتف يجب أن يبدأ بـ 010، 011، 012، أو 015",
+                ],
+              },
+            });
+            return;
+          }
+        }
+      }
+
       if (!submitData.locationUrl || submitData.locationUrl.trim() === "") {
         delete submitData.locationUrl;
       }
 
       const formattedData = {
         ...submitData,
-        cityId: parseInt(submitData.cityId),
+        cityId: parseInt(arabicToEnglishNumbers(submitData.cityId) || 0),
         buildingNumber: parseInt(submitData.buildingNumber) || 0,
         floorNumber: parseInt(submitData.floorNumber) || 0,
         flatNumber: parseInt(submitData.flatNumber) || 0,
@@ -1189,6 +1268,8 @@ export default function Addresses() {
                             value={formData.phoneNumber}
                             onChange={handleInputChange}
                             required
+                            inputMode="tel"
+                            pattern="[0-9٠-٩]*"
                             className={`w-full border ${
                               darkMode
                                 ? "border-gray-600 bg-gray-800 text-white"
@@ -1237,12 +1318,13 @@ export default function Addresses() {
                           <div className="relative group">
                             <FaBuildingIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
-                              type="number"
+                              type="text"
+                              inputMode="numeric"
+                              pattern="[0-9٠-٩]*"
                               name="buildingNumber"
                               value={formData.buildingNumber}
                               onChange={handleInputChange}
                               required
-                              min="1"
                               className={`w-full border ${
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
@@ -1263,12 +1345,13 @@ export default function Addresses() {
                           <div className="relative group">
                             <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
-                              type="number"
+                              type="text"
+                              inputMode="numeric"
+                              pattern="[0-9٠-٩]*"
                               name="floorNumber"
                               value={formData.floorNumber}
                               onChange={handleInputChange}
                               required
-                              min="1"
                               className={`w-full border ${
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
@@ -1289,12 +1372,13 @@ export default function Addresses() {
                           <div className="relative group">
                             <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
-                              type="number"
+                              type="text"
+                              inputMode="numeric"
+                              pattern="[0-9٠-٩]*"
                               name="flatNumber"
                               value={formData.flatNumber}
                               onChange={handleInputChange}
                               required
-                              min="1"
                               className={`w-full border ${
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
