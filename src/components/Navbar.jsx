@@ -37,10 +37,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isRestaurant, setIsRestaurant] = useState(false);
-  const [isBranch, setIsBranch] = useState(false);
-  const [isUser, setIsUser] = useState(false);
+  const [userRoles, setUserRoles] = useState([]);
   const sidebarRef = useRef(null);
   const dropdownRef = useRef(null);
 
@@ -57,49 +54,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     navigate("/");
     window.location.reload();
   };
-
-  // const handleDeleteAccount = async () => {
-  //   setIsSidebarOpen(false);
-  //   setIsDropdownOpen(false);
-
-  //   const result = await Swal.fire({
-  //     title: "هل أنت متأكد؟",
-  //     text: "هل أنت متأكد أنك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#E41E26",
-  //     cancelButtonColor: "#6B7280",
-  //     confirmButtonText: "نعم، احذف الحساب!",
-  //     cancelButtonText: "إلغاء",
-  //     reverseButtons: true,
-  //   });
-
-  //   if (result.isConfirmed) {
-  //     try {
-  //       await axiosInstance.delete("/api/Account/DeleteAccount");
-
-  //       Swal.fire({
-  //         title: "تم الحذف!",
-  //         text: "تم حذف حسابك بنجاح.",
-  //         icon: "success",
-  //         confirmButtonColor: "#E41E26",
-  //       });
-
-  //       localStorage.removeItem("token");
-  //       localStorage.removeItem("user");
-  //       navigate("/");
-  //       window.location.reload();
-  //     } catch (error) {
-  //       console.error("فشل في حذف الحساب", error);
-  //       Swal.fire({
-  //         title: "خطأ!",
-  //         text: "فشل في حذف الحساب. يرجى المحاولة مرة أخرى.",
-  //         icon: "error",
-  //         confirmButtonColor: "#E41E26",
-  //       });
-  //     }
-  //   }
-  // };
 
   const handleAuthClick = (path) => {
     setIsDropdownOpen(false);
@@ -161,20 +115,10 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
     navigate("/admin/delivery-cost");
   };
 
-  // const handleCouponsClick = () => {
-  //   setIsSidebarOpen(false);
-  //   navigate("/admin/coupons");
-  // };
-
   const handleCitiesClick = () => {
     setIsSidebarOpen(false);
     navigate("/admin/cities");
   };
-
-  // const handleCashierClick = () => {
-  //   setIsSidebarOpen(false);
-  //   navigate("/cashier");
-  // };
 
   const handleItemOffersClick = () => {
     setIsSidebarOpen(false);
@@ -229,22 +173,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           const userDataWithAvatar = { ...res.data, avatar: fixedImageUrl };
           setUser(userDataWithAvatar);
 
-          const userRoles = res.data.roles || [];
-          const isAdminUser = userRoles.includes("Admin");
-          const isRestaurantUser = userRoles.includes("Restaurant");
-          const isBranchUser = userRoles.includes("Branch");
-          const isUserRole = userRoles.includes("User");
-
-          setIsAdmin(isAdminUser);
-          setIsRestaurant(isRestaurantUser);
-          setIsBranch(isBranchUser);
-          setIsUser(isUserRole);
+          const roles = res.data.roles || [];
+          setUserRoles(roles);
 
           localStorage.setItem(
             "user",
             JSON.stringify({
               ...userDataWithAvatar,
-              roles: res.data.roles,
+              roles: roles,
             })
           );
         }
@@ -259,7 +195,100 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
   const getInitial = (name) => (!name ? "?" : name.charAt(0).toUpperCase());
 
-  // const hasCashierAccess = isAdmin || isRestaurant || isBranch;
+  const hasRole = (role) => userRoles.includes(role);
+
+  const hasAnyRole = (roles) => roles.some((role) => userRoles.includes(role));
+
+  const getAdminMenuItems = () => {
+    const items = [];
+
+    if (hasRole("Admin")) {
+      items.push(
+        {
+          onClick: handleAdminUsersClick,
+          icon: FaUsers,
+          label: "إدارة المستخدمين",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleAdminBranchesClick,
+          icon: FaBuilding,
+          label: "إدارة الفروع",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleDeliveryCostClick,
+          icon: FaMoneyBillWave,
+          label: "تكاليف التوصيل",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleItemOffersClick,
+          icon: FaPercent,
+          label: "إدارة الخصومات",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleCitiesClick,
+          icon: FaCity,
+          label: "إدارة المدن",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleReportsClick,
+          icon: FaChartBar,
+          label: "تقارير المبيعات",
+          color: "#E41E26",
+        }
+      );
+    }
+
+    if (hasRole("Restaurant")) {
+      const restaurantItems = [
+        {
+          onClick: handleAdminUsersClick,
+          icon: FaUsers,
+          label: "إدارة المستخدمين",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleDeliveryCostClick,
+          icon: FaMoneyBillWave,
+          label: "تكاليف التوصيل",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleItemOffersClick,
+          icon: FaPercent,
+          label: "إدارة الخصومات",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleCitiesClick,
+          icon: FaCity,
+          label: "إدارة المدن",
+          color: "#E41E26",
+        },
+        {
+          onClick: handleReportsClick,
+          icon: FaChartBar,
+          label: "تقارير المبيعات",
+          color: "#E41E26",
+        },
+      ];
+
+      restaurantItems.forEach((item) => {
+        if (!items.some((existingItem) => existingItem.label === item.label)) {
+          items.push(item);
+        }
+      });
+    }
+
+    return items;
+  };
+
+  const adminMenuItems = getAdminMenuItems();
+  const hasAdminAccess = hasAnyRole(["Admin", "Restaurant", "Branch"]);
 
   if (loading) {
     return (
@@ -464,7 +493,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                       </p>
 
                       <div className="flex flex-wrap gap-1 mt-1">
-                        {isAdmin && (
+                        {hasRole("Admin") && (
                           <div
                             className="flex flex-row items-center gap-1 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 px-2 py-1 rounded-full"
                             dir="rtl"
@@ -476,7 +505,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                           </div>
                         )}
 
-                        {isRestaurant && (
+                        {hasRole("Restaurant") && (
                           <div
                             className="flex flex-row items-center gap-1 bg-green-500/10 dark:bg-green-500/20 px-2 py-1 rounded-full"
                             dir="rtl"
@@ -488,7 +517,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                           </div>
                         )}
 
-                        {isBranch && (
+                        {hasRole("Branch") && (
                           <div
                             className="flex flex-row items-center gap-1 bg-blue-500/10 dark:bg-blue-500/20 px-2 py-1 rounded-full"
                             dir="rtl"
@@ -500,7 +529,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                           </div>
                         )}
 
-                        {isUser && (
+                        {hasRole("User") && (
                           <div
                             className="flex flex-row items-center gap-1 bg-purple-500/10 dark:bg-purple-500/20 px-2 py-1 rounded-full"
                             dir="rtl"
@@ -535,234 +564,37 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                     </button>
                   </motion.div>
 
-                  {/* {hasCashierAccess && (
-                    <motion.div
-                      whileHover={{ scale: 1.02, x: -4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <button
-                        onClick={handleCashierClick}
-                        className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                        dir="rtl"
-                      >
-                        <div className="p-2 bg-green-500/10 dark:bg-green-500/20 rounded-lg">
-                          <FaCashRegister className="text-green-600 dark:text-green-400 text-lg" />
-                        </div>
-                        <span className="text-lg">الكاشير</span>
-                      </button>
-                    </motion.div>
-                  )} */}
+                  {hasAdminAccess && adminMenuItems.length > 0 && (
+                    <div className="border-t border-gray-200 dark:border-gray-700 my-4 pt-4">
+                      <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2 mb-2 text-right">
+                        {hasRole("Admin") ? "لوحة الإدارة" : "إدارة المطعم"}
+                      </p>
 
-                  {isAdmin && (
-                    <>
-                      <div className="border-t border-gray-200 dark:border-gray-700 my-4 pt-4">
-                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2 mb-2 text-right">
-                          لوحة الإدارة
-                        </p>
-
+                      {adminMenuItems.map((item, index) => (
                         <motion.div
+                          key={index}
                           whileHover={{ scale: 1.02, x: -4 }}
                           whileTap={{ scale: 0.98 }}
                         >
                           <button
-                            onClick={handleAdminUsersClick}
+                            onClick={item.onClick}
                             className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
                             dir="rtl"
                           >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaUsers className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
+                            <div
+                              className="p-2 rounded-lg"
+                              style={{
+                                backgroundColor: `${item.color}10`,
+                                color: item.color,
+                              }}
+                            >
+                              <item.icon className="text-lg" />
                             </div>
-                            <span className="text-lg">إدارة المستخدمين</span>
+                            <span className="text-lg">{item.label}</span>
                           </button>
                         </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleAdminBranchesClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaBuilding className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة الفروع</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleDeliveryCostClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaMoneyBillWave className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">تكاليف التوصيل</span>
-                          </button>
-                        </motion.div>
-
-                        {/* <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleCouponsClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaTag className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة الكوبونات</span>
-                          </button>
-                        </motion.div> */}
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleItemOffersClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaPercent className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة الخصومات</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleCitiesClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaCity className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة المدن</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleReportsClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaChartBar className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">تقارير المبيعات</span>
-                          </button>
-                        </motion.div>
-                      </div>
-                    </>
-                  )}
-
-                  {isRestaurant && (
-                    <>
-                      <div className="border-t border-gray-200 dark:border-gray-700 my-4 pt-4">
-                        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2 mb-2 text-right">
-                          إدارة المطعم
-                        </p>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleAdminUsersClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaUsers className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة المستخدمين</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleDeliveryCostClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaMoneyBillWave className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">تكاليف التوصيل</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleItemOffersClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaPercent className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة الخصومات</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleCitiesClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaCity className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">إدارة المدن</span>
-                          </button>
-                        </motion.div>
-
-                        <motion.div
-                          whileHover={{ scale: 1.02, x: -4 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <button
-                            onClick={handleReportsClick}
-                            className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#FDB913]/30 dark:hover:border-gray-500"
-                            dir="rtl"
-                          >
-                            <div className="p-2 bg-[#E41E26]/10 dark:bg-[#FDB913]/20 rounded-lg">
-                              <FaChartBar className="text-[#E41E26] dark:text-[#FDB913] text-lg" />
-                            </div>
-                            <span className="text-lg">تقارير المبيعات</span>
-                          </button>
-                        </motion.div>
-                      </div>
-                    </>
+                      ))}
+                    </div>
                   )}
 
                   <motion.div
@@ -878,22 +710,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                   </motion.div>
 
                   <div className="border-t border-gray-200 dark:border-gray-700 my-4 pt-4">
-                    {/* <motion.div
-                      whileHover={{ scale: 1.02, x: -4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <button
-                        onClick={handleDeleteAccount}
-                        className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-red-200 dark:hover:border-red-800"
-                        dir="rtl"
-                      >
-                        <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
-                          <FaTrash className="text-red-500 dark:text-red-400 text-lg" />
-                        </div>
-                        <span className="text-lg">حذف الحساب</span>
-                      </button>
-                    </motion.div> */}
-
                     <motion.div
                       whileHover={{ scale: 1.02, x: -4 }}
                       whileTap={{ scale: 0.98 }}
