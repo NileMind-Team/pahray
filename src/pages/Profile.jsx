@@ -83,8 +83,22 @@ const translateProfileErrorMessage = (errorData) => {
       });
     }
 
+    if (errorData.errors.NewPassword) {
+      errorData.errors.NewPassword.forEach((msg) => {
+        if (msg.includes("cannot be same as the current password")) {
+          errorMessages.push(
+            "كلمة المرور الجديدة لا يمكن أن تكون مماثلة لكلمة المرور الحالية"
+          );
+        } else {
+          errorMessages.push(msg);
+        }
+      });
+    }
+
     Object.keys(errorData.errors).forEach((key) => {
-      if (!["FirstName", "LastName", "PhoneNumber"].includes(key)) {
+      if (
+        !["FirstName", "LastName", "PhoneNumber", "NewPassword"].includes(key)
+      ) {
         errorData.errors[key].forEach((msg) => {
           errorMessages.push(msg);
         });
@@ -141,6 +155,9 @@ const translateProfileErrorMessage = (errorData) => {
       translatedMessage = "يرجى التحقق من اتصالك بالإنترنت";
     } else if (msg.includes("timeout")) {
       translatedMessage = "انتهت المهلة، يرجى المحاولة مرة أخرى";
+    } else if (msg.includes("cannot be same")) {
+      translatedMessage =
+        "كلمة المرور الجديدة لا يمكن أن تكون مماثلة لكلمة المرور الحالية";
     } else {
       translatedMessage = errorData.message;
     }
@@ -347,39 +364,16 @@ export default function Profile() {
         });
       }
     } catch (err) {
-      const errorMsg =
-        err.response?.data?.errors ||
-        err.response?.data?.message ||
-        "حدث خطأ أثناء تحديث كلمة المرور.";
+      const errorData = err.response?.data;
+      const translatedMessage = translateProfileErrorMessage(errorData);
 
-      if (typeof errorMsg === "object") {
-        const messages = [];
-        if (Array.isArray(errorMsg)) {
-          errorMsg.forEach((e) =>
-            messages.push(e.description || JSON.stringify(e))
-          );
-        } else {
-          Object.values(errorMsg).forEach((vals) => {
-            if (Array.isArray(vals)) {
-              vals.forEach((msg) => messages.push(msg));
-            } else {
-              messages.push(vals);
-            }
-          });
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "فشل التحديث",
-          html: messages.map((m) => `<p>${m}</p>`).join(""),
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "فشل التحديث",
-          text: errorMsg,
-        });
-      }
+      Swal.fire({
+        title: "فشل التحديث",
+        html: translatedMessage,
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+      });
     }
   };
 
