@@ -318,34 +318,51 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             aria-label="الرجوع إلى الصفحة الرئيسية"
             title="الرجوع إلى الصفحة الرئيسية"
           >
-            {/* Home Indicator Badge */}
+            {/* Logo Container */}
             <div className="relative">
               <img
                 src={darkMode ? logoDark : logo}
                 alt="Chicken One logo"
                 className="w-14 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
               />
+
+              {/* Home Icon on Small Screens - Inside Logo */}
+              <div className="md:hidden absolute -top-1 -right-1 bg-[#E41E26] dark:bg-[#FDB913] rounded-full p-1 border-2 border-white dark:border-gray-900 shadow-sm">
+                <FaHome className="text-white text-xs" />
+              </div>
             </div>
 
             <div className="flex flex-col items-start">
+              {/* Title and Icon for Medium+ Screens */}
               <div className="flex items-center gap-2">
                 <h1 className="hidden md:block text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent dark:from-[#FDB913] dark:to-[#E41E26] transition-all duration-300 group-hover:from-[#FDB913] group-hover:to-[#E41E26] dark:group-hover:from-[#E41E26] dark:group-hover:to-[#FDB913]">
                   Chicken One
                 </h1>
 
-                {/* Home Icon Indicator */}
+                {/* Home Icon for Medium+ Screens */}
                 <FaHome className="hidden md:block text-[#E41E26] dark:text-[#FDB913] text-sm transition-all duration-300 group-hover:text-[#FDB913] dark:group-hover:text-[#E41E26]" />
               </div>
 
-              {/* Home Indicator Text */}
-              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 hidden md:flex items-center gap-1 transition-all duration-300 group-hover:text-[#E41E26] dark:group-hover:text-[#FDB913]">
-                <FaArrowLeft className="text-[10px]" />
-                <span>الصفحة الرئيسية</span>
-              </p>
+              {/* Home Indicator Text - All Screens */}
+              <div className="flex items-center gap-1">
+                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-1 transition-all duration-300 group-hover:text-[#E41E26] dark:group-hover:text-[#FDB913]">
+                  {/* Show Arrow on Small Screens, Home Icon on Medium+ */}
+                  <span className="md:hidden flex items-center gap-1">
+                    <FaArrowLeft className="text-[10px]" />
+                    <span className="ml-1">الرئيسية</span>
+                  </span>
+
+                  {/* Full Text on Medium+ Screens */}
+                  <span className="hidden md:flex items-center gap-1">
+                    <FaArrowLeft className="text-[10px]" />
+                    <span>الصفحة الرئيسية</span>
+                  </span>
+                </p>
+              </div>
             </div>
 
-            {/* Hover Effect Ring */}
-            <div className="absolute inset-0 -m-2 rounded-2xl bg-gradient-to-r from-[#E41E26] to-[#FDB913] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+            {/* Hover Effect Ring - Only for Medium+ Screens */}
+            <div className="hidden md:block absolute inset-0 -m-2 rounded-2xl bg-gradient-to-r from-[#E41E26] to-[#FDB913] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
           </Link>
         </motion.div>
 
