@@ -44,6 +44,7 @@ export default function Cart() {
   const [deliveryAreas, setDeliveryAreas] = useState([]);
   const [loadingBranches, setLoadingBranches] = useState(false);
   const [loadingAreas, setLoadingAreas] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [additionalNotes, setAdditionalNotes] = useState("");
   const [showProductDetailsModal, setShowProductDetailsModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -2480,7 +2481,7 @@ export default function Cart() {
               )}
 
               {/* Additional Notes */}
-              <div className="mt-4 sm:mt-6">
+              {/* <div className="mt-4 sm:mt-6">
                 <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   ملاحظات إضافية للطلب الكامل
                 </label>
@@ -2500,7 +2501,7 @@ export default function Cart() {
                     {additionalNotes.length}/500
                   </span>
                 </div>
-              </div>
+              </div> */}
             </motion.div>
           </div>
 

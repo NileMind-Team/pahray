@@ -23,6 +23,7 @@ import {
   FaMap,
   FaPercent,
   FaChartBar,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +41,8 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [userRoles, setUserRoles] = useState([]);
   const sidebarRef = useRef(null);
   const dropdownRef = useRef(null);
+  // eslint-disable-next-line no-unused-vars
+  const [isHoveringLogo, setIsHoveringLogo] = useState(false);
 
   const isLoggedIn = !!localStorage.getItem("token");
 
@@ -309,16 +312,40 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
         >
           <Link
             to="/"
-            className="flex items-center gap-2 sm:gap-3 hover:scale-105 transition-transform duration-200"
+            className="flex items-center gap-2 sm:gap-3 group relative"
+            onMouseEnter={() => setIsHoveringLogo(true)}
+            onMouseLeave={() => setIsHoveringLogo(false)}
+            aria-label="الرجوع إلى الصفحة الرئيسية"
+            title="الرجوع إلى الصفحة الرئيسية"
           >
-            <img
-              src={darkMode ? logoDark : logo}
-              alt="Chicken One logo"
-              className="w-14 h-12 object-contain"
-            />
-            <h1 className="hidden md:block text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent dark:from-[#FDB913] dark:to-[#E41E26]">
-              Chicken One
-            </h1>
+            {/* Home Indicator Badge */}
+            <div className="relative">
+              <img
+                src={darkMode ? logoDark : logo}
+                alt="Chicken One logo"
+                className="w-14 h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+
+            <div className="flex flex-col items-start">
+              <div className="flex items-center gap-2">
+                <h1 className="hidden md:block text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent dark:from-[#FDB913] dark:to-[#E41E26] transition-all duration-300 group-hover:from-[#FDB913] group-hover:to-[#E41E26] dark:group-hover:from-[#E41E26] dark:group-hover:to-[#FDB913]">
+                  Chicken One
+                </h1>
+
+                {/* Home Icon Indicator */}
+                <FaHome className="hidden md:block text-[#E41E26] dark:text-[#FDB913] text-sm transition-all duration-300 group-hover:text-[#FDB913] dark:group-hover:text-[#E41E26]" />
+              </div>
+
+              {/* Home Indicator Text */}
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 hidden md:flex items-center gap-1 transition-all duration-300 group-hover:text-[#E41E26] dark:group-hover:text-[#FDB913]">
+                <FaArrowLeft className="text-[10px]" />
+                <span>الصفحة الرئيسية</span>
+              </p>
+            </div>
+
+            {/* Hover Effect Ring */}
+            <div className="absolute inset-0 -m-2 rounded-2xl bg-gradient-to-r from-[#E41E26] to-[#FDB913] pointer-events-none opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
           </Link>
         </motion.div>
 
