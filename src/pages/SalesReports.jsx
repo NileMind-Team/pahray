@@ -24,6 +24,7 @@ import {
   FaBan,
   FaChevronLeft,
   FaChevronRight,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -180,6 +181,16 @@ const fetchUsers = async () => {
     return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
+    throw error;
+  }
+};
+
+const fetchUserProfile = async () => {
+  try {
+    const response = await axiosInstance.get("/api/Account/Profile");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
     throw error;
   }
 };
@@ -786,6 +797,7 @@ const SalesReports = () => {
   const [allOrdersForStats, setAllOrdersForStats] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [totalPriceFromResponse, setTotalPriceFromResponse] = useState(0);
+  const [userRoles, setUserRoles] = useState([]); // تغيير من userRole إلى userRoles (مصفوفة)
 
   useEffect(() => {
     setSummary({
@@ -809,8 +821,22 @@ const SalesReports = () => {
       }
     };
 
+    const loadUserProfile = async () => {
+      try {
+        const profileData = await fetchUserProfile();
+        setUserRoles(profileData.roles || []);
+      } catch (error) {
+        console.error("Error loading user profile:", error);
+      }
+    };
+
     loadUsers();
+    loadUserProfile();
   }, []);
+
+  const hasTodayReportAccess = () => {
+    return userRoles.some((role) => role === "Admin" || role === "Restaurant");
+  };
 
   const fetchReportData = async (page = 1, isFilterAction = false) => {
     if (!startDate || !endDate) {
@@ -1129,44 +1155,37 @@ const SalesReports = () => {
         return;
       }
 
-      Swal.fire({
-        title: "جاري الطباعة",
-        text: `يتم تحضير التقرير للطباعة...`,
-        icon: "info",
-        showConfirmButton: false,
-        timer: 500,
-      }).then(async () => {
-        try {
-          const printData = await fetchAllOrdersForPrint(startDate, endDate);
-          const allOrders = printData.orders || [];
+      try {
+        const printData = await fetchAllOrdersForPrint(startDate, endDate);
+        const allOrders = printData.orders || [];
 
-          if (allOrders.length === 0) {
-            if (window.innerWidth < 768) {
-              showSalesMobileAlertToast(
-                "لا توجد بيانات لعرضها في التقرير",
-                "warning"
-              );
-            } else {
-              Swal.fire({
-                icon: "warning",
-                title: "لا توجد بيانات",
-                text: "لا توجد بيانات لعرضها في التقرير",
-                timer: 2000,
-                showConfirmButton: false,
-              });
-            }
-            setIsPrinting(false);
-            return;
+        if (allOrders.length === 0) {
+          if (window.innerWidth < 768) {
+            showSalesMobileAlertToast(
+              "لا توجد بيانات لعرضها في التقرير",
+              "warning"
+            );
+          } else {
+            Swal.fire({
+              icon: "warning",
+              title: "لا توجد بيانات",
+              text: "لا توجد بيانات لعرضها في التقرير",
+              timer: 2000,
+              showConfirmButton: false,
+            });
           }
+          setIsPrinting(false);
+          return;
+        }
 
-          const printSummary = calculateSummary(
-            allOrders,
-            startDate,
-            endDate,
-            summary?.totalSales || 0
-          );
+        const printSummary = calculateSummary(
+          allOrders,
+          startDate,
+          endDate,
+          summary?.totalSales || 0
+        );
 
-          const printContent = `
+        const printContent = `
 <!DOCTYPE html>
 <html dir="rtl" lang="ar">
 <head>
@@ -1518,52 +1537,491 @@ ${
 </html>
           `;
 
-          const printFrame = document.createElement("iframe");
-          printFrame.style.display = "none";
-          printFrame.style.position = "absolute";
-          printFrame.style.top = "-9999px";
-          printFrame.style.left = "-9999px";
-          document.body.appendChild(printFrame);
+        const printFrame = document.createElement("iframe");
+        printFrame.style.display = "none";
+        printFrame.style.position = "absolute";
+        printFrame.style.top = "-9999px";
+        printFrame.style.left = "-9999px";
+        document.body.appendChild(printFrame);
 
-          const printWindow = printFrame.contentWindow;
+        const printWindow = printFrame.contentWindow;
 
-          printWindow.document.open();
-          printWindow.document.write(printContent);
-          printWindow.document.close();
+        printWindow.document.open();
+        printWindow.document.write(printContent);
+        printWindow.document.close();
 
-          printWindow.onload = () => {
+        printWindow.onload = () => {
+          setTimeout(() => {
+            printWindow.focus();
+            printWindow.print();
+
             setTimeout(() => {
-              printWindow.focus();
-              printWindow.print();
-
-              setTimeout(() => {
-                document.body.removeChild(printFrame);
-                setIsPrinting(false);
-                if (window.innerWidth < 768) {
-                  showSalesMobileSuccessToast("تم تحضير التقرير للطباعة");
-                }
-              }, 1000);
-            }, 500);
-          };
-        } catch (error) {
-          console.error("Error in print process:", error);
-          if (window.innerWidth < 768) {
-            showSalesMobileAlertToast("فشل في تحميل بيانات الطباعة", "error");
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "خطأ",
-              text: "فشل في تحميل بيانات الطباعة",
-              timer: 2000,
-              showConfirmButton: false,
-            });
-          }
-          setIsPrinting(false);
+              document.body.removeChild(printFrame);
+              setIsPrinting(false);
+            }, 1000);
+          }, 500);
+        };
+      } catch (error) {
+        console.error("Error in print process:", error);
+        if (window.innerWidth < 768) {
+          showSalesMobileAlertToast("فشل في تحميل بيانات الطباعة", "error");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "خطأ",
+            text: "فشل في تحميل بيانات الطباعة",
+            timer: 2000,
+            showConfirmButton: false,
+          });
         }
-      });
+        setIsPrinting(false);
+      }
     } catch (error) {
       console.error("Error in handlePrint:", error);
       setIsPrinting(false);
+    }
+  };
+
+  const handleTodayReport = async () => {
+    try {
+      setIsPrinting(true);
+
+      const today = new Date();
+      const todayStart = startOfDay(today);
+      const todayEnd = endOfDay(today);
+
+      if (window.innerWidth < 768) {
+        showSalesMobileAlertToast("جاري تحضير تقرير اليوم...", "info");
+      } else {
+        Swal.fire({
+          title: "جاري التحضير",
+          text: "يتم تحضير تقرير اليوم للطباعة...",
+          icon: "info",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+
+      const printData = await fetchAllOrdersForPrint(todayStart, todayEnd);
+      const allOrders = printData.orders || [];
+
+      if (allOrders.length === 0) {
+        if (window.innerWidth < 768) {
+          showSalesMobileAlertToast("لا توجد طلبات لهذا اليوم", "warning");
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "لا توجد بيانات",
+            text: "لا توجد طلبات لهذا اليوم",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        }
+        setIsPrinting(false);
+        return;
+      }
+
+      const printSummary = calculateSummary(allOrders, todayStart, todayEnd, 0);
+
+      const printContent = `
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تقرير اليوم - Chicken One</title>
+<style>
+  @media print {
+    @page { margin: 0; size: A4 portrait; }
+    body {
+      margin: 0; padding: 15px;
+      font-family: 'Arial', sans-serif;
+      background: white !important;
+      color: black !important;
+      direction: rtl;
+      font-size: 15px;
+    }
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+  }
+  
+  body {
+    margin: 0; padding: 15px;
+    font-family: 'Arial', sans-serif;
+    background: white !important;
+    color: black !important;
+    direction: rtl;
+    font-size: 11px;
+  }
+  
+  .print-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000;
+  }
+  
+  .print-header h1 {
+    color: black !important;
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .print-header h2 {
+    color: #333 !important;
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .print-header p {
+    color: #666 !important;
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .print-info {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .print-info div {
+    margin: 5px 0;
+  }
+  
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 15px 0;
+    text-align: center;
+  }
+  
+  .stat-card {
+    background: #f5f5f5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  
+  .stat-card h3 {
+    color: #666 !important;
+    margin: 0 0 6px 0;
+    font-size: 10px;
+    font-weight: normal;
+  }
+  
+  .stat-card p {
+    color: black !important;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 9px;
+    table-layout: fixed;
+  }
+  
+  .print-table th {
+    background-color: #f0f0f0 !important;
+    color: black !important;
+    padding: 6px 3px;
+    text-align: center;
+    border: 1px solid #ccc !important;
+    font-weight: bold;
+    font-size: 9px;
+  }
+  
+  .print-table td {
+    padding: 5px 3px;
+    border: 1px solid #ddd !important;
+    text-align: center;
+    color: black !important;
+    font-size: 8px;
+  }
+  
+  .print-table tr:nth-child(even) {
+    background-color: #f9f9f9 !important;
+  }
+  
+  .customer-name {
+    font-weight: bold;
+  }
+  
+  .status-badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: bold;
+  }
+  
+  .status-pending {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+  }
+  
+  .status-confirmed {
+    background: #dbeafe !important;
+    color: #1e40af !important;
+  }
+  
+  .status-preparing {
+    background: #ffedd5 !important;
+    color: #92400e !important;
+  }
+  
+  .status-outfordelivery {
+    background: #f3e8ff !important;
+    color: #6b21a8 !important;
+  }
+  
+  .status-delivered {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+  }
+  
+  .status-cancelled {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+  }
+  
+  .order-type-delivery {
+    color: #1d4ed8 !important;
+  }
+  
+  .order-type-pickup {
+    color: #059669 !important;
+  }
+  
+  .total-amount {
+    font-weight: bold;
+  }
+  
+  .print-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666 !important;
+    font-size: 9px;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  .no-data {
+    text-align: center;
+    padding: 40px;
+    color: #666 !important;
+  }
+</style>
+</head>
+<body>
+
+<div class="print-header">
+  <h1>تقرير اليوم - Chicken One</h1>
+  <h2>${format(todayStart, "dd/MM/yyyy").replace(/\d/g, (d) =>
+    toArabicNumbers(d)
+  )}</h2>
+  <p>نظام إدارة المطاعم - تقرير اليوم الحالي</p>
+</div>
+
+<div class="print-info">
+  <div>تاريخ الطباعة: ${new Date().toLocaleDateString(
+    "ar-EG"
+  )} الساعة: ${format(new Date(), "HH:mm").replace(/\d/g, (d) =>
+        toArabicNumbers(d)
+      )}</div>
+  <div>الفترة: من ${format(todayStart, "dd/MM/yyyy HH:mm").replace(/\d/g, (d) =>
+    toArabicNumbers(d)
+  )} إلى ${format(todayEnd, "dd/MM/yyyy HH:mm").replace(/\d/g, (d) =>
+        toArabicNumbers(d)
+      )}</div>
+  <div>عدد السجلات: ${formatNumberArabic(allOrders.length)}</div>
+</div>
+
+<div class="stats-container">
+  <div class="stat-card">
+    <h3>إجمالي المبيعات</h3>
+    <p>${formatCurrencyArabic(printSummary.totalSales || 0)}</p>
+  </div>
+  <div class="stat-card">
+    <h3>إجمالي الطلبات</h3>
+    <p>${formatNumberArabic(printSummary.totalOrders || 0)}</p>
+  </div>
+  <div class="stat-card">
+    <h3>طلبات التوصيل</h3>
+    <p>${formatNumberArabic(printSummary.deliveryOrders || 0)}</p>
+  </div>
+  <div class="stat-card">
+    <h3>طلبات الاستلام</h3>
+    <p>${formatNumberArabic(printSummary.pickupOrders || 0)}</p>
+  </div>
+</div>
+
+${
+  allOrders.length === 0
+    ? `
+  <div class="no-data">
+    <h3>لا توجد طلبات لهذا اليوم</h3>
+  </div>
+`
+    : `
+  <table class="print-table">
+    <thead>
+      <tr>
+        <th width="10%">رقم الطلب</th>
+        <th width="15%">العميل</th>
+        <th width="10%">الهاتف</th>
+        <th width="10%">نوع الطلب</th>
+        <th width="20%">العنوان</th>
+        <th width="10%">الحالة</th>
+        <th width="15%">المبلغ النهائي</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${allOrders
+        .map((order, index) => {
+          const userName = findUserName(order.userId);
+          const statusClass = getPrintStatusClass(order.status);
+          const orderTypeClass = `order-type-${
+            order.deliveryFee?.fee > 0 ? "delivery" : "pickup"
+          }`;
+          const orderNumberArabic = order.orderNumber
+            ? order.orderNumber.replace(/\d/g, (d) => toArabicNumbers(d))
+            : "";
+          const phoneArabic = order.location?.phoneNumber
+            ? order.location.phoneNumber.replace(/\d/g, (d) =>
+                toArabicNumbers(d)
+              )
+            : "غير متوفر";
+          return `
+          <tr>
+            <td class="customer-name">${orderNumberArabic}</td>
+            <td>${userName}</td>
+            <td>${phoneArabic}</td>
+            <td class="${orderTypeClass}">${
+            order.deliveryFee?.fee > 0 ? "توصيل" : "استلام"
+          }</td>
+            <td>${order.location?.streetName || "غير متوفر"}</td>
+            <td><span class="status-badge ${statusClass}">${getStatusLabel(
+            order.status
+          )}</span></td>
+            <td class="total-amount">${formatCurrencyArabic(
+              order.totalWithFee || 0
+            )}</td>
+          </tr>
+        `;
+        })
+        .join("")}
+      <tr style="background-color: #f0f0f0 !important; font-weight: bold;">
+        <td colspan="6" style="text-align: left; padding-right: 20px;">المجموع الكلي:</td>
+        <td class="total-amount" style="text-align: center;">${formatCurrencyArabic(
+          printSummary.totalSales || 0
+        )}</td>
+      </tr>
+    </tbody>
+  </table>
+`
+}
+
+${
+  printSummary?.topProducts && printSummary.topProducts.length > 0
+    ? `
+<div style="margin-top: 30px;">
+  <div style="text-align: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #ddd;">
+    <h2 style="margin: 0; font-size: 16px; color: black;">المنتجات الأكثر مبيعاً اليوم</h2>
+  </div>
+  <table class="print-table">
+    <thead>
+      <tr>
+        <th width="5%">#</th>
+        <th width="45%">اسم المنتج</th>
+        <th width="20%">الكمية</th>
+        <th width="30%">الإيرادات</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${printSummary.topProducts
+        .map(
+          (product, index) => `
+        <tr>
+          <td style="text-align: center;">${toArabicNumbers(index + 1)}</td>
+          <td style="text-align: center;">${product.name}</td>
+          <td style="text-align: center;">${formatNumberArabic(
+            product.quantity
+          )}</td>
+          <td class="total-amount" style="text-align: center;">${formatCurrencyArabic(
+            product.revenue
+          )}</td>
+        </tr>
+      `
+        )
+        .join("")}
+    </tbody>
+  </table>
+</div>
+`
+    : ""
+}
+
+<div class="print-footer">
+  <p>تم الإنشاء في: ${format(new Date(), "yyyy/MM/dd HH:mm").replace(
+    /\d/g,
+    (d) => toArabicNumbers(d)
+  )}</p>
+  <p>Chicken One © ${toArabicNumbers(new Date().getFullYear())}</p>
+</div>
+
+</body>
+</html>
+          `;
+
+      const printFrame = document.createElement("iframe");
+      printFrame.style.display = "none";
+      printFrame.style.position = "absolute";
+      printFrame.style.top = "-9999px";
+      printFrame.style.left = "-9999px";
+      document.body.appendChild(printFrame);
+
+      const printWindow = printFrame.contentWindow;
+
+      printWindow.document.open();
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+
+      printWindow.onload = () => {
+        setTimeout(() => {
+          printWindow.focus();
+          printWindow.print();
+
+          setTimeout(() => {
+            document.body.removeChild(printFrame);
+            setIsPrinting(false);
+          }, 1000);
+        }, 500);
+      };
+    } catch (error) {
+      console.error("Error in today report:", error);
+      setIsPrinting(false);
+      if (window.innerWidth < 768) {
+        showSalesMobileAlertToast("فشل في تحضير تقرير اليوم", "error");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "خطأ",
+          text: "فشل في تحضير تقرير اليوم",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+      }
     }
   };
 
@@ -1614,6 +2072,27 @@ ${
                 </p>
               </div>
             </div>
+            {hasTodayReportAccess() && (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleTodayReport}
+                disabled={isPrinting}
+                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-green-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
+              >
+                {isPrinting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    جاري الطباعة...
+                  </>
+                ) : (
+                  <>
+                    <FaRegCalendarAlt />
+                    تقرير اليوم
+                  </>
+                )}
+              </motion.button>
+            )}
           </div>
         </div>
 
