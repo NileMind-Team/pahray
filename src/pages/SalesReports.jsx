@@ -175,16 +175,6 @@ const fetchOrderDetails = async (orderId) => {
   }
 };
 
-const fetchUsers = async () => {
-  try {
-    const response = await axiosInstance.get("/api/Users/GetAll");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error;
-  }
-};
-
 const fetchUserProfile = async () => {
   try {
     const response = await axiosInstance.get("/api/Account/Profile");
@@ -306,15 +296,24 @@ const formatNumberArabic = (number) => {
   return arabicNum.replace(/\B(?=(\d{3})+(?!\d))/g, "٬");
 };
 
-const OrderDetailsModal = ({ order, onClose, users }) => {
+const OrderDetailsModal = ({ order, onClose }) => {
   if (!order) return null;
 
   const BASE_URL = "https://restaurant-template.runasp.net";
 
-  const findUserName = (userId) => {
-    if (!userId || !users) return "غير معروف";
-    const user = users.find((u) => u.id === userId);
-    return user ? `${user.firstName} ${user.lastName}` : userId.substring(0, 8);
+  const getUserFullName = () => {
+    if (!order.user) return "غير معروف";
+    return `${order.user.firstName || ""} ${order.user.lastName || ""}`.trim();
+  };
+
+  const getPhoneNumber = () => {
+    if (order.location?.phoneNumber) {
+      return order.location.phoneNumber;
+    }
+    if (order.user?.phoneNumber) {
+      return order.user.phoneNumber;
+    }
+    return "غير متوفر";
   };
 
   const getStatusIcon = (status) => {
@@ -374,29 +373,24 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
     }
   };
 
-  // دالة لحساب السعر النهائي لكل منتج (بعد الاضافات وخصم المنتج)
   const calculateItemFinalPrice = (item) => {
     if (!item) return 0;
 
-    // السعر الأساسي للمنتج
     const basePrice = item.menuItem?.basePrice || item.basePriceAtOrder || 0;
 
-    // خصم المنتج (إن وجد)
     const itemDiscount = item.totalDiscount || 0;
 
-    // اجمالي الاضافات
     const optionsTotal =
       item.options?.reduce(
         (sum, option) => sum + (option.optionPriceAtOrder || 0),
         0
       ) || 0;
 
-    // حساب السعر النهائي للمنتج الواحد
     const itemPriceBeforeDiscount =
       (basePrice + optionsTotal) * (item.quantity || 1);
     const itemFinalPrice = itemPriceBeforeDiscount - itemDiscount;
 
-    return Math.max(itemFinalPrice, 0); // التأكد من عدم ظهور سعر سالب
+    return Math.max(itemFinalPrice, 0);
   };
 
   return (
@@ -445,7 +439,7 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                     اسم العميل:
                   </span>
                   <span className="font-medium text-gray-800 dark:text-white">
-                    {findUserName(order.userId)}
+                    {getUserFullName()}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -453,19 +447,9 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                     رقم الهاتف:
                   </span>
                   <span className="font-medium text-gray-800 dark:text-white">
-                    {order.location?.phoneNumber || "غير متوفر"}
+                    {getPhoneNumber()}
                   </span>
                 </div>
-                {order.location?.city && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">
-                      المدينة:
-                    </span>
-                    <span className="font-medium text-gray-800 dark:text-white">
-                      {order.location.city.name || order.location.city}
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
 
@@ -492,14 +476,16 @@ const OrderDetailsModal = ({ order, onClose, users }) => {
                       (order.deliveryFee?.fee > 0 ? "توصيل" : "استلام")}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">
-                    العنوان:
-                  </span>
-                  <span className="font-medium text-gray-800 dark:text-white">
-                    {order.location?.streetName || "غير متوفر"}
-                  </span>
-                </div>
+                {order.location?.streetName && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      العنوان:
+                    </span>
+                    <span className="font-medium text-gray-800 dark:text-white">
+                      {order.location.streetName}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">
                     تكلفة التوصيل:
@@ -786,9 +772,6 @@ const SalesReports = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orderDetails, setOrderDetails] = useState(null);
   const [loadingDetails, setLoadingDetails] = useState(false);
-  const [users, setUsers] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const [loadingUsers, setLoadingUsers] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -797,7 +780,7 @@ const SalesReports = () => {
   const [allOrdersForStats, setAllOrdersForStats] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [totalPriceFromResponse, setTotalPriceFromResponse] = useState(0);
-  const [userRoles, setUserRoles] = useState([]); // تغيير من userRole إلى userRoles (مصفوفة)
+  const [userRoles, setUserRoles] = useState([]);
 
   useEffect(() => {
     setSummary({
@@ -809,18 +792,6 @@ const SalesReports = () => {
       dateRange: "لم يتم تحديد فترة",
     });
 
-    const loadUsers = async () => {
-      setLoadingUsers(true);
-      try {
-        const usersData = await fetchUsers();
-        setUsers(usersData);
-      } catch (error) {
-        console.error("Error loading users:", error);
-      } finally {
-        setLoadingUsers(false);
-      }
-    };
-
     const loadUserProfile = async () => {
       try {
         const profileData = await fetchUserProfile();
@@ -830,7 +801,6 @@ const SalesReports = () => {
       }
     };
 
-    loadUsers();
     loadUserProfile();
   }, []);
 
@@ -994,11 +964,26 @@ const SalesReports = () => {
     setOrderDetails(null);
   };
 
-  const findUserName = (userId) => {
-    if (!userId || !users || users.length === 0)
-      return userId?.substring(0, 8) || "غير معروف";
-    const user = users.find((u) => u.id === userId);
-    return user ? `${user.firstName} ${user.lastName}` : userId.substring(0, 8);
+  const getCustomerName = (order) => {
+    if (!order.user) return "غير معروف";
+    return `${order.user.firstName || ""} ${order.user.lastName || ""}`.trim();
+  };
+
+  const getCustomerPhone = (order) => {
+    if (order.location?.phoneNumber) {
+      return order.location.phoneNumber;
+    }
+    if (order.user?.phoneNumber) {
+      return order.user.phoneNumber;
+    }
+    return "غير متوفر";
+  };
+
+  const getCustomerCity = (order) => {
+    if (order.location?.city?.name) {
+      return order.location.city.name;
+    }
+    return "لا يوجد";
   };
 
   const formatCurrency = (amount) => {
@@ -1434,7 +1419,7 @@ ${
         <th width="15%">العميل</th>
         <th width="10%">الهاتف</th>
         <th width="10%">نوع الطلب</th>
-        <th width="20%">العنوان</th>
+        <th width="20%">المدينة</th>
         <th width="10%">الحالة</th>
         <th width="15%">المبلغ النهائي</th>
       </tr>
@@ -1442,7 +1427,18 @@ ${
     <tbody>
       ${allOrders
         .map((order, index) => {
-          const userName = findUserName(order.userId);
+          const userName = order.user
+            ? `${order.user.firstName || ""} ${
+                order.user.lastName || ""
+              }`.trim()
+            : "غير معروف";
+
+          const phoneNumber = order.location?.phoneNumber
+            ? order.location.phoneNumber
+            : order.user?.phoneNumber || "غير متوفر";
+
+          const cityName = order.location?.city?.name || "لا يوجد";
+
           const statusClass = getPrintStatusClass(order.status);
           const orderTypeClass = `order-type-${
             order.deliveryFee?.fee > 0 ? "delivery" : "pickup"
@@ -1450,11 +1446,11 @@ ${
           const orderNumberArabic = order.orderNumber
             ? order.orderNumber.replace(/\d/g, (d) => toArabicNumbers(d))
             : "";
-          const phoneArabic = order.location?.phoneNumber
-            ? order.location.phoneNumber.replace(/\d/g, (d) =>
-                toArabicNumbers(d)
-              )
+          const phoneArabic = phoneNumber
+            ? phoneNumber.replace(/\d/g, (d) => toArabicNumbers(d))
             : "غير متوفر";
+          const cityArabic = cityName;
+
           return `
           <tr>
             <td class="customer-name">${orderNumberArabic}</td>
@@ -1463,7 +1459,7 @@ ${
             <td class="${orderTypeClass}">${
             order.deliveryFee?.fee > 0 ? "توصيل" : "استلام"
           }</td>
-            <td>${order.location?.streetName || "غير متوفر"}</td>
+            <td>${cityArabic}</td>
             <td><span class="status-badge ${statusClass}">${getStatusLabel(
             order.status
           )}</span></td>
@@ -1881,7 +1877,7 @@ ${
         <th width="15%">العميل</th>
         <th width="10%">الهاتف</th>
         <th width="10%">نوع الطلب</th>
-        <th width="20%">العنوان</th>
+        <th width="20%">المدينة</th>
         <th width="10%">الحالة</th>
         <th width="15%">المبلغ النهائي</th>
       </tr>
@@ -1889,7 +1885,18 @@ ${
     <tbody>
       ${allOrders
         .map((order, index) => {
-          const userName = findUserName(order.userId);
+          const userName = order.user
+            ? `${order.user.firstName || ""} ${
+                order.user.lastName || ""
+              }`.trim()
+            : "غير معروف";
+
+          const phoneNumber = order.location?.phoneNumber
+            ? order.location.phoneNumber
+            : order.user?.phoneNumber || "غير متوفر";
+
+          const cityName = order.location?.city?.name || "لا يوجد";
+
           const statusClass = getPrintStatusClass(order.status);
           const orderTypeClass = `order-type-${
             order.deliveryFee?.fee > 0 ? "delivery" : "pickup"
@@ -1897,11 +1904,11 @@ ${
           const orderNumberArabic = order.orderNumber
             ? order.orderNumber.replace(/\d/g, (d) => toArabicNumbers(d))
             : "";
-          const phoneArabic = order.location?.phoneNumber
-            ? order.location.phoneNumber.replace(/\d/g, (d) =>
-                toArabicNumbers(d)
-              )
+          const phoneArabic = phoneNumber
+            ? phoneNumber.replace(/\d/g, (d) => toArabicNumbers(d))
             : "غير متوفر";
+          const cityArabic = cityName;
+
           return `
           <tr>
             <td class="customer-name">${orderNumberArabic}</td>
@@ -1910,7 +1917,7 @@ ${
             <td class="${orderTypeClass}">${
             order.deliveryFee?.fee > 0 ? "توصيل" : "استلام"
           }</td>
-            <td>${order.location?.streetName || "غير متوفر"}</td>
+            <td>${cityArabic}</td>
             <td><span class="status-badge ${statusClass}">${getStatusLabel(
             order.status
           )}</span></td>
@@ -2385,10 +2392,10 @@ ${
                           {order.orderNumber}
                         </td>
                         <td className="px-4 py-3 text-center text-sm text-gray-600 dark:text-gray-400">
-                          {findUserName(order.userId)}
+                          {getCustomerName(order)}
                         </td>
                         <td className="px-4 py-3 text-center text-sm text-gray-600 dark:text-gray-400">
-                          {order.location?.phoneNumber || "غير متوفر"}
+                          {getCustomerPhone(order)}
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span
@@ -2412,7 +2419,7 @@ ${
                           </span>
                         </td>
                         <td className="px-4 py-3 text-center text-sm text-gray-600 dark:text-gray-400">
-                          {order.location?.streetName || "غير متوفر"}
+                          {getCustomerCity(order)}
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span
@@ -2550,7 +2557,6 @@ ${
         <OrderDetailsModal
           order={orderDetails || selectedOrder}
           onClose={handleCloseOrderDetails}
-          users={users}
         />
       )}
     </div>
