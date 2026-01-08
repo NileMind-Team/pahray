@@ -603,8 +603,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
                 </p>
               </div>
             </div>
-            if (order.notes){" "}
-            {
+            {order.notes && (
               <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
                   ملاحظات:
@@ -613,7 +612,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
                   {order.notes}
                 </p>
               </div>
-            }
+            )}
           </div>
         </div>
       </motion.div>
@@ -1588,8 +1587,9 @@ ${
               </div>
             </div>
 
+            {/* First Row: All filter fields */}
             <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4"
+              className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4"
               dir="rtl"
             >
               <div>
@@ -1695,7 +1695,6 @@ ${
                         onClick={handleClearBranchFilter}
                         className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-all text-sm border-b dark:border-gray-600 flex items-center gap-2"
                       >
-                        <FaTimes className="text-gray-500 dark:text-gray-400 text-xs" />
                         <span className="text-gray-700 dark:text-gray-300">
                           جميع الفروع
                         </span>
@@ -1719,8 +1718,11 @@ ${
                   )}
                 </div>
               </div>
+            </div>
 
-              <div>
+            {/* Second Row: Filter and Print buttons only */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="md:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                   إجراءات التقرير
                 </label>
@@ -1745,7 +1747,7 @@ ${
                       whileTap={{ scale: 0.95 }}
                       onClick={handlePrint}
                       disabled={isPrinting}
-                      className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 ${
+                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 ${
                         isPrinting
                           ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                           : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white cursor-pointer"
