@@ -22,8 +22,6 @@ const Favorites = () => {
   const [addingToCart, setAddingToCart] = useState(null);
   const navigate = useNavigate();
 
-  const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
-
   // Function to check if device is mobile
   const isMobile = () => {
     return window.innerWidth <= 768;
@@ -463,7 +461,7 @@ const Favorites = () => {
   if (loading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -472,7 +470,7 @@ const Favorites = () => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
     >
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-10 sm:-left-20 -top-10 sm:-top-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>

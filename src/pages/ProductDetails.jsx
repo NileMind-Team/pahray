@@ -63,8 +63,6 @@ const ProductDetails = () => {
   const addonTypeModalRef = useRef(null);
   const notesModalRef = useRef(null);
 
-  const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
-
   const isMobile = () => {
     return window.innerWidth < 768;
   };
@@ -953,7 +951,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -963,7 +961,7 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4`}
       >
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
@@ -982,7 +980,7 @@ const ProductDetails = () => {
 
   return (
     <div
-      className={`min-h-screen from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} transition-colors duration-300`}
+      className={`min-h-screen from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 transition-colors duration-300`}
     >
       {/* Option Modal */}
       {showOptionModal && (

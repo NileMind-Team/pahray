@@ -23,8 +23,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../api/axiosInstance";
 
-const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
-
 const translateProfileErrorMessage = (errorData) => {
   if (!errorData) return "حدث خطأ غير معروف";
 
@@ -458,7 +456,7 @@ export default function Profile() {
   if (!user) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground}`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -484,7 +482,7 @@ export default function Profile() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4 py-4 sm:py-8 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4 py-4 sm:py-8 relative font-sans overflow-hidden transition-colors duration-300`}
       dir="rtl"
     >
       {/* Animated Background Elements */}

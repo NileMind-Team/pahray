@@ -13,8 +13,6 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
-
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -199,7 +197,7 @@ export default function ResetPassword() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4 relative font-sans overflow-hidden transition-colors duration-300`}
     >
       <div className="absolute inset-0 overflow-hidden">
         <div

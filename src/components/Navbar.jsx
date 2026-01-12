@@ -46,8 +46,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   // eslint-disable-next-line no-unused-vars
   const [isHoveringLogo, setIsHoveringLogo] = useState(false);
 
-  const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
-
   const isLoggedIn = !!localStorage.getItem("token");
 
   const authLinks = [
@@ -340,7 +338,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   if (loading) {
     return (
       <div
-        className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground}`}
+        className={`fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
