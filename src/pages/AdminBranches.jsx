@@ -13,8 +13,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { translateErrorMessageAdminBranches } from "../utils/ErrorTranslator";
 
-
-const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
 const adjustTimeForBackend = (timeString) => {
@@ -645,7 +643,7 @@ export default function AdminBranches() {
   if (isLoadingAuth || isLoadingData) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -658,7 +656,7 @@ export default function AdminBranches() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden`}
       dir="rtl"
     >
       <div className="absolute inset-0 overflow-hidden">

@@ -18,12 +18,11 @@ const AuthLayout = forwardRef(
     },
     ref
   ) => {
-    const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
     const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4 relative font-sans overflow-hidden transition-colors duration-300`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4 relative font-sans overflow-hidden transition-colors duration-300`}
         dir="rtl"
       >
         {/* Background decorative elements */}

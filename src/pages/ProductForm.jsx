@@ -103,7 +103,6 @@ const ProductForm = () => {
   ];
   */
 
-  const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
   const isArabic = (text) => {
@@ -1162,7 +1161,7 @@ const ProductForm = () => {
   if (isLoadingProduct) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -1171,7 +1170,7 @@ const ProductForm = () => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-2 xs:px-3 sm:px-4 md:px-6 py-2 xs:py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-2 xs:px-3 sm:px-4 md:px-6 py-2 xs:py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
       dir="rtl"
     >
       <div className="absolute inset-0 overflow-hidden">

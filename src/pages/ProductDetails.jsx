@@ -63,7 +63,6 @@ const ProductDetails = () => {
   const addonTypeModalRef = useRef(null);
   const notesModalRef = useRef(null);
 
-  const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
   const isMobile = () => {
@@ -401,9 +400,7 @@ const ProductDetails = () => {
   const formatPriceDisplay = (product) => {
     if (product.isPriceBasedOnRequest) {
       return (
-        <div
-          className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}
-        >
+        <div className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}>
           السعر حسب الطلب
         </div>
       );
@@ -415,9 +412,7 @@ const ProductDetails = () => {
           <div className="text-gray-400 dark:text-gray-500 text-base md:text-lg line-through">
             {toArabicNumbers(product.price)} ج.م
           </div>
-          <div
-            className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}
-          >
+          <div className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}>
             {toArabicNumbers(product.finalPrice.toFixed(2))} ج.م
           </div>
         </>
@@ -947,7 +942,6 @@ const ProductDetails = () => {
     navigate("/cart");
   };
 
-  // التحقق من صلاحيات المستخدم
   const isAdmin = userRoles.includes("Admin");
   const isRestaurant = userRoles.includes("Restaurant");
   const isBranch = userRoles.includes("Branch");
@@ -959,7 +953,7 @@ const ProductDetails = () => {
   if (loading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -969,7 +963,7 @@ const ProductDetails = () => {
   if (!product) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
       >
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
@@ -988,7 +982,7 @@ const ProductDetails = () => {
 
   return (
     <div
-      className={`min-h-screen ${lightBackground} dark:${darkBackground} transition-colors duration-300`}
+      className={`min-h-screen from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} transition-colors duration-300`}
     >
       {/* Option Modal */}
       {showOptionModal && (

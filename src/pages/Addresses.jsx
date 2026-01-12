@@ -39,7 +39,6 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
-const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
 const translateAddressErrorMessage = (errorData) => {
@@ -688,7 +687,7 @@ export default function Addresses() {
   if (isLoading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -697,7 +696,7 @@ export default function Addresses() {
 
   return (
     <div
-      className={`min-h-screen ${lightBackground} dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen from-white via-[#f0f2ff] to-[#e0e5ff] dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
     >
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -left-10 sm:-left-20 -top-10 sm:-top-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>

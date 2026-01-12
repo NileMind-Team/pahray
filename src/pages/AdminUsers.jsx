@@ -53,8 +53,6 @@ export default function AdminUsers() {
     isCurrentUser,
   } = useUsers();
 
-  const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
-
   const showWarningAlert = (title, message) => {
     if (window.innerWidth < 768) {
       toast.warning(message || title, {
@@ -212,7 +210,7 @@ export default function AdminUsers() {
   if (isLoading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -227,7 +225,7 @@ export default function AdminUsers() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br ${lightBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
       style={{ direction: "rtl" }}
     >
       <div className="absolute inset-0 overflow-hidden">
