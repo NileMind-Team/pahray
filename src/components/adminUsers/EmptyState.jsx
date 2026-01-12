@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { FaUserShield, FaPlus } from "react-icons/fa";
 
 export default function EmptyState({ searchTerm, handleAddNewUser }) {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   return (
     <motion.div
@@ -26,7 +25,7 @@ export default function EmptyState({ searchTerm, handleAddNewUser }) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleAddNewUser}
-          className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
+          className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
         >
           <FaPlus className="text-xs sm:text-sm" />
           <span>أضف أول مستخدم</span>

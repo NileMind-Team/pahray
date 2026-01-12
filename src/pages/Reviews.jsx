@@ -32,7 +32,6 @@ export default function Reviews() {
     comment: "",
   });
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -444,7 +443,7 @@ export default function Reviews() {
       >
         {/* Header Background */}
         <div
-          className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r ${primaryGradient} overflow-hidden`}
+          className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] overflow-hidden`}
         >
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-white/10 rounded-full"></div>
@@ -490,7 +489,7 @@ export default function Reviews() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddNewReview}
-              className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
+              className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
             >
               <FaPlus className="text-sm sm:text-base md:text-lg" />
               <span>اكتب تقييم جديد</span>
@@ -581,7 +580,7 @@ export default function Reviews() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleAddNewReview}
-                    className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
+                    className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                   >
                     <FaPlus className="text-xs sm:text-sm" />
                     <span>اكتب أول تقييم لك</span>
@@ -747,7 +746,7 @@ export default function Reviews() {
                           disabled={!isFormValid()}
                           className={`flex-1 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-1 sm:gap-2 ${
                             isFormValid()
-                              ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
+                              ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                               : "bg-gray-300 text-gray-500 cursor-not-allowed dark:bg-gray-600 dark:text-gray-400"
                           }`}
                         >

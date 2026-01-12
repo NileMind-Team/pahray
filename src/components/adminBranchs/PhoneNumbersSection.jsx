@@ -16,8 +16,6 @@ const PhoneNumbersSection = ({ phoneNumbers, setPhoneNumbers }) => {
   });
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
-
   const getPhoneTypeArabic = (type) => {
     switch (type) {
       case "Mobile":
@@ -218,7 +216,7 @@ const PhoneNumbersSection = ({ phoneNumbers, setPhoneNumbers }) => {
             disabled={!phoneNumber.phone.trim()}
             className={`py-2 rounded-lg font-semibold transition-all duration-300 text-sm flex items-center justify-center gap-2 ${
               phoneNumber.phone.trim()
-                ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-lg`
+                ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-lg`
                 : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
             }`}
           >

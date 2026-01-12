@@ -26,7 +26,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../api/axiosInstance";
 
-const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -891,7 +890,7 @@ export default function ItemOffersManagement() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleAddNewOffer}
-                className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base whitespace-nowrap w-full sm:w-auto justify-center`}
+                className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-5 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base whitespace-nowrap w-full sm:w-auto justify-center`}
               >
                 <FaPlus className="text-sm" />
                 <span className="hidden sm:inline">إنشاء عرض</span>
@@ -1143,7 +1142,7 @@ export default function ItemOffersManagement() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleAddNewOffer}
-                  className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
+                  className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                 >
                   <FaPlus className="text-xs sm:text-sm" />
                   <span>إنشاء أول عرض</span>
@@ -1550,7 +1549,7 @@ export default function ItemOffersManagement() {
                           isFormValid() &&
                           formData.branchesIds.length > 0 &&
                           !isSubmitting
-                            ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
+                            ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                             : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }`}
                       >

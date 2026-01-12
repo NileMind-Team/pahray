@@ -21,7 +21,6 @@ export default function UserCard({
   handleAssignRole,
   handleToggleStatus,
 }) {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   return (
     <motion.div
@@ -55,7 +54,7 @@ export default function UserCard({
                 className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center font-semibold text-base sm:text-lg md:text-xl border-2 ${
                   user.isActive === false
                     ? "bg-gray-300 text-gray-500 border-red-300 grayscale"
-                    : `bg-gradient-to-r ${primaryGradient} text-white border-[#6A67F0]`
+                    : `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white border-[#6A67F0]`
                 }`}
               >
                 {user.firstName?.charAt(0).toUpperCase() || "م"}

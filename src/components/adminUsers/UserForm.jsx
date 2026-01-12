@@ -23,7 +23,6 @@ export default function UserForm({
   isFormValid,
 }) {
   const [showPassword, setShowPassword] = useState(false);
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   if (!isAdding) return null;
 
@@ -203,7 +202,7 @@ export default function UserForm({
               disabled={!isFormValid()}
               className={`flex-1 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-1 sm:gap-2 ${
                 isFormValid()
-                  ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25`
+                  ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25`
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >

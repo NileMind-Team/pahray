@@ -294,7 +294,6 @@ const OrderDetailsModal = ({ order, onClose }) => {
   if (!order) return null;
 
   const BASE_URL = "https://restaurant-template.runasp.net";
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   const getUserFullName = () => {
     if (!order.user) return "غير معروف";
@@ -397,7 +396,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
         className="relative bg-white dark:bg-gray-800 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl"
       >
         {/* Header */}
-        <div className={`bg-gradient-to-r ${primaryGradient} p-6 relative`}>
+        <div className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] p-6 relative`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
@@ -781,7 +780,6 @@ const SalesReports = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -1581,7 +1579,7 @@ ${
       >
         {/* Header */}
         <div
-          className={`bg-gradient-to-r ${primaryGradient} px-6 py-8 relative overflow-hidden`}
+          className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] px-6 py-8 relative overflow-hidden`}
         >
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -1739,7 +1737,7 @@ ${
                     disabled={!startDate || !endDate}
                     className={`flex-1 px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${
                       startDate && endDate
-                        ? `bg-gradient-to-r ${primaryGradient} text-white cursor-pointer`
+                        ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white cursor-pointer`
                         : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                     }`}
                   >
@@ -2008,7 +2006,7 @@ ${
                               whileTap={{ scale: 0.95 }}
                               onClick={() => handleViewOrderDetails(order.id)}
                               disabled={loadingDetails}
-                              className={`flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r ${primaryGradient} text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 mx-auto`}
+                              className={`flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 mx-auto`}
                             >
                               {loadingDetails &&
                               selectedOrder?.id === order.id ? (
@@ -2074,7 +2072,7 @@ ${
                               onClick={() => handlePageChange(pageNum)}
                               className={`px-3 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold ${
                                 currentPage === pageNum
-                                  ? `bg-gradient-to-r ${primaryGradient} text-white shadow-lg`
+                                  ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white shadow-lg`
                                   : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
                               }`}
                             >

@@ -9,7 +9,6 @@ export default function WaitingConfirmation({
   onResendEmail,
   onBackToLogin,
 }) {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   return (
     <motion.div
@@ -40,7 +39,7 @@ export default function WaitingConfirmation({
         className={`w-full font-semibold py-3.5 rounded-xl transition-all duration-300 text-lg relative overflow-hidden ${
           resendDisabled
             ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-            : `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
+            : `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
         }`}
       >
         {resendDisabled

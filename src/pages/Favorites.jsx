@@ -22,7 +22,6 @@ const Favorites = () => {
   const [addingToCart, setAddingToCart] = useState(null);
   const navigate = useNavigate();
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -488,7 +487,7 @@ const Favorites = () => {
         className="max-w-7xl mx-auto bg-white/90 backdrop-blur-xl shadow-xl sm:shadow-2xl rounded-2xl sm:rounded-3xl border border-white/50 relative overflow-hidden dark:bg-gray-800/90 dark:border-gray-700/50"
       >
         <div
-          className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r ${primaryGradient} overflow-hidden`}
+          className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] overflow-hidden`}
         >
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-white/10 rounded-full"></div>
@@ -529,7 +528,7 @@ const Favorites = () => {
             >
               <div className="max-w-md mx-auto">
                 <div
-                  className={`bg-gradient-to-r ${primaryGradient} w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6`}
+                  className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6`}
                 >
                   <FaHeart className="text-white text-3xl" />
                 </div>
@@ -543,7 +542,7 @@ const Favorites = () => {
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleContinueShopping}
-                  className={`bg-gradient-to-r ${primaryGradient} text-white px-8 py-4 rounded-2xl font-bold hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto text-lg`}
+                  className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-8 py-4 rounded-2xl font-bold hover:shadow-2xl transition-all duration-300 flex items-center gap-3 mx-auto text-lg`}
                 >
                   <FaHome />
                   ابدأ التسوق الآن
@@ -644,7 +643,7 @@ const Favorites = () => {
                             addingToCart === product.id
                               ? "bg-gradient-to-r from-gray-500 to-gray-600 text-white cursor-wait"
                               : product.isActive
-                              ? `bg-gradient-to-r ${primaryGradient} text-white`
+                              ? "bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white"
                               : "bg-gray-400 text-gray-200 cursor-not-allowed"
                           }`}
                         >
@@ -751,7 +750,7 @@ const Favorites = () => {
                             addingToCart === product.id
                               ? "bg-gradient-to-r from-gray-500 to-gray-600 text-white cursor-wait"
                               : product.isActive
-                              ? `bg-gradient-to-r ${primaryGradient} text-white`
+                              ? "bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white"
                               : "bg-gray-400 text-gray-200 cursor-not-allowed"
                           }`}
                         >
@@ -798,7 +797,7 @@ const Favorites = () => {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r ${primaryGradient} text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 transition-transform duration-200 no-product-details ${
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 transition-transform duration-200 no-product-details ${
           cartItemsCount === 0 ? "opacity-70" : ""
         }`}
         onClick={() => navigate("/cart")}

@@ -22,7 +22,6 @@ export default function RegisterForm({
   onToggleConfirmPassword,
   onSubmit,
 }) {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   const getValidationItem = (condition, label) => (
     <div className="flex items-center gap-2 text-sm">
@@ -200,7 +199,7 @@ export default function RegisterForm({
         disabled={!isFormValid || isLoading}
         className={`w-full font-semibold py-3.5 rounded-xl transition-all duration-300 text-lg relative overflow-hidden ${
           isFormValid
-            ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25`
+            ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25`
             : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
         }`}
       >

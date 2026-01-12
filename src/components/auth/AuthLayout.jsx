@@ -18,7 +18,6 @@ const AuthLayout = forwardRef(
     },
     ref
   ) => {
-    const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
     const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
     const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -68,7 +67,7 @@ const AuthLayout = forwardRef(
                   <h1 className="text-3xl font-bold text-gray-900 dark:text-white leading-tight text-right">
                     مرحباً بك في{" "}
                     <span
-                      className={`bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+                      className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent`}
                     >
                       أسماك بحري
                     </span>

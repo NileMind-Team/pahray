@@ -8,7 +8,6 @@ export default function ForgotPasswordForm({
   onSubmit,
   onBack,
 }) {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   return (
     <motion.div
@@ -19,7 +18,7 @@ export default function ForgotPasswordForm({
     >
       <div className="text-center mb-2">
         <h2
-          className={`text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+          className={`text-2xl font-bold bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent`}
         >
           إعادة تعيين كلمة المرور
         </h2>
@@ -60,7 +59,7 @@ export default function ForgotPasswordForm({
             disabled={!email}
             className={`flex-1 py-3.5 rounded-xl font-semibold transition-all duration-300 relative overflow-hidden ${
               email
-                ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
+                ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
                 : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
             }`}
           >

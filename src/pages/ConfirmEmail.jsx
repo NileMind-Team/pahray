@@ -7,7 +7,6 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -283,7 +282,7 @@ export default function ConfirmEmail() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/login")}
-                  className={`mt-4 bg-gradient-to-r ${primaryGradient} text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
+                  className={`mt-4 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
                 >
                   العودة لتسجيل الدخول
                 </motion.button>
@@ -294,7 +293,7 @@ export default function ConfirmEmail() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/register")}
-                  className={`mt-4 bg-gradient-to-r ${primaryGradient} text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
+                  className={`mt-4 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
                 >
                   المحاولة مرة أخرى
                 </motion.button>

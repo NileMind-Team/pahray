@@ -71,7 +71,6 @@ export default function Cart() {
   const [showPhoneInputModal, setShowPhoneInputModal] = useState(false); // New state for phone input modal
   const [newPhoneNumber, setNewPhoneNumber] = useState(""); // New state for phone input
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -1534,7 +1533,7 @@ export default function Cart() {
               <button
                 onClick={updatePhoneNumber}
                 disabled={loadingProfile || !newPhoneNumber.trim()}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
               >
                 {loadingProfile ? (
                   <>
@@ -1645,7 +1644,7 @@ export default function Cart() {
                   setShowMissingInfoModal(false);
                   navigate("/");
                 }}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
               >
                 مواصلة التسوق
               </button>
@@ -1726,7 +1725,7 @@ export default function Cart() {
               </button>
               <button
                 onClick={handleSaveNotes}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
               >
                 <FaSave className="text-sm" />
                 حفظ
@@ -2027,7 +2026,7 @@ export default function Cart() {
                     whileTap={{ scale: 0.95 }}
                     onClick={updateCartItem}
                     disabled={updatingCart}
-                    className={`flex-1 md:flex-none px-4 py-2 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm`}
+                    className={`flex-1 md:flex-none px-4 py-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm`}
                   >
                     {updatingCart ? (
                       <>
@@ -2114,7 +2113,7 @@ export default function Cart() {
                       </p>
                       <button
                         onClick={() => navigate("/")}
-                        className={`bg-gradient-to-r ${primaryGradient} text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all text-sm sm:text-base`}
+                        className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all text-sm sm:text-base`}
                       >
                         تصفح المنتجات
                       </button>
@@ -2737,7 +2736,7 @@ export default function Cart() {
                   (deliveryType === "delivery" && userAddresses.length === 0) ||
                   (deliveryType === "delivery" && !selectedAddress)
                     ? "bg-gray-400 cursor-not-allowed text-white"
-                    : `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl`
+                    : `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl`
                 }`}
               >
                 <FaLocationArrow className="text-sm" />

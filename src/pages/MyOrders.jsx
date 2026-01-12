@@ -70,7 +70,6 @@ export default function MyOrders() {
   // eslint-disable-next-line no-unused-vars
   const [wsStatus, setWsStatus] = useState("🔌 Connecting...");
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -1865,7 +1864,7 @@ export default function MyOrders() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/")}
-                  className={`bg-gradient-to-r ${primaryGradient} text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-sm sm:text-base`}
+                  className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-sm sm:text-base`}
                 >
                   ابدأ التسوق
                 </motion.button>
@@ -1905,7 +1904,7 @@ export default function MyOrders() {
                           onClick={() => handlePageChange(pageNum)}
                           className={`px-3 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold transition-all ${
                             currentPage === pageNum
-                              ? `bg-gradient-to-r ${primaryGradient} text-white shadow-lg`
+                              ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white shadow-lg`
                               : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
                           }`}
                         >
@@ -1958,7 +1957,7 @@ export default function MyOrders() {
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md overflow-visible mx-auto relative">
                 {/* Modal Header */}
                 <div
-                  className={`bg-gradient-to-r ${primaryGradient} p-5 sm:p-6`}
+                  className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] p-5 sm:p-6`}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -2113,7 +2112,7 @@ export default function MyOrders() {
                       whileTap={{ scale: 0.98 }}
                       onClick={submitStatusUpdate}
                       disabled={updatingStatus || !newStatus}
-                      className={`flex-1 px-4 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-xl font-semibold hover:from-[#3A36D6] hover:to-[#5A57E6] transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
+                      className={`flex-1 px-4 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-xl font-semibold hover:from-[#3A36D6] hover:to-[#5A57E6] transition-all disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {updatingStatus ? (
                         <div className="flex items-center justify-center gap-2">
@@ -2771,7 +2770,7 @@ export default function MyOrders() {
                                 orderDetails.status
                               );
                             }}
-                            className={`flex-1 flex items-center justify-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold hover:from-[#3A36D6] hover:to-[#5A57E6] transition-all text-sm sm:text-base`}
+                            className={`flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg font-semibold hover:from-[#3A36D6] hover:to-[#5A57E6] transition-all text-sm sm:text-base`}
                           >
                             <FaSyncAlt className="w-3 h-3 sm:w-4 sm:h-4" />
                             تغيير حالة الطلب

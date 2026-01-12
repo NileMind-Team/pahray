@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { translateErrorMessageAdminBranches } from "../utils/ErrorTranslator";
 
 
-const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -698,7 +697,7 @@ export default function AdminBranches() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddNewBranch}
-              className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
+              className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
             >
               <FaPlus className="text-sm sm:text-base md:text-lg" />
               <span>إضافة فرع جديد</span>
@@ -757,7 +756,7 @@ export default function AdminBranches() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={handleAddNewBranch}
-                      className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
+                      className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                     >
                       <FaPlus className="text-xs sm:text-sm" />
                       <span>أضف أول فرع لك</span>

@@ -37,7 +37,6 @@ const Branches = () => {
   const [selectedBranchForMap, setSelectedBranchForMap] = useState(null);
   const [showReviews, setShowReviews] = useState({});
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -384,7 +383,7 @@ const Branches = () => {
         >
           {/* Header */}
           <div
-            className={`relative h-32 sm:h-36 md:h-40 lg:h-44 xl:h-52 bg-gradient-to-r ${primaryGradient} overflow-hidden`}
+            className={`relative h-32 sm:h-36 md:h-40 lg:h-44 xl:h-52 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] overflow-hidden`}
           >
             <div className="absolute inset-0 bg-black/10"></div>
             <div className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-white/10 rounded-full"></div>
@@ -467,7 +466,7 @@ const Branches = () => {
               >
                 <div className="max-w-md mx-auto px-3">
                   <div
-                    className={`bg-gradient-to-r ${primaryGradient} w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6`}
+                    className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6`}
                   >
                     <FaBuilding className="text-white text-2xl sm:text-3xl md:text-4xl" />
                   </div>
@@ -486,7 +485,7 @@ const Branches = () => {
                       onClick={() => {
                         setSearchTerm("");
                       }}
-                      className={`bg-gradient-to-r ${primaryGradient} text-white px-6 sm:px-8 py-2.5 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-bold hover:shadow-xl transition-all duration-300 text-sm sm:text-base md:text-lg`}
+                      className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-6 sm:px-8 py-2.5 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-bold hover:shadow-xl transition-all duration-300 text-sm sm:text-base md:text-lg`}
                     >
                       عرض جميع الفروع
                     </motion.button>
@@ -530,7 +529,7 @@ const Branches = () => {
                           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
                             <div className="flex items-start gap-2 sm:gap-3">
                               <div
-                                className={`p-1.5 sm:p-2 md:p-3 bg-gradient-to-r ${primaryGradient} rounded-lg sm:rounded-xl text-white flex-shrink-0`}
+                                className={`p-1.5 sm:p-2 md:p-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] rounded-lg sm:rounded-xl text-white flex-shrink-0`}
                               >
                                 <FaBuilding className="text-sm sm:text-base md:text-lg" />
                               </div>
@@ -799,7 +798,7 @@ const Branches = () => {
                                                             />
                                                           ) : (
                                                             <div
-                                                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r ${primaryGradient} flex items-center justify-center`}
+                                                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-[#4945E7] to-[#6A67F0] flex items-center justify-center`}
                                                             >
                                                               <FaUserCircle className="text-white text-lg sm:text-xl" />
                                                             </div>
@@ -905,7 +904,7 @@ const Branches = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => handleViewOnMap(branch)}
-                                    className={`w-full py-2.5 sm:py-3 md:py-4 bg-gradient-to-r ${primaryGradient} text-white rounded-lg sm:rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base md:text-lg`}
+                                    className={`w-full py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg sm:rounded-xl font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base md:text-lg`}
                                   >
                                     <FaMap className="text-xs sm:text-sm" />
                                     <span>عرض الخريطة</span>

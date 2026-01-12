@@ -4,7 +4,6 @@ import { FaCheckCircle, FaUserCircle } from "react-icons/fa";
 
 export default function WelcomeAnimation({ userName, userImage }) {
   const [isVisible, setIsVisible] = useState(true);
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +51,7 @@ export default function WelcomeAnimation({ userName, userImage }) {
           >
             {/* Header with gradient */}
             <div
-              className={`bg-gradient-to-r ${primaryGradient} p-6 text-center`}
+              className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] p-6 text-center`}
             >
               <motion.div
                 initial={{ scale: 0 }}
@@ -111,7 +110,7 @@ export default function WelcomeAnimation({ userName, userImage }) {
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.9, duration: 2 }}
-                className={`h-1 bg-gradient-to-r ${primaryGradient} rounded-full`}
+                className={`h-1 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] rounded-full`}
               />
             </div>
           </motion.div>

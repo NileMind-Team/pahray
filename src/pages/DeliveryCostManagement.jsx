@@ -34,7 +34,6 @@ export default function DeliveryCostManagement() {
     isFormValid,
   } = useDeliveryAreas();
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -59,7 +58,7 @@ export default function DeliveryCostManagement() {
           deliveryAreasCount={deliveryAreas.length}
           navigate={navigate}
           primaryColor={"#4945E7"}
-          primaryGradient={primaryGradient}
+          primaryGradient={"from-[#4945E7] to-[#6A67F0]"}
         />
 
         <SearchFilterBar
@@ -69,7 +68,7 @@ export default function DeliveryCostManagement() {
           setFilter={setFilter}
           handleAddNewArea={() => setIsAdding(true)}
           primaryColor={"#4945E7"}
-          primaryGradient={primaryGradient}
+          primaryGradient={"from-[#4945E7] to-[#6A67F0]"}
         />
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
@@ -89,7 +88,7 @@ export default function DeliveryCostManagement() {
                   onDelete={handleDelete}
                   onToggleActive={handleToggleActive}
                   primaryColor={"#4945E7"}
-                  primaryGradient={primaryGradient}
+                  primaryGradient={"from-[#4945E7] to-[#6A67F0]"}
                 />
               ))}
             </AnimatePresence>
@@ -113,7 +112,7 @@ export default function DeliveryCostManagement() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsAdding(true)}
-                  className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
+                  className={`flex items-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                 >
                   <span>أضف أول منطقة</span>
                   <FaPlus className="text-xs sm:text-sm" />
@@ -150,7 +149,7 @@ export default function DeliveryCostManagement() {
                     return branch ? branch.name : "اختر الفرع";
                   }}
                   primaryColor={"#4945E7"}
-                  primaryGradient={primaryGradient}
+                  primaryGradient={"from-[#4945E7] to-[#6A67F0]"}
                 />
               </motion.div>
             )}

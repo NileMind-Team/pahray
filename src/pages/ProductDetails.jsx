@@ -63,7 +63,6 @@ const ProductDetails = () => {
   const addonTypeModalRef = useRef(null);
   const notesModalRef = useRef(null);
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -978,7 +977,7 @@ const ProductDetails = () => {
           </h2>
           <button
             onClick={() => navigate("/")}
-            className={`bg-gradient-to-r ${primaryGradient} text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all`}
+            className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg transition-all`}
           >
             العودة للرئيسية
           </button>
@@ -1056,7 +1055,7 @@ const ProductDetails = () => {
               </button>
               <button
                 onClick={handleSaveOption}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
               >
                 <FaSave />
                 {editingOption ? "تحديث" : "حفظ"}
@@ -1233,7 +1232,7 @@ const ProductDetails = () => {
               </button>
               <button
                 onClick={handleSaveAddonType}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 whitespace-nowrap`}
               >
                 <FaSave />
                 حفظ
@@ -1316,7 +1315,7 @@ const ProductDetails = () => {
               </button>
               <button
                 onClick={handleSaveNotes}
-                className={`flex-1 py-3 bg-gradient-to-r ${primaryGradient} text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
+                className={`flex-1 py-3 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2`}
               >
                 <FaCheck className="text-sm" />
                 حفظ
@@ -1329,7 +1328,7 @@ const ProductDetails = () => {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r ${primaryGradient} text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 transition-transform duration-200 ${
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 transition-transform duration-200 ${
           cartItemsCount === 0 ? "opacity-70" : ""
         }`}
         onClick={navigateToCart}
@@ -1782,7 +1781,7 @@ const ProductDetails = () => {
                   addingToCart
                     ? "bg-gradient-to-r from-gray-500 to-gray-600 text-white cursor-wait"
                     : isProductAvailableForCart()
-                    ? `bg-gradient-to-r ${primaryGradient} text-white`
+                    ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white`
                     : "bg-gray-400 text-gray-200 cursor-not-allowed"
                 }`}
                 dir="rtl"

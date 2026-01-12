@@ -17,7 +17,6 @@ const isMobile = () => {
   return window.innerWidth < 768;
 };
 
-const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -620,7 +619,7 @@ export default function OrderShiftsManagement() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleEndShift}
-                  className={`w-full py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2 bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`}
+                  className={`w-full py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`}
                 >
                   <FaStop className="text-sm" />
                   إنهاء الوردية الحالية
@@ -648,7 +647,7 @@ export default function OrderShiftsManagement() {
                         }
                         className={`p-3 rounded-lg border transition-all duration-200 ${
                           formData.name === type.value
-                            ? `bg-gradient-to-r ${primaryGradient} text-white border-transparent`
+                            ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white border-transparent`
                             : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#4945E7] cursor-pointer`
                         }`}
                       >
@@ -669,7 +668,7 @@ export default function OrderShiftsManagement() {
                       }
                       className={`w-full p-3 rounded-lg border transition-all duration-200 ${
                         formData.name === "custom"
-                          ? `bg-gradient-to-r ${primaryGradient} text-white border-transparent`
+                          ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white border-transparent`
                           : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#4945E7] cursor-pointer`
                       }`}
                     >
@@ -718,7 +717,7 @@ export default function OrderShiftsManagement() {
                   disabled={!isFormValid() || !canUserStartShift}
                   className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
                     isFormValid() && canUserStartShift
-                      ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
+                      ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
                 >

@@ -13,7 +13,6 @@ import {
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -267,7 +266,7 @@ export default function ResetPassword() {
               </div>
 
               <h2
-                className={`text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent text-center`}
+                className={`text-2xl font-bold bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent text-center`}
               >
                 {success
                   ? "تم إعادة تعيين كلمة المرور بنجاح"
@@ -283,7 +282,7 @@ export default function ResetPassword() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate("/login")}
-                  className={`mt-4 bg-gradient-to-r ${primaryGradient} text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
+                  className={`mt-4 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-xl hover:shadow-[#4945E7]/25 transition-all duration-300`}
                 >
                   العودة لتسجيل الدخول
                 </motion.button>
@@ -293,7 +292,7 @@ export default function ResetPassword() {
             <>
               <div className="text-center mb-8">
                 <h2
-                  className={`text-3xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+                  className={`text-3xl font-bold bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent`}
                 >
                   إعادة تعيين كلمة المرور
                 </h2>
@@ -398,7 +397,7 @@ export default function ResetPassword() {
                   disabled={!isFormValid || loading}
                   className={`w-full font-semibold py-4 rounded-xl transition-all duration-300 text-lg relative overflow-hidden ${
                     isFormValid
-                      ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
+                      ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white hover:shadow-xl hover:shadow-[#4945E7]/25 dark:hover:shadow-[#6A67F0]/25`
                       : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                   }`}
                 >

@@ -23,8 +23,6 @@ const Footer = () => {
   ]);
   const navigate = useNavigate();
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
-
   const quickLinks = [
     { name: "الصفحة الرئيسية", path: "/" },
     { name: "عربة التسوق", path: "/cart" },
@@ -171,7 +169,7 @@ const Footer = () => {
                   className="w-12 h-12 object-contain"
                 />
                 <span
-                  className={`restaurant-title text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+                  className={`restaurant-title text-2xl font-bold bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent`}
                 >
                   أسماك بحري
                 </span>
@@ -207,7 +205,7 @@ const Footer = () => {
             <h3 className="text-lg font-bold mb-6 relative inline-block">
               روابط سريعة
               <div
-                className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r ${primaryGradient}`}
+                className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r from-[#4945E7] to-[#6A67F0]`}
               ></div>
             </h3>
             <ul className="space-y-3">
@@ -239,7 +237,7 @@ const Footer = () => {
               <h3 className="text-lg font-bold mb-6 relative inline-block">
                 {columnIndex === 0 ? "الفئات" : " "}
                 <div
-                  className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r ${primaryGradient}`}
+                  className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r from-[#4945E7] to-[#6A67F0]`}
                 ></div>
               </h3>
               <ul className="space-y-3">
@@ -335,7 +333,7 @@ const Footer = () => {
       </div>
 
       <div
-        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${primaryGradient}`}
+        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#4945E7] to-[#6A67F0]`}
       ></div>
     </footer>
   );

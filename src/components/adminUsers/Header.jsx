@@ -3,11 +3,10 @@ import { motion } from "framer-motion";
 import { FaUserShield } from "react-icons/fa";
 
 export default function Header() {
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   return (
     <div
-      className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r ${primaryGradient} overflow-hidden`}
+      className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] overflow-hidden`}
     >
       <div className="absolute inset-0 bg-black/10"></div>
       <div className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-white/10 rounded-full"></div>

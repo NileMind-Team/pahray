@@ -48,8 +48,6 @@ const HeroSwipper = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
-
   useEffect(() => {
     const styleElement = document.createElement("style");
     styleElement.textContent = navButtonsStyles;
@@ -199,7 +197,7 @@ const HeroSwipper = () => {
       <div className="relative w-full h-[40vh] sm:h-[45vh] md:h-[50vh] lg:h-[55vh] min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px] max-h-[400px] sm:max-h-[450px] md:max-h-[500px] lg:max-h-[600px] overflow-hidden rounded-b-2xl shadow-xl bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 dark:from-[#4945E7]/20 dark:to-[#6A67F0]/20 flex items-center justify-center">
         <div className="text-center px-4">
           <div
-            className={`bg-gradient-to-r ${primaryGradient} p-3 sm:p-4 rounded-2xl inline-block mb-3 sm:mb-4`}
+            className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] p-3 sm:p-4 rounded-2xl inline-block mb-3 sm:mb-4`}
           >
             <FaFire className="text-white text-3xl sm:text-4xl" />
           </div>
@@ -319,7 +317,7 @@ const HeroSwipper = () => {
                               className="relative"
                             >
                               <div
-                                className={`bg-gradient-to-r ${primaryGradient} text-white px-1.5 py-1 sm:px-2 sm:py-1 md:px-3 md:py-1.5 rounded-md sm:rounded-lg shadow-md flex items-center gap-0.5 sm:gap-1 w-fit`}
+                                className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-1.5 py-1 sm:px-2 sm:py-1 md:px-3 md:py-1.5 rounded-md sm:rounded-lg shadow-md flex items-center gap-0.5 sm:gap-1 w-fit`}
                               >
                                 {slide.discountType === "percentage" ? (
                                   <FaPercent size={8} />
@@ -360,7 +358,7 @@ const HeroSwipper = () => {
                         dir="rtl"
                       >
                         <div
-                          className={`absolute inset-0 bg-gradient-to-r ${primaryGradient} opacity-0 group-hover:opacity-20 transition-opacity duration-250`}
+                          className={`absolute inset-0 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] opacity-0 group-hover:opacity-20 transition-opacity duration-250`}
                         ></div>
                         <span className="relative z-10">{slide.ctaText}</span>
                         <FaShoppingCart
@@ -397,7 +395,7 @@ const HeroSwipper = () => {
                               initial={{ y: 8, opacity: 0 }}
                               animate={{ y: 0, opacity: 1 }}
                               transition={{ delay: 0.6 }}
-                              className={`absolute top-1 left-1 sm:top-1.5 sm:left-1.5 md:top-2 md:left-2 bg-gradient-to-r ${primaryGradient} text-white px-1 py-0.5 sm:px-1.5 sm:py-0.5 md:px-2 md:py-1 rounded-md shadow-md w-fit`}
+                              className={`absolute top-1 left-1 sm:top-1.5 sm:left-1.5 md:top-2 md:left-2 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-1 py-0.5 sm:px-1.5 sm:py-0.5 md:px-2 md:py-1 rounded-md shadow-md w-fit`}
                             >
                               <div className="flex items-center gap-0.5 sm:gap-1">
                                 <FaFire size={7} />

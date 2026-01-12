@@ -217,8 +217,6 @@ const OrderShiftsReport = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
-
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -993,7 +991,7 @@ const OrderShiftsReport = () => {
       >
         {/* Header */}
         <div
-          className={`bg-gradient-to-r ${primaryGradient} px-6 py-8 relative overflow-hidden`}
+          className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] px-6 py-8 relative overflow-hidden`}
         >
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -1226,7 +1224,7 @@ const OrderShiftsReport = () => {
                 disabled={!day || !branchId || !shiftId}
                 className={`px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${
                   day && branchId && shiftId
-                    ? `bg-gradient-to-r ${primaryGradient} text-white cursor-pointer`
+                    ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white cursor-pointer`
                     : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                 }`}
               >
@@ -1390,7 +1388,7 @@ const OrderShiftsReport = () => {
                               onClick={() => handlePageChange(pageNum)}
                               className={`px-3 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold transition-all ${
                                 currentPage === pageNum
-                                  ? `bg-gradient-to-r ${primaryGradient} text-white shadow-lg`
+                                  ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white shadow-lg`
                                   : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
                               }`}
                             >
