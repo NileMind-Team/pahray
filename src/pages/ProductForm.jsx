@@ -103,7 +103,6 @@ const ProductForm = () => {
   ];
   */
 
-  const primaryColor = "#4945E7";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -221,7 +220,7 @@ const ProductForm = () => {
         icon: "error",
         title: "رابط غير صالح",
         text: "الرجاء إدخال رابط صحيح للصورة",
-        confirmButtonColor: primaryColor, // تحديث لون الزر
+        confirmButtonColor: "#4945E7",
       });
       return null;
     }
@@ -535,7 +534,7 @@ const ProductForm = () => {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor, // تحديث لون الزر
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -854,7 +853,7 @@ const ProductForm = () => {
         icon: "error",
         title: "رابط فارغ",
         text: "الرجاء إدخال رابط الصورة أولاً",
-        confirmButtonColor: primaryColor, // تحديث لون الزر
+        confirmButtonColor: "#4945E7",
       });
       return;
     }

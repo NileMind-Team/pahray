@@ -71,7 +71,6 @@ export default function Cart() {
   const [showPhoneInputModal, setShowPhoneInputModal] = useState(false); // New state for phone input modal
   const [newPhoneNumber, setNewPhoneNumber] = useState(""); // New state for phone input
 
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -536,7 +535,7 @@ export default function Cart() {
     if (product.isPriceBasedOnRequest) {
       return (
         <div
-          className={`text-[${primaryColor}] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
+          className={`text-[#4945E7] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
         >
           السعر حسب الطلب
         </div>
@@ -550,7 +549,7 @@ export default function Cart() {
             {toArabicNumbers(product.price.toFixed(2))} ج.م
           </span>
           <span
-            className={`text-[${primaryColor}] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
+            className={`text-[#4945E7] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
           >
             {toArabicNumbers(product.finalPrice.toFixed(2))} ج.م
           </span>
@@ -560,7 +559,7 @@ export default function Cart() {
 
     return (
       <div
-        className={`text-[${primaryColor}] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
+        className={`text-[#4945E7] dark:text-[#6A67F0] font-bold text-base sm:text-lg`}
       >
         {toArabicNumbers(product.price.toFixed(2))} ج.م
       </div>
@@ -571,7 +570,7 @@ export default function Cart() {
     if (product.basePrice === 0) {
       return (
         <span
-          className={`text-base sm:text-xl font-bold text-[${primaryColor}]`}
+          className={`text-base sm:text-xl font-bold text-[#4945E7]`}
         >
           السعر حسب الطلب
         </span>
@@ -590,7 +589,7 @@ export default function Cart() {
             {toArabicNumbers(product.basePrice)} ج.م
           </span>
           <span
-            className={`text-base sm:text-xl font-bold text-[${primaryColor}]`}
+            className={`text-base sm:text-xl font-bold text-[#4945E7]`}
           >
             {toArabicNumbers(priceAfterDiscount.toFixed(2))} ج.م
           </span>
@@ -599,7 +598,7 @@ export default function Cart() {
     }
 
     return (
-      <span className={`text-base sm:text-xl font-bold text-[${primaryColor}]`}>
+      <span className={`text-base sm:text-xl font-bold text-[#4945E7]`}>
         {toArabicNumbers(product.basePrice)} ج.م
       </span>
     );
@@ -653,7 +652,7 @@ export default function Cart() {
           </label>
           <button
             onClick={openAddressesPage}
-            className={`text-[${primaryColor}] dark:text-[#6A67F0] text-sm font-semibold hover:underline flex items-center gap-1`}
+            className={`text-[#4945E7] dark:text-[#6A67F0] text-sm font-semibold hover:underline flex items-center gap-1`}
           >
             <FaExchangeAlt className="text-xs" />
             تغيير
@@ -667,7 +666,7 @@ export default function Cart() {
                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center 
                 ${
                   selectedAddress?.isDefaultLocation
-                    ? `bg-[${primaryColor}] dark:bg-[#6A67F0] border-[${primaryColor}] dark:border-[#6A67F0]`
+                    ? `bg-[#4945E7] dark:bg-[#6A67F0] border-[#4945E7] dark:border-[#6A67F0]`
                     : "border-gray-300 dark:border-gray-600"
                 }`}
               >
@@ -1074,7 +1073,7 @@ export default function Cart() {
       text: "هل أنت متأكد من إزالة هذا المنتج من سلة التسوق؟",
       icon: "question",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، قم بإزالته!",
       cancelButtonText: "إلغاء",
@@ -1487,7 +1486,7 @@ export default function Cart() {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <FaPhone className={`text-[${primaryColor}] text-xl`} />
+                <FaPhone className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                   تحديث رقم الهاتف
                 </h3>
@@ -1565,7 +1564,7 @@ export default function Cart() {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <FaInfoCircle className={`text-[${primaryColor}] text-xl`} />
+                <FaInfoCircle className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                   معلومات ناقصة
                 </h3>
@@ -1667,7 +1666,7 @@ export default function Cart() {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <FaStickyNote className={`text-[${primaryColor}] text-xl`} />
+                <FaStickyNote className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                   تعليمات إضافية
                 </h3>
@@ -1885,7 +1884,7 @@ export default function Cart() {
                                 }
                                 className={`w-full p-2 rounded-md sm:rounded-lg border-2 transition-all duration-200 flex items-center justify-between ${
                                   isSelected
-                                    ? `border-[${primaryColor}] bg-blue-50 dark:bg-blue-900/20`
+                                    ? `border-[#4945E7] bg-blue-50 dark:bg-blue-900/20`
                                     : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-gray-300 dark:hover:border-gray-500"
                                 }`}
                                 dir="rtl"
@@ -1894,7 +1893,7 @@ export default function Cart() {
                                   <span
                                     className={`font-medium text-xs sm:text-sm ${
                                       isSelected
-                                        ? `text-[${primaryColor}]`
+                                        ? `text-[#4945E7]`
                                         : "text-gray-700 dark:text-gray-300"
                                     }`}
                                   >
@@ -1902,7 +1901,7 @@ export default function Cart() {
                                   </span>
                                   {isSelected && (
                                     <FaCheck
-                                      className={`text-[${primaryColor}] text-xs`}
+                                      className={`text-[#4945E7] text-xs`}
                                     />
                                   )}
                                 </div>
@@ -1994,7 +1993,7 @@ export default function Cart() {
                         }
                         className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                       >
-                        <FaMinus className={`text-[${primaryColor}] text-xs`} />
+                        <FaMinus className={`text-[#4945E7] text-xs`} />
                       </button>
                       <span className="font-bold text-gray-800 dark:text-white min-w-8 sm:min-w-10 text-center text-sm sm:text-base">
                         {toArabicNumbers(productQuantity)}
@@ -2003,12 +2002,12 @@ export default function Cart() {
                         onClick={() => setProductQuantity((prev) => prev + 1)}
                         className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 flex items-center justify-center rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                       >
-                        <FaPlus className={`text-[${primaryColor}] text-xs`} />
+                        <FaPlus className={`text-[#4945E7] text-xs`} />
                       </button>
                     </div>
                   </div>
                   <div
-                    className={`text-base sm:text-lg lg:text-xl font-bold text-[${primaryColor}]`}
+                    className={`text-base sm:text-lg lg:text-xl font-bold text-[#4945E7]`}
                   >
                     {toArabicNumbers(calculateProductTotalPrice().toFixed(2))}{" "}
                     ج.م
@@ -2076,7 +2075,7 @@ export default function Cart() {
           </div>
           <div className="text-right self-end sm:self-auto">
             <div
-              className={`text-lg sm:text-xl md:text-2xl font-bold text-[${primaryColor}] dark:text-[#6A67F0]`}
+              className={`text-lg sm:text-xl md:text-2xl font-bold text-[#4945E7] dark:text-[#6A67F0]`}
             >
               {cartItems.reduce((total, item) => total + item.quantity, 0)}{" "}
               عناصر
@@ -2096,7 +2095,7 @@ export default function Cart() {
             >
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
                 <FaShoppingCart
-                  className={`text-[${primaryColor}] dark:text-[#6A67F0] sm:w-6 sm:h-6`}
+                  className={`text-[#4945E7] dark:text-[#6A67F0] sm:w-6 sm:h-6`}
                   size={18}
                 />
                 عناصر الطلب ({cartItems.length})
@@ -2157,7 +2156,7 @@ export default function Cart() {
                                   {item.name}
                                 </h3>
                                 <FaInfoCircle
-                                  className={`text-[${primaryColor}] opacity-0 group-hover:opacity-100 transition-opacity`}
+                                  className={`text-[#4945E7] opacity-0 group-hover:opacity-100 transition-opacity`}
                                 />
                               </div>
                             </div>
@@ -2174,7 +2173,7 @@ export default function Cart() {
                             {item.prepTime && (
                               <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2">
                                 <FaClock
-                                  className={`text-[${primaryColor}] dark:text-[#6A67F0]`}
+                                  className={`text-[#4945E7] dark:text-[#6A67F0]`}
                                   size={12}
                                 />
                                 <span>{item.prepTime}</span>
@@ -2269,7 +2268,7 @@ export default function Cart() {
             >
               <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3">
                 <FaMapMarkerAlt
-                  className={`text-[${primaryColor}] dark:text-[#6A67F0] sm:w-6 sm:h-6`}
+                  className={`text-[#4945E7] dark:text-[#6A67F0] sm:w-6 sm:h-6`}
                   size={18}
                 />
                 خيارات {deliveryType === "delivery" ? "التوصيل" : "الاستلام"}
@@ -2282,7 +2281,7 @@ export default function Cart() {
                   <div
                     className={`p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border-2 cursor-pointer hover:shadow-lg transition-all duration-300 ${
                       deliveryType === "delivery"
-                        ? `border-[${primaryColor}] dark:border-[#6A67F0]`
+                        ? `border-[#4945E7] dark:border-[#6A67F0]`
                         : "border-gray-200 dark:border-gray-600"
                     }`}
                     onClick={() => setDeliveryType("delivery")}
@@ -2291,7 +2290,7 @@ export default function Cart() {
                       <div
                         className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center ${
                           deliveryType === "delivery"
-                            ? `bg-[${primaryColor}] dark:bg-[#6A67F0] border-[${primaryColor}] dark:border-[#6A67F0]`
+                            ? `bg-[#4945E7] dark:bg-[#6A67F0] border-[#4945E7] dark:border-[#6A67F0]`
                             : "border-gray-300 dark:border-gray-600"
                         }`}
                       >
@@ -2308,7 +2307,7 @@ export default function Cart() {
                         </div>
                       </div>
                       <FaMapMarkerAlt
-                        className={`text-[${primaryColor}] text-lg`}
+                        className={`text-[#4945E7] text-lg`}
                       />
                     </div>
                   </div>
@@ -2316,7 +2315,7 @@ export default function Cart() {
                   <div
                     className={`p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border-2 cursor-pointer hover:shadow-lg transition-all duration-300 ${
                       deliveryType === "pickup"
-                        ? `border-[${primaryColor}] dark:border-[#6A67F0]`
+                        ? `border-[#4945E7] dark:border-[#6A67F0]`
                         : "border-gray-200 dark:border-gray-600"
                     }`}
                     onClick={() => setDeliveryType("pickup")}
@@ -2325,7 +2324,7 @@ export default function Cart() {
                       <div
                         className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center ${
                           deliveryType === "pickup"
-                            ? `bg-[${primaryColor}] dark:bg-[#6A67F0] border-[${primaryColor}] dark:border-[#6A67F0]`
+                            ? `bg-[#4945E7] dark:bg-[#6A67F0] border-[#4945E7] dark:border-[#6A67F0]`
                             : "border-gray-300 dark:border-gray-600"
                         }`}
                       >
@@ -2341,7 +2340,7 @@ export default function Cart() {
                           استلام الطلب من الفرع
                         </div>
                       </div>
-                      <FaStore className={`text-[${primaryColor}] text-lg`} />
+                      <FaStore className={`text-[#4945E7] text-lg`} />
                     </div>
                   </div>
                 </div>
@@ -2366,7 +2365,7 @@ export default function Cart() {
                     >
                       <span className="flex items-center gap-2">
                         <FaStore
-                          className={`text-[${primaryColor}] dark:text-[#6A67F0]`}
+                          className={`text-[#4945E7] dark:text-[#6A67F0]`}
                         />
                         {selectedBranch ? selectedBranch.name : "اختر الفرع"}
                       </span>
@@ -2377,7 +2376,7 @@ export default function Cart() {
                         transition={{ duration: 0.3 }}
                       >
                         <FaChevronDown
-                          className={`text-[${primaryColor}] dark:text-[#6A67F0]`}
+                          className={`text-[#4945E7] dark:text-[#6A67F0]`}
                         />
                       </motion.div>
                     </button>
@@ -2435,7 +2434,7 @@ export default function Cart() {
                         >
                           <span className="flex items-center gap-2">
                             <FaMapMarkerAlt
-                              className={`text-[${primaryColor}] dark:text-[#6A67F0]`}
+                              className={`text-[#4945E7] dark:text-[#6A67F0]`}
                             />
                             {selectedArea
                               ? `${selectedArea.areaName} - ${selectedArea.fee} ج.م`
@@ -2448,7 +2447,7 @@ export default function Cart() {
                             transition={{ duration: 0.3 }}
                           >
                             <FaChevronDown
-                              className={`text-[${primaryColor}] dark:text-[#6A67F0]`}
+                              className={`text-[#4945E7] dark:text-[#6A67F0]`}
                             />
                           </motion.div>
                         </button>
@@ -2566,7 +2565,7 @@ export default function Cart() {
                 <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-gray-200 dark:border-gray-600">
                   <div className="flex items-center gap-3 mb-2">
                     <div
-                      className={`w-8 h-8 bg-[${primaryColor}] dark:bg-[#6A67F0] rounded-full flex items-center justify-center`}
+                      className={`w-8 h-8 bg-[#4945E7] dark:bg-[#6A67F0] rounded-full flex items-center justify-center`}
                     >
                       <FaUser className="text-white text-sm" />
                     </div>
@@ -2640,7 +2639,7 @@ export default function Cart() {
                       الإجمالي
                     </span>
                     <span
-                      className={`font-bold text-[${primaryColor}] dark:text-[#6A67F0] text-lg sm:text-xl md:text-2xl`}
+                      className={`font-bold text-[#4945E7] dark:text-[#6A67F0] text-lg sm:text-xl md:text-2xl`}
                     >
                       {calculateTotal().toFixed(2)} ج.م
                     </span>
@@ -2693,7 +2692,7 @@ export default function Cart() {
                             رسوم التوصيل:
                           </span>
                           <span
-                            className={`font-semibold text-[${primaryColor}] dark:text-[#6A67F0]`}
+                            className={`font-semibold text-[#4945E7] dark:text-[#6A67F0]`}
                           >
                             {getDeliveryFee().toFixed(2)} ج.م
                           </span>
@@ -2708,7 +2707,7 @@ export default function Cart() {
                             رسوم الاستلام:
                           </span>
                           <span
-                            className={`font-semibold text-[${primaryColor}] dark:text-[#6A67F0]`}
+                            className={`font-semibold text-[#4945E7] dark:text-[#6A67F0]`}
                           >
                             {getDeliveryFee().toFixed(2)} ج.م
                           </span>
@@ -2750,7 +2749,7 @@ export default function Cart() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate("/")}
-                className={`w-full mt-3 sm:mt-4 border-2 border-[${primaryColor}] dark:border-[#6A67F0] text-[${primaryColor}] dark:text-[#6A67F0] py-2 sm:py-3 rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-[${primaryColor}] dark:hover:bg-[#6A67F0] hover:text-white transition-all duration-300`}
+                className={`w-full mt-3 sm:mt-4 border-2 border-[#4945E7] dark:border-[#6A67F0] text-[#4945E7] dark:text-[#6A67F0] py-2 sm:py-3 rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-[#4945E7] dark:hover:bg-[#6A67F0] hover:text-white transition-all duration-300`}
               >
                 مواصلة التسوق
               </motion.button>

@@ -17,8 +17,6 @@ const isMobile = () => {
   return window.innerWidth < 768;
 };
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
 const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -78,7 +76,7 @@ const showMessage = (type, title, text, options = {}) => {
       icon: type,
       title: title,
       text: text,
-      confirmButtonColor: options.confirmButtonColor || primaryColor,
+      confirmButtonColor: options.confirmButtonColor || "#4945E7",
       timer: options.timer || 2500,
       showConfirmButton:
         options.showConfirmButton !== undefined
@@ -415,7 +413,7 @@ export default function OrderShiftsManagement() {
       text: "هل أنت متأكد من إنهاء الوردية الحالية؟",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، أنهِ الوردية",
       cancelButtonText: "إلغاء",
@@ -453,7 +451,7 @@ export default function OrderShiftsManagement() {
       text: confirmText,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: `نعم، ${action}`,
       cancelButtonText: "إلغاء",
@@ -499,7 +497,7 @@ export default function OrderShiftsManagement() {
         className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
       >
         <div
-          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[${primaryColor}]`}
+          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]`}
         ></div>
       </div>
     );
@@ -520,7 +518,7 @@ export default function OrderShiftsManagement() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate(-1)}
-            className={`bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[${primaryColor}] hover:bg-[${primaryColor}] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[${primaryColor}]`}
+            className={`bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[#4945E7] hover:bg-[#4945E7] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[#4945E7]`}
           >
             <FaArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
@@ -622,7 +620,7 @@ export default function OrderShiftsManagement() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleEndShift}
-                  className={`w-full py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2 bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[${primaryColor}]/25 cursor-pointer`}
+                  className={`w-full py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-2 bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`}
                 >
                   <FaStop className="text-sm" />
                   إنهاء الوردية الحالية
@@ -651,7 +649,7 @@ export default function OrderShiftsManagement() {
                         className={`p-3 rounded-lg border transition-all duration-200 ${
                           formData.name === type.value
                             ? `bg-gradient-to-r ${primaryGradient} text-white border-transparent`
-                            : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[${primaryColor}] cursor-pointer`
+                            : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#4945E7] cursor-pointer`
                         }`}
                       >
                         {type.label}
@@ -672,7 +670,7 @@ export default function OrderShiftsManagement() {
                       className={`w-full p-3 rounded-lg border transition-all duration-200 ${
                         formData.name === "custom"
                           ? `bg-gradient-to-r ${primaryGradient} text-white border-transparent`
-                          : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[${primaryColor}] cursor-pointer`
+                          : `bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-[#4945E7] cursor-pointer`
                       }`}
                     >
                       اسم مخصص
@@ -692,7 +690,7 @@ export default function OrderShiftsManagement() {
                             value={formData.customName}
                             onChange={handleInputChange}
                             required
-                            className={`w-full border bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg px-4 py-3 outline-none transition-all duration-200 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent`}
+                            className={`w-full border bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg px-4 py-3 outline-none transition-all duration-200 border-gray-200 dark:border-gray-600 focus:ring-2 focus:ring-[#4945E7] focus:border-transparent`}
                             placeholder="أدخل اسم الوردية المخصص"
                           />
                         </div>
@@ -708,7 +706,7 @@ export default function OrderShiftsManagement() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={resetForm}
-                  className={`flex-1 py-3 border-2 border-[${primaryColor}] text-[${primaryColor}] rounded-lg font-semibold hover:bg-[${primaryColor}] hover:text-white transition-all duration-300`}
+                  className={`flex-1 py-3 border-2 border-[#4945E7] text-[#4945E7] rounded-lg font-semibold hover:bg-[#4945E7] hover:text-white transition-all duration-300`}
                 >
                   إلغاء
                 </motion.button>
@@ -720,7 +718,7 @@ export default function OrderShiftsManagement() {
                   disabled={!isFormValid() || !canUserStartShift}
                   className={`flex-1 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${
                     isFormValid() && canUserStartShift
-                      ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[${primaryColor}]/25 cursor-pointer`
+                      ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
                 >

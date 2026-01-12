@@ -34,8 +34,6 @@ export default function DeliveryCostManagement() {
     isFormValid,
   } = useDeliveryAreas();
 
-  // اللون الأساسي الجديد
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -46,7 +44,7 @@ export default function DeliveryCostManagement() {
         className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
       >
         <div
-          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[${primaryColor}]`}
+          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]`}
         ></div>
       </div>
     );
@@ -60,7 +58,7 @@ export default function DeliveryCostManagement() {
         <HeaderStats
           deliveryAreasCount={deliveryAreas.length}
           navigate={navigate}
-          primaryColor={primaryColor}
+          primaryColor={"#4945E7"}
           primaryGradient={primaryGradient}
         />
 
@@ -70,7 +68,7 @@ export default function DeliveryCostManagement() {
           filter={filter}
           setFilter={setFilter}
           handleAddNewArea={() => setIsAdding(true)}
-          primaryColor={primaryColor}
+          primaryColor={"#4945E7"}
           primaryGradient={primaryGradient}
         />
 
@@ -90,7 +88,7 @@ export default function DeliveryCostManagement() {
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   onToggleActive={handleToggleActive}
-                  primaryColor={primaryColor}
+                  primaryColor={"#4945E7"}
                   primaryGradient={primaryGradient}
                 />
               ))}
@@ -151,7 +149,7 @@ export default function DeliveryCostManagement() {
                     );
                     return branch ? branch.name : "اختر الفرع";
                   }}
-                  primaryColor={primaryColor}
+                  primaryColor={"#4945E7"}
                   primaryGradient={primaryGradient}
                 />
               </motion.div>

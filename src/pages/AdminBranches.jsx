@@ -13,8 +13,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { translateErrorMessageAdminBranches } from "../utils/ErrorTranslator";
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
+
 const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -395,7 +394,7 @@ export default function AdminBranches() {
               icon: "error",
               title: "تم الرفض",
               text: "ليس لديك صلاحية للوصول إلى هذه الصفحة.",
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
               timer: 2500,
               showConfirmButton: false,
             });
@@ -425,7 +424,7 @@ export default function AdminBranches() {
             icon: "error",
             title: "تم الرفض",
             text: errorText || "فشل في التحقق من صلاحياتك.",
-            confirmButtonColor: primaryColor,
+            confirmButtonColor: "#4945E7",
             timer: 2500,
             showConfirmButton: false,
           });

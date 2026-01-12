@@ -32,8 +32,6 @@ export default function Reviews() {
     comment: "",
   });
 
-  // تحديد ألوان Home الرئيسية
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -165,7 +163,7 @@ export default function Reviews() {
           icon: "error",
           title: "خطأ",
           text: "فشل في تحميل التقييمات.",
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     } finally {
@@ -225,7 +223,7 @@ export default function Reviews() {
               text: "تم تحديث تقييمك بنجاح.",
               timer: 2000,
               showConfirmButton: false,
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
             });
           }
         }
@@ -248,7 +246,7 @@ export default function Reviews() {
               text: "تم إضافة تقييمك بنجاح.",
               timer: 2000,
               showConfirmButton: false,
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
             });
           }
         }
@@ -267,7 +265,7 @@ export default function Reviews() {
           icon: "error",
           title: "خطأ",
           text: err.response?.data?.message || "فشل في حفظ التقييم.",
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     }
@@ -296,7 +294,7 @@ export default function Reviews() {
       text: "لن تتمكن من التراجع عن هذا!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -319,7 +317,7 @@ export default function Reviews() {
               icon: "success",
               timer: 2000,
               showConfirmButton: false,
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
             });
           }
         } catch (err) {
@@ -334,7 +332,7 @@ export default function Reviews() {
               icon: "error",
               title: "خطأ",
               text: "فشل في حذف التقييم.",
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
             });
           }
         }
@@ -520,7 +518,7 @@ export default function Reviews() {
                         <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                           <div className="p-1 sm:p-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] border border-[#4945E7]/30 dark:from-gray-600 dark:to-gray-500">
                             <FaStore
-                              className={`text-[${primaryColor}] text-xs sm:text-sm`}
+                              className={`text-[#4945E7] text-xs sm:text-sm`}
                             />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -632,7 +630,7 @@ export default function Reviews() {
                           >
                             <div className="flex items-center gap-3">
                               <FaStore
-                                className={`text-[${primaryColor}] text-sm`}
+                                className={`text-[#4945E7] text-sm`}
                               />
                               <span>
                                 {formData.branchId
@@ -650,7 +648,7 @@ export default function Reviews() {
                               transition={{ duration: 0.3 }}
                             >
                               <FaChevronDown
-                                className={`text-[${primaryColor}]`}
+                                className={`text-[#4945E7]`}
                               />
                             </motion.div>
                           </button>
@@ -692,7 +690,7 @@ export default function Reviews() {
                         <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] p-2 sm:p-3 rounded-lg sm:rounded-xl border border-[#4945E7]/30 dark:from-gray-600 dark:to-gray-500 dark:border-gray-500">
                           <div className="flex items-center gap-2 flex-shrink-0">
                             <FaStar
-                              className={`text-[${primaryColor}] text-xs sm:text-sm`}
+                              className={`text-[#4945E7] text-xs sm:text-sm`}
                             />
                             <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap hidden sm:block">
                               التقييم العام:

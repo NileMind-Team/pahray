@@ -53,7 +53,6 @@ export default function AdminUsers() {
     isCurrentUser,
   } = useUsers();
 
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 
@@ -80,7 +79,7 @@ export default function AdminUsers() {
         icon: "warning",
         title: title || "تحذير",
         text: message,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         background: "#ffffff",
         color: "#000000",
         showConfirmButton: false,
@@ -241,7 +240,7 @@ export default function AdminUsers() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         onClick={() => navigate(-1)}
-        className={`fixed top-3 sm:top-4 left-3 sm:left-4 z-50 bg-white/80 backdrop-blur-md hover:bg-[${primaryColor}] hover:text-white rounded-full p-2 sm:p-3 text-[${primaryColor}] border border-[${primaryColor}]/30 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group`}
+        className={`fixed top-3 sm:top-4 left-3 sm:left-4 z-50 bg-white/80 backdrop-blur-md hover:bg-[#4945E7] hover:text-white rounded-full p-2 sm:p-3 text-[#4945E7] border border-[#4945E7]/30 shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group`}
       >
         <FaArrowLeft
           size={14}
@@ -268,7 +267,7 @@ export default function AdminUsers() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddNewUser}
-              className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[${primaryColor}]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
+              className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
             >
               <FaPlus className="text-sm sm:text-base md:text-lg" />
               <span>إضافة مستخدم جديد</span>

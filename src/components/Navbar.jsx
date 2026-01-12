@@ -46,7 +46,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   // eslint-disable-next-line no-unused-vars
   const [isHoveringLogo, setIsHoveringLogo] = useState(false);
 
-  const primaryColor = "#4945E7";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
@@ -232,49 +231,49 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           onClick: handleAdminUsersClick,
           icon: FaUsers,
           label: "إدارة المستخدمين",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleAdminBranchesClick,
           icon: FaBuilding,
           label: "إدارة الفروع",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleDeliveryCostClick,
           icon: FaMoneyBillWave,
           label: "تكاليف التوصيل",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleItemOffersClick,
           icon: FaPercent,
           label: "إدارة الخصومات",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleCitiesClick,
           icon: FaCity,
           label: "إدارة المدن",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleReportsClick,
           icon: FaChartBar,
           label: "تقارير المبيعات",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleTimeDateReportsClick,
           icon: FaCalendarAlt,
           label: "تقارير المبيعات بالوقت والتاريخ",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleAdminOrderShiftsClick,
           icon: FaClock,
           label: "تقارير الورديات",
-          color: primaryColor,
+          color: "#4945E7",
         }
       );
     }
@@ -285,43 +284,43 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           onClick: handleAdminUsersClick,
           icon: FaUsers,
           label: "إدارة المستخدمين",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleDeliveryCostClick,
           icon: FaMoneyBillWave,
           label: "تكاليف التوصيل",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleItemOffersClick,
           icon: FaPercent,
           label: "إدارة الخصومات",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleCitiesClick,
           icon: FaCity,
           label: "إدارة المدن",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleReportsClick,
           icon: FaChartBar,
           label: "تقارير المبيعات",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleTimeDateReportsClick,
           icon: FaCalendarAlt,
           label: "تقارير الوقت والتاريخ",
-          color: primaryColor,
+          color: "#4945E7",
         },
         {
           onClick: handleAdminOrderShiftsClick,
           icon: FaClock,
           label: "تقارير الورديات",
-          color: primaryColor,
+          color: "#4945E7",
         },
       ];
 

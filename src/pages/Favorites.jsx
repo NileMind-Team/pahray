@@ -22,8 +22,6 @@ const Favorites = () => {
   const [addingToCart, setAddingToCart] = useState(null);
   const navigate = useNavigate();
 
-  // الألوان الجديدة
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -44,7 +42,7 @@ const Favorites = () => {
         confirmButtonText: options.confirmButtonText,
         showCancelButton: options.showCancelButton,
         cancelButtonText: options.cancelButtonText,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         ...options.swalOptions,
       });
@@ -88,7 +86,7 @@ const Favorites = () => {
         text: text,
         timer: options.timer || 2000,
         showConfirmButton: false,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         ...options.swalOptions,
       });
     }
@@ -262,7 +260,7 @@ const Favorites = () => {
         text: "يجب تسجيل الدخول لإضافة المنتجات إلى السلة",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         confirmButtonText: "تسجيل الدخول",
         cancelButtonText: "إنشاء حساب جديد",
@@ -336,7 +334,7 @@ const Favorites = () => {
               confirmButtonText: "عرض التفاصيل",
               showCancelButton: true,
               cancelButtonText: "إلغاء",
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
               cancelButtonColor: "#6B7280",
             }).then((result) => {
               if (result.isConfirmed) {
@@ -407,7 +405,7 @@ const Favorites = () => {
   const formatPriceDisplayMobile = (product) => {
     if (product.isPriceBasedOnRequest) {
       return (
-        <div className={`text-[${primaryColor}] font-bold text-sm`}>
+        <div className={`text-[#4945E7] font-bold text-sm`}>
           السعر حسب الطلب
         </div>
       );
@@ -419,7 +417,7 @@ const Favorites = () => {
           <div className="text-gray-400 dark:text-gray-500 text-xs line-through">
             {product.price} ج.م
           </div>
-          <div className={`text-[${primaryColor}] font-bold text-sm`}>
+          <div className={`text-[#4945E7] font-bold text-sm`}>
             {product.finalPrice.toFixed(2)} ج.م
           </div>
         </>
@@ -427,7 +425,7 @@ const Favorites = () => {
     }
 
     return (
-      <div className={`text-[${primaryColor}] font-bold text-sm`}>
+      <div className={`text-[#4945E7] font-bold text-sm`}>
         {product.price} ج.م
       </div>
     );
@@ -436,7 +434,7 @@ const Favorites = () => {
   const formatPriceDisplay = (product) => {
     if (product.isPriceBasedOnRequest) {
       return (
-        <div className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}>
+        <div className={`text-[#4945E7] font-bold text-lg sm:text-xl`}>
           السعر حسب الطلب
         </div>
       );
@@ -449,7 +447,7 @@ const Favorites = () => {
             {product.price} ج.م
           </div>
           <div
-            className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}
+            className={`text-[#4945E7] font-bold text-lg sm:text-xl`}
           >
             {product.finalPrice.toFixed(2)} ج.م
           </div>
@@ -458,7 +456,7 @@ const Favorites = () => {
     }
 
     return (
-      <div className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}>
+      <div className={`text-[#4945E7] font-bold text-lg sm:text-xl`}>
         {product.price} ج.م
       </div>
     );

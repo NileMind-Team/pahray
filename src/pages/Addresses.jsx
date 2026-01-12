@@ -39,8 +39,6 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
 const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -199,7 +197,7 @@ const showAddressErrorAlert = (errorData) => {
       confirmButtonText: "حاول مرة أخرى",
       timer: 2500,
       showConfirmButton: false,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
     });
   }
 };
@@ -229,7 +227,7 @@ const showAddressSuccessAlert = (message) => {
       icon: "success",
       showConfirmButton: false,
       timer: 2500,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
     });
   }
 };
@@ -547,7 +545,7 @@ export default function Addresses() {
       text: "لن تتمكن من التراجع عن هذا!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -659,7 +657,7 @@ export default function Addresses() {
         text: "يرجى اختيار موقع من الخريطة أولاً",
         showConfirmButton: false,
         timer: 2000,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
       });
     }
   };
@@ -753,7 +751,7 @@ export default function Addresses() {
                 } flex items-center justify-between flex-shrink-0`}
               >
                 <div className="flex items-center gap-3">
-                  <FaMap className={`text-[${primaryColor}] text-xl`} />
+                  <FaMap className={`text-[#4945E7] text-xl`} />
                   <h3
                     className={`text-lg font-bold ${
                       darkMode ? "text-white" : "text-gray-800"
@@ -1238,7 +1236,7 @@ export default function Addresses() {
                           >
                             <div className="flex items-center gap-3">
                               <FaCity
-                                className={`text-[${primaryColor}] text-sm`}
+                                className={`text-[#4945E7] text-sm`}
                               />
                               <span>
                                 {formData.cityId
@@ -1255,7 +1253,7 @@ export default function Addresses() {
                               transition={{ duration: 0.3 }}
                             >
                               <FaChevronDown
-                                className={`text-[${primaryColor}]`}
+                                className={`text-[#4945E7]`}
                               />
                             </motion.div>
                           </button>

@@ -217,8 +217,7 @@ const OrderShiftsReport = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
 
-  // تعريف الألوان الجديدة
-  const primaryColor = "#4945E7";
+
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -912,7 +911,7 @@ const OrderShiftsReport = () => {
             closeButton.style.right = "20px";
             closeButton.style.zIndex = "100000";
             closeButton.style.padding = "10px 20px";
-            closeButton.style.background = primaryColor;
+            closeButton.style.background = "#4945E7";
             closeButton.style.color = "white";
             closeButton.style.border = "none";
             closeButton.style.borderRadius = "5px";
@@ -969,7 +968,7 @@ const OrderShiftsReport = () => {
         className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
       >
         <div
-          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[${primaryColor}]`}
+          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]`}
         ></div>
       </div>
     );
@@ -1025,7 +1024,7 @@ const OrderShiftsReport = () => {
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
               <div className="flex items-center gap-2">
-                <FaCalendarAlt className={`text-[${primaryColor}] text-xl`} />
+                <FaCalendarAlt className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                   فلترة الورديات
                 </h3>
@@ -1047,7 +1046,7 @@ const OrderShiftsReport = () => {
                       darkMode
                         ? "border-gray-600 bg-gray-800 text-white"
                         : "border-gray-200 bg-white text-black"
-                    } rounded-lg sm:rounded-xl pl-10 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                    } rounded-lg sm:rounded-xl pl-10 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                     locale="ar"
                     placeholderText="اختر اليوم"
                   />
@@ -1065,13 +1064,13 @@ const OrderShiftsReport = () => {
                     onClick={() => toggleDropdown("branch")}
                     className={`w-full flex items-center justify-between border ${
                       darkMode
-                        ? `border-gray-600 bg-gray-800 text-gray-300 hover:border-[${primaryColor}]`
-                        : `border-gray-200 bg-white text-gray-600 hover:border-[${primaryColor}]`
+                        ? `border-gray-600 bg-gray-800 text-gray-300 hover:border-[#4945E7]`
+                        : `border-gray-200 bg-white text-gray-600 hover:border-[#4945E7]`
                     } rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 transition-all group text-sm sm:text-base`}
                   >
                     <div className="flex items-center gap-3">
                       <FaBuilding
-                        className={`text-[${primaryColor}] text-sm`}
+                        className={`text-[#4945E7] text-sm`}
                       />
                       <span>
                         {branchId
@@ -1086,7 +1085,7 @@ const OrderShiftsReport = () => {
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <FaChevronDown className={`text-[${primaryColor}]`} />
+                      <FaChevronDown className={`text-[#4945E7]`} />
                     </motion.div>
                   </button>
                   <AnimatePresence>
@@ -1136,8 +1135,8 @@ const OrderShiftsReport = () => {
                     disabled={!day || !branchId || orderShifts.length === 0}
                     className={`w-full flex items-center justify-between border ${
                       darkMode
-                        ? `border-gray-600 bg-gray-800 text-gray-300 hover:border-[${primaryColor}]`
-                        : `border-gray-200 bg-white text-gray-600 hover:border-[${primaryColor}]`
+                        ? `border-gray-600 bg-gray-800 text-gray-300 hover:border-[#4945E7]`
+                        : `border-gray-200 bg-white text-gray-600 hover:border-[#4945E7]`
                     } ${
                       !day || !branchId || orderShifts.length === 0
                         ? "opacity-50 cursor-not-allowed"
@@ -1146,7 +1145,7 @@ const OrderShiftsReport = () => {
                   >
                     <div className="flex items-center gap-3">
                       <FaCalendar
-                        className={`text-[${primaryColor}] text-sm`}
+                        className={`text-[#4945E7] text-sm`}
                       />
                       <span>
                         {shiftId && orderShifts.length > 0
@@ -1165,7 +1164,7 @@ const OrderShiftsReport = () => {
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      <FaChevronDown className={`text-[${primaryColor}]`} />
+                      <FaChevronDown className={`text-[#4945E7]`} />
                     </motion.div>
                   </button>
                   <AnimatePresence>
@@ -1273,7 +1272,7 @@ const OrderShiftsReport = () => {
             >
               <div className="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-2">
-                  <FaListAlt className={`text-[${primaryColor}] text-xl`} />
+                  <FaListAlt className={`text-[#4945E7] text-xl`} />
                   <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                     تفاصيل الطلبات حسب الورديات
                   </h3>

@@ -63,8 +63,6 @@ const ProductDetails = () => {
   const addonTypeModalRef = useRef(null);
   const notesModalRef = useRef(null);
 
-  // الألوان الجديدة
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -83,7 +81,7 @@ const ProductDetails = () => {
         icon: type,
         title: title,
         text: text,
-        confirmButtonColor: options.confirmButtonColor || primaryColor,
+        confirmButtonColor: options.confirmButtonColor || "#4945E7",
         timer: options.timer || 2500,
         showConfirmButton:
           options.showConfirmButton !== undefined
@@ -154,7 +152,7 @@ const ProductDetails = () => {
         icon: type,
         title: title,
         text: text,
-        confirmButtonColor: options.confirmButtonColor || primaryColor,
+        confirmButtonColor: options.confirmButtonColor || "#4945E7",
         timer: options.timer || 2500,
         showConfirmButton:
           options.showConfirmButton !== undefined
@@ -405,7 +403,7 @@ const ProductDetails = () => {
     if (product.isPriceBasedOnRequest) {
       return (
         <div
-          className={`text-[${primaryColor}] font-bold text-2xl md:text-3xl`}
+          className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}
         >
           السعر حسب الطلب
         </div>
@@ -419,7 +417,7 @@ const ProductDetails = () => {
             {toArabicNumbers(product.price)} ج.م
           </div>
           <div
-            className={`text-[${primaryColor}] font-bold text-2xl md:text-3xl`}
+            className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}
           >
             {toArabicNumbers(product.finalPrice.toFixed(2))} ج.م
           </div>
@@ -428,7 +426,7 @@ const ProductDetails = () => {
     }
 
     return (
-      <div className={`text-[${primaryColor}] font-bold text-2xl md:text-3xl`}>
+      <div className={`text-[#4945E7] font-bold text-2xl md:text-3xl`}>
         {toArabicNumbers(product.price)} ج.م
       </div>
     );
@@ -439,10 +437,8 @@ const ProductDetails = () => {
     return !categoryInfo.isActive;
   };
 
-  // تحديث الدالة لتأخذ بعين الاعتبار isActive و isAvailable
   const isProductActive = () => {
     if (!product) return false;
-    // المنتج يعتبر مفعل إذا كان isActive = true و isAvailable = true
     return product.isActive && product.isAvailable;
   };
 
@@ -526,7 +522,7 @@ const ProductDetails = () => {
         text: "يجب تسجيل الدخول لإضافة المنتجات إلى السلة",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         confirmButtonText: "تسجيل الدخول",
         cancelButtonText: "إنشاء حساب جديد",
@@ -620,7 +616,7 @@ const ProductDetails = () => {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -791,7 +787,7 @@ const ProductDetails = () => {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -1260,7 +1256,7 @@ const ProductDetails = () => {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <FaStickyNote className={`text-[${primaryColor}] text-xl`} />
+                <FaStickyNote className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white">
                   تعليمات إضافية
                 </h3>

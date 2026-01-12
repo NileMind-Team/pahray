@@ -15,9 +15,6 @@ import ForgotPasswordForm from "../components/auth/ForgotPasswordForm";
 import LoginForm from "../components/auth/LoginForm";
 import RegisterForm from "../components/auth/RegisterForm";
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
-
 const showAuthMobileSuccessToast = (message) => {
   if (window.innerWidth < 768) {
     toast.success(message, {
@@ -194,7 +191,7 @@ export default function AuthPage() {
           text: translateGoogleError(error),
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
           didClose: () => {
             navigate("/login");
           },
@@ -241,7 +238,7 @@ export default function AuthPage() {
               text: "حدث خطأ أثناء تسجيل الدخول باستخدام Google",
               showConfirmButton: false,
               timer: 2500,
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
               didClose: () => {
                 navigate("/login");
               },
@@ -290,7 +287,7 @@ export default function AuthPage() {
       },
       allowOutsideClick: false,
       allowEscapeKey: false,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
     });
 
     const formData = new FormData();
@@ -329,7 +326,7 @@ export default function AuthPage() {
           html: errorMessage,
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     }
@@ -357,7 +354,7 @@ export default function AuthPage() {
           icon: "error",
           title: "خطأ في الاتصال",
           text: "حدث خطأ أثناء التوجيه إلى Google. يرجى المحاولة مرة أخرى.",
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
           confirmButtonText: "حاول مرة أخرى",
         });
       }
@@ -409,7 +406,7 @@ export default function AuthPage() {
             text: "تم إنشاء حسابك بنجاح! يرجى تأكيد بريدك الإلكتروني للمتابعة.",
             showConfirmButton: false,
             timer: 2500,
-            confirmButtonColor: primaryColor,
+            confirmButtonColor: "#4945E7",
           });
         }
       } else {
@@ -427,7 +424,7 @@ export default function AuthPage() {
             html: errorMessage,
             showConfirmButton: false,
             timer: 2500,
-            confirmButtonColor: primaryColor,
+            confirmButtonColor: "#4945E7",
           });
         }
       }
@@ -441,7 +438,7 @@ export default function AuthPage() {
           text: "حدث خطأ غير متوقع.",
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     }
@@ -458,7 +455,7 @@ export default function AuthPage() {
       },
       allowOutsideClick: false,
       allowEscapeKey: false,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
     });
 
     try {
@@ -486,7 +483,7 @@ export default function AuthPage() {
           text: "لقد أرسلنا رمز إعادة التعيين إلى بريدك الإلكتروني. يرجى التحقق من صندوق الوارد لإعادة تعيين كلمة المرور.",
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     } catch (err) {
@@ -504,7 +501,7 @@ export default function AuthPage() {
           html: translatedMessage,
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     }
@@ -527,7 +524,7 @@ export default function AuthPage() {
           text: "تم إرسال بريد تأكيد جديد إلى صندوق الوارد الخاص بك.",
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
 
@@ -546,7 +543,7 @@ export default function AuthPage() {
           text: translatedMessage,
           showConfirmButton: false,
           timer: 2500,
-          confirmButtonColor: primaryColor,
+          confirmButtonColor: "#4945E7",
         });
       }
     }
@@ -593,7 +590,7 @@ export default function AuthPage() {
                 text: "تم تأكيد بريدك الإلكتروني. يمكنك الآن تسجيل الدخول.",
                 showConfirmButton: false,
                 timer: 2500,
-                confirmButtonColor: primaryColor,
+                confirmButtonColor: "#4945E7",
               });
             }
 
@@ -631,18 +628,18 @@ export default function AuthPage() {
       isGoogleLoading={isGoogleLoading}
       onLoginTabClick={handleLoginTabClick}
       onRegisterTabClick={handleRegisterTabClick}
-      primaryColor={primaryColor}
+      primaryColor={"#4945E7"}
     >
       {showWelcome ? (
         <WelcomeAnimation
           userName={loggedUserName}
           userImage={loggedUserImage}
-          primaryColor={primaryColor}
+          primaryColor={"#4945E7"}
         />
       ) : isProcessingGoogle ? (
         <div className="flex flex-col items-center justify-center min-h-[400px]">
           <div
-            className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[${primaryColor}] mb-6`}
+            className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7] mb-6`}
           ></div>
         </div>
       ) : waitingForConfirmation ? (
@@ -656,7 +653,7 @@ export default function AuthPage() {
             setWaitingForConfirmation(false);
             setForgetMode(false);
           }}
-          primaryColor={primaryColor}
+          primaryColor={"#4945E7"}
         />
       ) : forgetMode ? (
         <ForgotPasswordForm
@@ -664,7 +661,7 @@ export default function AuthPage() {
           onEmailChange={setForgetEmail}
           onSubmit={handleForgetPassword}
           onBack={() => setForgetMode(false)}
-          primaryColor={primaryColor}
+          primaryColor={"#4945E7"}
         />
       ) : activeTab === "login" ? (
         <div ref={loginFormRef}>
@@ -678,7 +675,7 @@ export default function AuthPage() {
             onToggleShowPassword={() => setShowPassword(!showPassword)}
             onForgotPassword={() => setForgetMode(true)}
             onSubmit={handleLogin}
-            primaryColor={primaryColor}
+            primaryColor={"#4945E7"}
           />
         </div>
       ) : (
@@ -697,7 +694,7 @@ export default function AuthPage() {
               setShowConfirmPassword(!showConfirmPassword)
             }
             onSubmit={handleRegister}
-            primaryColor={primaryColor}
+            primaryColor={"#4945E7"}
           />
         </div>
       )}

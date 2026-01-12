@@ -18,8 +18,6 @@ const isMobile = () => {
   return window.innerWidth < 768;
 };
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
 const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -79,7 +77,7 @@ const showMessage = (type, title, text, options = {}) => {
       icon: type,
       title: title,
       text: text,
-      confirmButtonColor: options.confirmButtonColor || primaryColor,
+      confirmButtonColor: options.confirmButtonColor || "#4945E7",
       timer: options.timer || 2500,
       showConfirmButton:
         options.showConfirmButton !== undefined
@@ -428,7 +426,7 @@ export default function CitiesManagement() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate(-1)}
-                className={`bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[${primaryColor}] hover:bg-[${primaryColor}] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[${primaryColor}]`}
+                className={`bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[#4945E7] hover:bg-[#4945E7] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[#4945E7]`}
               >
                 <FaArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.button>
@@ -443,7 +441,7 @@ export default function CitiesManagement() {
             </div>
             <div className="text-right self-end sm:self-auto">
               <div
-                className={`text-lg sm:text-xl md:text-2xl font-bold text-[${primaryColor}]`}
+                className={`text-lg sm:text-xl md:text-2xl font-bold text-[#4945E7]`}
               >
                 {cities.length} مدينة
               </div>
@@ -506,7 +504,7 @@ export default function CitiesManagement() {
                             <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                               <div className="p-2 sm:p-3 bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border border-[#6A67F0]/30 dark:border-gray-500">
                                 <FaCity
-                                  className={`text-[${primaryColor}] dark:text-[#6A67F0] text-lg sm:text-xl`}
+                                  className={`text-[#4945E7] dark:text-[#6A67F0] text-lg sm:text-xl`}
                                 />
                               </div>
                               <div className="min-w-0 flex-1">
@@ -577,7 +575,7 @@ export default function CitiesManagement() {
                       </h3>
                       <button
                         onClick={resetForm}
-                        className={`text-gray-500 hover:text-[${primaryColor}] dark:text-gray-400 dark:hover:text-[#6A67F0] transition-colors duration-200 flex-shrink-0 ml-2`}
+                        className={`text-gray-500 hover:text-[#4945E7] dark:text-gray-400 dark:hover:text-[#6A67F0] transition-colors duration-200 flex-shrink-0 ml-2`}
                       >
                         <FaTimes size={16} className="sm:size-5" />
                       </button>
@@ -594,7 +592,7 @@ export default function CitiesManagement() {
                         </label>
                         <div className="relative group">
                           <FaCity
-                            className={`absolute left-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm transition-all duration-300 group-focus-within:scale-110`}
+                            className={`absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110`}
                           />
                           <input
                             type="text"
@@ -602,7 +600,7 @@ export default function CitiesManagement() {
                             value={formData.name}
                             onChange={handleInputChange}
                             required
-                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                             placeholder="أدخل اسم المدينة"
                           />
                         </div>
@@ -614,7 +612,7 @@ export default function CitiesManagement() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={resetForm}
-                          className={`flex-1 py-2.5 sm:py-3 border-2 border-[${primaryColor}] text-[${primaryColor}] rounded-lg sm:rounded-xl font-semibold hover:bg-[${primaryColor}] hover:text-white transition-all duration-300 text-sm sm:text-base`}
+                          className={`flex-1 py-2.5 sm:py-3 border-2 border-[#4945E7] text-[#4945E7] rounded-lg sm:rounded-xl font-semibold hover:bg-[#4945E7] hover:text-white transition-all duration-300 text-sm sm:text-base`}
                         >
                           إلغاء
                         </motion.button>
@@ -625,7 +623,7 @@ export default function CitiesManagement() {
                           disabled={!isFormValid()}
                           className={`flex-1 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-1 sm:gap-2 ${
                             isFormValid()
-                              ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[${primaryColor}]/25 cursor-pointer`
+                              ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                               : "bg-gray-300 text-gray-500 cursor-not-allowed"
                           }`}
                         >

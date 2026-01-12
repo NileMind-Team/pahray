@@ -294,7 +294,6 @@ const OrderDetailsModal = ({ order, onClose }) => {
   if (!order) return null;
 
   const BASE_URL = "https://restaurant-template.runasp.net";
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   const getUserFullName = () => {
@@ -424,7 +423,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-4">
-                <FaUser className={`text-[${primaryColor}]`} />
+                <FaUser className={`text-[#4945E7]`} />
                 <h3 className="font-bold text-gray-800 dark:text-white">
                   معلومات العميل
                 </h3>
@@ -451,7 +450,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
 
             <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
               <div className="flex items-center gap-2 mb-4">
-                <FaMapMarkerAlt className={`text-[${primaryColor}]`} />
+                <FaMapMarkerAlt className={`text-[#4945E7]`} />
                 <h3 className="font-bold text-gray-800 dark:text-white">
                   معلومات التوصيل
                 </h3>
@@ -496,7 +495,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
 
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-4">
-              <FaBox className={`text-[${primaryColor}]`} />
+              <FaBox className={`text-[#4945E7]`} />
               <h3 className="font-bold text-gray-800 dark:text-white">
                 المنتجات المطلوبة
               </h3>
@@ -597,7 +596,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
                               <p className="font-bold text-lg text-green-600 dark:text-green-400">
                                 {isPriceBasedOnRequest ? (
                                   <span
-                                    className={`text-[${primaryColor}] dark:text-[${primaryColor}]`}
+                                    className={`text-[#4945E7] dark:text-[#4945E7]`}
                                   >
                                     السعر حسب الطلب
                                   </span>
@@ -782,7 +781,6 @@ const SalesReports = () => {
   const [pageSize, setPageSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0);
 
-  const primaryColor = "#4945E7";
   const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
   const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
   const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -1614,7 +1612,7 @@ ${
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
               <div className="flex items-center gap-2">
-                <FaCalendarAlt className={`text-[${primaryColor}] text-xl`} />
+                <FaCalendarAlt className={`text-[#4945E7] text-xl`} />
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                   فلترة بتاريخ وفرع
                 </h3>
@@ -1858,7 +1856,7 @@ ${
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <FaChartBar className={`text-[${primaryColor}] text-xl`} />
+                  <FaChartBar className={`text-[#4945E7] text-xl`} />
                   <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                     المنتجات الأكثر مبيعاً
                   </h3>
@@ -1910,7 +1908,7 @@ ${
                 <div className="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <FaListAlt className={`text-[${primaryColor}] text-xl`} />
+                      <FaListAlt className={`text-[#4945E7] text-xl`} />
                       <h3 className="text-lg font-bold text-gray-800 dark:text-white">
                         تفاصيل الطلبات
                       </h3>

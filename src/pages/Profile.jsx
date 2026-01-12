@@ -23,8 +23,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../api/axiosInstance";
 
-// اللون الأساسي الجديد
-const primaryColor = "#4945E7";
 const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
 const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
@@ -582,7 +580,7 @@ export default function Profile() {
                   {user.email}
                 </span>
                 <FaEnvelope
-                  className={`text-[${primaryColor}] flex-shrink-0`}
+                  className={`text-[#4945E7] flex-shrink-0`}
                 />
               </motion.p>
             </div>
@@ -640,12 +638,12 @@ export default function Profile() {
                   React.createElement(
                     tabs.find((tab) => tab.id === activeTab).icon,
                     {
-                      className: `text-[${primaryColor}] text-xl`,
+                      className: `text-[#4945E7] text-xl`,
                     }
                   )}
                 <span>{tabs.find((tab) => tab.id === activeTab)?.label}</span>
               </div>
-              <FaBars className={`text-[${primaryColor}]`} />
+              <FaBars className={`text-[#4945E7]`} />
             </motion.button>
 
             {/* Mobile Dropdown Menu */}
@@ -703,8 +701,8 @@ export default function Profile() {
                 }}
                 className={`flex items-center gap-3 flex-1 py-4 px-6 rounded-xl font-semibold transition-all duration-300 text-right ${
                   activeTab === tab.id
-                    ? `bg-white text-[${primaryColor}] shadow-lg dark:bg-gray-600 dark:text-[#4945E7]`
-                    : `text-gray-600 hover:text-[${primaryColor}] hover:bg-white/50 dark:text-gray-300 dark:hover:bg-gray-600/50`
+                    ? `bg-white text-[#4945E7] shadow-lg dark:bg-gray-600 dark:text-[#4945E7]`
+                    : `text-gray-600 hover:text-[#4945E7] hover:bg-white/50 dark:text-gray-300 dark:hover:bg-gray-600/50`
                 }`}
               >
                 <tab.icon className="text-xl flex-shrink-0" />
@@ -713,7 +711,7 @@ export default function Profile() {
                   <div
                     className={`text-sm mt-1 ${
                       activeTab === tab.id
-                        ? `text-[${primaryColor}]/80 dark:text-[#4945E7]/70`
+                        ? `text-[#4945E7]/80 dark:text-[#4945E7]/70`
                         : "text-gray-500 dark:text-gray-400"
                     }`}
                   >
@@ -737,7 +735,7 @@ export default function Profile() {
               >
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-gray-200/50 shadow-lg dark:bg-gray-700/80 dark:border-gray-600/50">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 flex items-center gap-2 justify-start">
-                    <FaUser className={`text-[${primaryColor}]`} />
+                    <FaUser className={`text-[#4945E7]`} />
                     المعلومات الشخصية
                   </h3>
 
@@ -749,7 +747,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaUser
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 group-focus-within:scale-110 ${
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 group-focus-within:scale-110 ${
                             isEditingProfile ? "opacity-100" : "opacity-70"
                           }`}
                         />
@@ -778,7 +776,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaUser
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 group-focus-within:scale-110 ${
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 group-focus-within:scale-110 ${
                             isEditingProfile ? "opacity-100" : "opacity-70"
                           }`}
                         />
@@ -807,7 +805,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaEnvelope
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 opacity-70`}
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 opacity-70`}
                         />
                         <div className="w-full border border-gray-200 bg-gray-100/50 text-gray-800 text-base sm:text-lg font-medium pr-10 sm:pr-12 py-3 sm:py-3.5 rounded-xl truncate dark:bg-gray-600/50 dark:text-gray-200 dark:border-gray-500 text-right">
                           {user.email}
@@ -822,7 +820,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaPhone
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 group-focus-within:scale-110 ${
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 group-focus-within:scale-110 ${
                             isEditingProfile ? "opacity-100" : "opacity-70"
                           }`}
                         />
@@ -859,7 +857,7 @@ export default function Profile() {
               >
                 <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-gray-200/50 shadow-lg dark:bg-gray-700/80 dark:border-gray-600/50">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-200 mb-3 sm:mb-4 flex items-center gap-2 justify-start">
-                    <FaKey className={`text-[${primaryColor}]`} />
+                    <FaKey className={`text-[#4945E7]`} />
                     تغيير كلمة المرور
                   </h3>
 
@@ -871,7 +869,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaLock
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 group-focus-within:scale-110 opacity-70`}
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 group-focus-within:scale-110 opacity-70`}
                         />
                         <input
                           type={showPassword.old ? "text" : "password"}
@@ -905,7 +903,7 @@ export default function Profile() {
                       </label>
                       <div className="relative group">
                         <FaLock
-                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-lg transition-all duration-300 group-focus-within:scale-110 opacity-70`}
+                          className={`absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-lg transition-all duration-300 group-focus-within:scale-110 opacity-70`}
                         />
                         <input
                           type={showPassword.new ? "text" : "password"}
@@ -935,7 +933,7 @@ export default function Profile() {
                     {/* Password Requirements */}
                     <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-3 sm:p-4 rounded-xl border border-gray-200 space-y-2 dark:from-gray-600 dark:to-gray-500 dark:border-gray-500">
                       <p
-                        className={`text-sm font-semibold text-[${primaryColor}] mb-2 text-right`}
+                        className={`text-sm font-semibold text-[#4945E7] mb-2 text-right`}
                       >
                         متطلبات كلمة المرور:
                       </p>
