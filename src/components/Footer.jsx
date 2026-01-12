@@ -139,6 +139,18 @@ const Footer = () => {
       className="bg-gradient-to-br from-gray-900 via-gray-800 to-[#1a1a1a] text-white relative overflow-hidden"
       dir="rtl"
     >
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+          
+          .restaurant-title {
+            font-family: 'El Messiri', 'Tajawal', 'Noto Sans Arabic', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+          }
+        `}
+      </style>
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-r from-[#6A67F0]/10 to-[#4945E7]/10 rounded-full blur-3xl"></div>
@@ -161,7 +173,7 @@ const Footer = () => {
                   className="w-12 h-12 object-contain"
                 />
                 <span
-                  className={`text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+                  className={`restaurant-title text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
                 >
                   أسماك بحري
                 </span>

@@ -351,6 +351,18 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <>
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+          
+          .restaurant-title {
+            font-family: 'El Messiri', 'Tajawal', 'Noto Sans Arabic', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+          }
+        `}
+      </style>
+
       <nav className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg py-4 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-50 border-b border-[#4945E7]/20 dark:border-gray-700 transition-colors duration-300">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -383,7 +395,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
             <div className="flex flex-col items-start">
               {/* Title and Icon for Medium+ Screens */}
               <div className="flex items-center gap-2">
-                <h1 className="hidden md:block text-xl lg:text-2xl font-bold bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent dark:from-[#6A67F0] dark:to-[#4945E7] transition-all duration-300 group-hover:from-[#6A67F0] group-hover:to-[#4945E7] dark:group-hover:from-[#4945E7] dark:group-hover:to-[#6A67F0]">
+                <h1 className="restaurant-title hidden md:block text-xl lg:text-2xl bg-gradient-to-r from-[#4945E7] to-[#6A67F0] bg-clip-text text-transparent dark:from-[#6A67F0] dark:to-[#4945E7] transition-all duration-300 group-hover:from-[#6A67F0] group-hover:to-[#4945E7] dark:group-hover:from-[#4945E7] dark:group-hover:to-[#6A67F0]">
                   أسماك بحري
                 </h1>
 
