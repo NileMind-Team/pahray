@@ -39,6 +39,12 @@ const defaultCenter = {
 
 const libraries = ["places"];
 
+// اللون الأساسي الجديد
+const primaryColor = "#4945E7";
+const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
+const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
+const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
+
 const translateAddressErrorMessage = (errorData) => {
   if (!errorData) return "حدث خطأ غير معروف";
 
@@ -193,6 +199,7 @@ const showAddressErrorAlert = (errorData) => {
       confirmButtonText: "حاول مرة أخرى",
       timer: 2500,
       showConfirmButton: false,
+      confirmButtonColor: primaryColor,
     });
   }
 };
@@ -222,6 +229,7 @@ const showAddressSuccessAlert = (message) => {
       icon: "success",
       showConfirmButton: false,
       timer: 2500,
+      confirmButtonColor: primaryColor,
     });
   }
 };
@@ -539,7 +547,7 @@ export default function Addresses() {
       text: "لن تتمكن من التراجع عن هذا!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#E41E26",
+      confirmButtonColor: primaryColor,
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -651,6 +659,7 @@ export default function Addresses() {
         text: "يرجى اختيار موقع من الخريطة أولاً",
         showConfirmButton: false,
         timer: 2000,
+        confirmButtonColor: primaryColor,
       });
     }
   };
@@ -682,28 +691,20 @@ export default function Addresses() {
   if (isLoading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${
-          darkMode
-            ? "dark bg-gray-900"
-            : "bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4]"
-        } px-4`}
+        className={`min-h-screen flex items-center justify-center ${lightBackground} dark:${darkBackground} px-4`}
       >
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#E41E26]"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
     );
   }
 
   return (
     <div
-      className={`min-h-screen ${
-        darkMode
-          ? "dark bg-gray-900"
-          : "bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4]"
-      } px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
+      className={`min-h-screen ${lightBackground} dark:${darkBackground} px-3 sm:px-4 md:px-6 py-3 sm:py-6 relative font-sans overflow-hidden transition-colors duration-300`}
     >
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -left-10 sm:-left-20 -top-10 sm:-top-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#E41E26]/10 to-[#FDB913]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
-        <div className="absolute -right-10 sm:-right-20 -bottom-10 sm:-bottom-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#FDB913]/10 to-[#E41E26]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
+        <div className="absolute -left-10 sm:-left-20 -top-10 sm:-top-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
+        <div className="absolute -right-10 sm:-right-20 -bottom-10 sm:-bottom-20 w-40 h-40 sm:w-60 sm:h-60 md:w-80 md:h-80 bg-gradient-to-r from-[#6A67F0]/10 to-[#4945E7]/10 rounded-full blur-2xl sm:blur-3xl animate-pulse"></div>
       </div>
 
       <motion.button
@@ -718,8 +719,8 @@ export default function Addresses() {
         }}
         className={`fixed top-3 sm:top-4 left-3 sm:left-4 z-50 ${
           darkMode
-            ? "bg-gray-800/80 text-white border-gray-600 hover:bg-[#E41E26]"
-            : "bg-white/80 text-[#E41E26] border-[#E41E26]/30 hover:bg-[#E41E26] hover:text-white"
+            ? "bg-gray-800/80 text-white border-gray-600 hover:bg-[#4945E7]"
+            : "bg-white/80 text-[#4945E7] border-[#4945E7]/30 hover:bg-[#4945E7] hover:text-white"
         } backdrop-blur-md rounded-full p-2 sm:p-3 border shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl group`}
       >
         <FaArrowLeft
@@ -752,7 +753,7 @@ export default function Addresses() {
                 } flex items-center justify-between flex-shrink-0`}
               >
                 <div className="flex items-center gap-3">
-                  <FaMap className="text-[#E41E26] text-xl" />
+                  <FaMap className={`text-[${primaryColor}] text-xl`} />
                   <h3
                     className={`text-lg font-bold ${
                       darkMode ? "text-white" : "text-gray-800"
@@ -788,7 +789,7 @@ export default function Addresses() {
                   {!mapLoaded && (
                     <div className="flex items-center justify-center h-64 bg-gray-100 dark:bg-gray-700 rounded-lg">
                       <div className="text-center">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#E41E26] mx-auto mb-4"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-[#4945E7] mx-auto mb-4"></div>
                         <p
                           className={`text-sm ${
                             darkMode ? "text-gray-300" : "text-gray-600"
@@ -828,22 +829,22 @@ export default function Addresses() {
                     <div
                       className={`mt-4 p-4 rounded-lg ${
                         darkMode
-                          ? "bg-green-900/20 border border-green-800"
-                          : "bg-green-50 border border-green-200"
+                          ? "bg-blue-900/20 border border-blue-800"
+                          : "bg-blue-50 border border-blue-200"
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div className="flex-1">
                           <p
                             className={`text-sm font-medium ${
-                              darkMode ? "text-green-300" : "text-green-700"
+                              darkMode ? "text-blue-300" : "text-blue-700"
                             }`}
                           >
                             ✓ الموقع المختار
                           </p>
                           <p
                             className={`text-xs ${
-                              darkMode ? "text-green-400" : "text-green-600"
+                              darkMode ? "text-blue-400" : "text-blue-600"
                             }`}
                           >
                             خط العرض: {selectedLocation.lat.toFixed(6)} | خط
@@ -855,7 +856,7 @@ export default function Addresses() {
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={confirmLocation}
-                          className="bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-6 py-3 rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap flex-shrink-0"
+                          className={`bg-gradient-to-r ${primaryGradient} text-white px-6 py-3 rounded-lg font-semibold text-sm hover:shadow-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap flex-shrink-0`}
                         >
                           <FaCheck className="text-sm" />
                           تأكيد الموقع
@@ -880,7 +881,9 @@ export default function Addresses() {
             : "bg-white/90 border-white/50"
         } backdrop-blur-xl shadow-xl sm:shadow-2xl rounded-2xl sm:rounded-3xl border relative overflow-hidden transition-colors duration-300`}
       >
-        <div className="relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r from-[#E41E26] to-[#FDB913] overflow-hidden">
+        <div
+          className={`relative h-36 sm:h-40 md:h-44 lg:h-52 bg-gradient-to-r ${primaryGradient} overflow-hidden`}
+        >
           <div className="absolute inset-0 bg-black/10"></div>
           <div className="absolute -top-4 sm:-top-6 -right-4 sm:-right-6 w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-white/10 rounded-full"></div>
           <div className="absolute -bottom-4 sm:-bottom-6 -left-4 sm:-left-6 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-32 lg:h-32 bg-white/10 rounded-full"></div>
@@ -922,7 +925,7 @@ export default function Addresses() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddNewAddress}
-              className="flex items-center gap-2 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#E41E26]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2"
+              className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 md:px-6 py-3 sm:py-3 md:py-4 rounded-xl sm:rounded-2xl font-semibold shadow-2xl sm:shadow-3xl hover:shadow-4xl hover:shadow-[#4945E7]/50 transition-all duration-300 text-sm sm:text-base md:text-lg border-2 border-white whitespace-nowrap transform translate-y-2`}
             >
               <FaPlus className="text-sm sm:text-base md:text-lg" />
               <span>إضافة عنوان جديد</span>
@@ -948,10 +951,10 @@ export default function Addresses() {
                         : "bg-white/80 border-gray-200/50"
                     } backdrop-blur-sm rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 border-2 transition-all duration-300 hover:shadow-lg ${
                       address.isDefaultLocation
-                        ? `border-[#E41E26] ${
+                        ? `border-[#4945E7] ${
                             darkMode
                               ? "bg-gradient-to-r from-gray-800 to-gray-700"
-                              : "bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4]"
+                              : "bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff]"
                           }`
                         : ""
                     }`}
@@ -962,7 +965,7 @@ export default function Addresses() {
                           <div
                             className={`p-1 sm:p-2 rounded-lg sm:rounded-xl bg-gradient-to-r ${getAddressTypeColor()} border`}
                           >
-                            <FaMapMarkerAlt className="text-[#E41E26]" />
+                            <FaMapMarkerAlt className="text-[#4945E7]" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
@@ -974,7 +977,7 @@ export default function Addresses() {
                                 {address.city.name}
                               </h3>
                               {address.isDefaultLocation && (
-                                <span className="bg-[#E41E26] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap inline-flex items-center gap-1 self-start sm:self-center">
+                                <span className="bg-[#4945E7] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap inline-flex items-center gap-1 self-start sm:self-center">
                                   <FaStar className="text-xs" />
                                   افتراضي
                                 </span>
@@ -1088,8 +1091,8 @@ export default function Addresses() {
                             onClick={() => handleSetDefault(address.id)}
                             className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 ${
                               darkMode
-                                ? "bg-green-900/50 text-green-300 hover:bg-green-800"
-                                : "bg-green-50 text-green-700 hover:bg-green-100"
+                                ? "bg-blue-900/50 text-blue-300 hover:bg-blue-800"
+                                : "bg-blue-50 text-blue-700 hover:bg-blue-100"
                             } rounded-lg transition-colors duration-200 text-xs sm:text-sm font-medium flex-1 sm:flex-none justify-center`}
                           >
                             <FaStar className="text-xs sm:text-sm" />
@@ -1166,7 +1169,7 @@ export default function Addresses() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleAddNewAddress}
-                    className="flex items-center gap-2 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto"
+                    className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                   >
                     <FaPlus className="text-xs sm:text-sm" />
                     <span>أضف عنوانك الأول</span>
@@ -1203,8 +1206,8 @@ export default function Addresses() {
                         onClick={resetForm}
                         className={`${
                           darkMode
-                            ? "text-gray-400 hover:text-[#FDB913]"
-                            : "text-gray-500 hover:text-[#E41E26]"
+                            ? "text-gray-400 hover:text-[#6A67F0]"
+                            : "text-gray-500 hover:text-[#4945E7]"
                         } transition-colors duration-200 flex-shrink-0 ml-2`}
                       >
                         <FaTimes size={16} className="sm:size-5" />
@@ -1229,12 +1232,14 @@ export default function Addresses() {
                             onClick={() => toggleDropdown("city")}
                             className={`w-full flex items-center justify-between border ${
                               darkMode
-                                ? "border-gray-600 bg-gray-800 text-gray-300 hover:border-[#E41E26]"
-                                : "border-gray-200 bg-white text-gray-600 hover:border-[#E41E26]"
+                                ? "border-gray-600 bg-gray-800 text-gray-300 hover:border-[#4945E7]"
+                                : "border-gray-200 bg-white text-gray-600 hover:border-[#4945E7]"
                             } rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 transition-all group text-sm sm:text-base`}
                           >
                             <div className="flex items-center gap-3">
-                              <FaCity className="text-[#E41E26] text-sm" />
+                              <FaCity
+                                className={`text-[${primaryColor}] text-sm`}
+                              />
                               <span>
                                 {formData.cityId
                                   ? cities.find(
@@ -1249,7 +1254,9 @@ export default function Addresses() {
                               }}
                               transition={{ duration: 0.3 }}
                             >
-                              <FaChevronDown className="text-[#E41E26]" />
+                              <FaChevronDown
+                                className={`text-[${primaryColor}]`}
+                              />
                             </motion.div>
                           </button>
                           <AnimatePresence>
@@ -1278,7 +1285,7 @@ export default function Addresses() {
                                     className={`px-4 py-2.5 sm:py-3 ${
                                       darkMode
                                         ? "hover:bg-gray-700 text-gray-300 border-gray-600"
-                                        : "hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] text-gray-700 border-gray-100"
+                                        : "hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] text-gray-700 border-gray-100"
                                     } cursor-pointer transition-all text-sm sm:text-base border-b last:border-b-0`}
                                   >
                                     {city.name}
@@ -1299,7 +1306,7 @@ export default function Addresses() {
                           رقم الهاتف *
                         </label>
                         <div className="relative group">
-                          <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                          <FaPhone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                           <input
                             type="tel"
                             name="phoneNumber"
@@ -1312,7 +1319,7 @@ export default function Addresses() {
                               darkMode
                                 ? "border-gray-600 bg-gray-800 text-white"
                                 : "border-gray-200 bg-white text-black"
-                            } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                            } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                             placeholder="رقم الهاتف"
                           />
                         </div>
@@ -1327,7 +1334,7 @@ export default function Addresses() {
                           اسم الشارع *
                         </label>
                         <div className="relative group">
-                          <FaRoad className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                          <FaRoad className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                           <input
                             type="text"
                             name="streetName"
@@ -1338,7 +1345,7 @@ export default function Addresses() {
                               darkMode
                                 ? "border-gray-600 bg-gray-800 text-white"
                                 : "border-gray-200 bg-white text-black"
-                            } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                            } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                             placeholder="اسم الشارع"
                           />
                         </div>
@@ -1354,7 +1361,7 @@ export default function Addresses() {
                             رقم المبنى *
                           </label>
                           <div className="relative group">
-                            <FaBuildingIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                            <FaBuildingIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
                               type="text"
                               inputMode="numeric"
@@ -1367,7 +1374,7 @@ export default function Addresses() {
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
                                   : "border-gray-200 bg-white text-black"
-                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                               placeholder="رقم"
                             />
                           </div>
@@ -1381,7 +1388,7 @@ export default function Addresses() {
                             رقم الدور *
                           </label>
                           <div className="relative group">
-                            <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                            <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
                               type="text"
                               inputMode="numeric"
@@ -1394,7 +1401,7 @@ export default function Addresses() {
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
                                   : "border-gray-200 bg-white text-black"
-                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                               placeholder="الدور"
                             />
                           </div>
@@ -1408,7 +1415,7 @@ export default function Addresses() {
                             رقم الشقة *
                           </label>
                           <div className="relative group">
-                            <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                            <FaTag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                             <input
                               type="text"
                               inputMode="numeric"
@@ -1421,7 +1428,7 @@ export default function Addresses() {
                                 darkMode
                                   ? "border-gray-600 bg-gray-800 text-white"
                                   : "border-gray-200 bg-white text-black"
-                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
+                              } rounded-lg sm:rounded-xl pl-9 pr-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                               placeholder="الشقة"
                             />
                           </div>
@@ -1446,7 +1453,7 @@ export default function Addresses() {
                             darkMode
                               ? "border-gray-600 bg-gray-800 text-white"
                               : "border-gray-200 bg-white text-black"
-                          } rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base resize-none`}
+                          } rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base resize-none`}
                           placeholder="أي تفاصيل إضافية عن موقعك..."
                         />
                       </div>
@@ -1465,7 +1472,7 @@ export default function Addresses() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={openMapModal}
-                          className="flex items-center gap-2 w-full mb-2 px-3 py-2.5 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white rounded-lg hover:shadow-lg transition-all duration-200 text-sm font-semibold"
+                          className={`flex items-center gap-2 w-full mb-2 px-3 py-2.5 bg-gradient-to-r ${primaryGradient} text-white rounded-lg hover:shadow-lg transition-all duration-200 text-sm font-semibold`}
                         >
                           <FaMap className="text-sm" />
                           <span>اختيار الموقع من الخريطة</span>
@@ -1489,7 +1496,7 @@ export default function Addresses() {
                         {formData.locationUrl && (
                           <p
                             className={`text-xs mt-1 ${
-                              darkMode ? "text-green-400" : "text-green-600"
+                              darkMode ? "text-blue-400" : "text-blue-600"
                             }`}
                           >
                             ✓ تم إضافة رابط الخريطة بنجاح
@@ -1503,7 +1510,7 @@ export default function Addresses() {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={resetForm}
-                          className={`flex-1 py-2.5 sm:py-3 border-2 border-[#E41E26] text-[#E41E26] rounded-lg sm:rounded-xl font-semibold hover:bg-[#E41E26] hover:text-white transition-all duration-300 text-sm sm:text-base`}
+                          className={`flex-1 py-2.5 sm:py-3 border-2 border-[#4945E7] text-[#4945E7] rounded-lg sm:rounded-xl font-semibold hover:bg-[#4945E7] hover:text-white transition-all duration-300 text-sm sm:text-base`}
                         >
                           إلغاء
                         </motion.button>
@@ -1514,7 +1521,7 @@ export default function Addresses() {
                           disabled={!isFormValid()}
                           className={`flex-1 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-1 sm:gap-2 ${
                             isFormValid()
-                              ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white hover:shadow-xl hover:shadow-[#E41E26]/25 cursor-pointer"
+                              ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25 cursor-pointer`
                               : "bg-gray-300 text-gray-500 cursor-not-allowed"
                           }`}
                         >

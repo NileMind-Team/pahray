@@ -30,8 +30,10 @@ export default function DeliveryAreaCard({
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-            <div className="p-2 sm:p-3 bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border border-[#FDB913]/30 dark:border-gray-500">
-              <FaMapMarkerAlt className="text-[#E41E26] dark:text-[#FDB913] text-lg sm:text-xl" />
+            <div
+              className={`p-2 sm:p-3 bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border border-[#6A67F0]/30 dark:border-gray-500`}
+            >
+              <FaMapMarkerAlt className="text-[#4945E7] dark:text-[#6A67F0] text-lg sm:text-xl" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 mb-1">

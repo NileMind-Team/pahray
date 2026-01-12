@@ -26,6 +26,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "../api/axiosInstance";
 
+// اللون الأساسي الجديد
+const primaryColor = "#4945E7";
+const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
+const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
+const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
+
 const translateOfferErrorMessage = (errorData, useHTML = true) => {
   if (!errorData) return "حدث خطأ غير معروف";
 
@@ -689,7 +695,7 @@ export default function ItemOffersManagement() {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#E41E26",
+      confirmButtonColor: primaryColor,
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -810,9 +816,11 @@ export default function ItemOffersManagement() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4">
+      <div
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
+      >
         <div className="flex flex-col items-center gap-4">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#E41E26]"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
         </div>
       </div>
     );
@@ -823,7 +831,9 @@ export default function ItemOffersManagement() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-3 sm:px-4 py-4 sm:py-8 transition-colors duration-300">
+    <div
+      className={`min-h-screen bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-3 sm:px-4 py-4 sm:py-8 transition-colors duration-300`}
+    >
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -835,7 +845,7 @@ export default function ItemOffersManagement() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate(-1)}
-              className="bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[#E41E26] hover:bg-[#E41E26] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[#E41E26]"
+              className={`bg-white/80 backdrop-blur-md rounded-full p-2 sm:p-3 text-[${primaryColor}] hover:bg-[${primaryColor}] hover:text-white transition-all duration-300 shadow-lg dark:bg-gray-800/80 dark:text-gray-200 dark:hover:bg-[${primaryColor}]`}
             >
               <FaArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
@@ -849,7 +859,9 @@ export default function ItemOffersManagement() {
             </div>
           </div>
           <div className="text-right self-end sm:self-auto">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#E41E26]">
+            <div
+              className={`text-lg sm:text-xl md:text-2xl font-bold text-[${primaryColor}]`}
+            >
               {offers.length} عرض
             </div>
             <div className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
@@ -872,7 +884,7 @@ export default function ItemOffersManagement() {
                 placeholder="ابحث في العروض حسب اسم العنصر، الوصف، أو الفرع..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white text-black focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className={`w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl bg-white text-black focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base dark:bg-gray-700 dark:border-gray-600 dark:text-white`}
               />
             </div>
 
@@ -881,7 +893,7 @@ export default function ItemOffersManagement() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleAddNewOffer}
-                className="flex items-center gap-2 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-4 sm:px-5 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base whitespace-nowrap w-full sm:w-auto justify-center"
+                className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-5 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base whitespace-nowrap w-full sm:w-auto justify-center`}
               >
                 <FaPlus className="text-sm" />
                 <span className="hidden sm:inline">إنشاء عرض</span>
@@ -909,11 +921,15 @@ export default function ItemOffersManagement() {
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-5">
-                        <div className="p-3 sm:p-4 bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border border-[#FDB913]/30 dark:border-gray-500">
+                        <div className="p-3 sm:p-4 bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] dark:from-gray-700 dark:to-gray-600 rounded-xl sm:rounded-2xl border border-[#6A67F0]/30 dark:border-gray-500">
                           {offer.isPercentage ? (
-                            <FaPercent className="text-[#E41E26] dark:text-[#FDB913] text-xl sm:text-2xl" />
+                            <FaPercent
+                              className={`text-[${primaryColor}] dark:text-[#6A67F0] text-xl sm:text-2xl`}
+                            />
                           ) : (
-                            <FaMoneyBillWave className="text-[#E41E26] dark:text-[#FDB913] text-xl sm:text-2xl" />
+                            <FaMoneyBillWave
+                              className={`text-[${primaryColor}] dark:text-[#6A67F0] text-xl sm:text-2xl`}
+                            />
                           )}
                         </div>
                         <div className="min-w-0 flex-1">
@@ -973,7 +989,9 @@ export default function ItemOffersManagement() {
                                 </p>
                                 <p className="font-bold text-blue-600 dark:text-blue-400 text-2xl">
                                   {offer.menuItem?.basePrice === 0 ? (
-                                    <span className="text-[#E41E26] dark:text-[#FDB913] font-bold">
+                                    <span
+                                      className={`text-[${primaryColor}] dark:text-[#6A67F0] font-bold`}
+                                    >
                                       السعر حسب الطلب
                                     </span>
                                   ) : (
@@ -1127,7 +1145,7 @@ export default function ItemOffersManagement() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleAddNewOffer}
-                  className="flex items-center gap-2 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto"
+                  className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                 >
                   <FaPlus className="text-xs sm:text-sm" />
                   <span>إنشاء أول عرض</span>
@@ -1152,7 +1170,7 @@ export default function ItemOffersManagement() {
                     </h3>
                     <button
                       onClick={resetForm}
-                      className="text-gray-500 hover:text-[#E41E26] dark:text-gray-400 dark:hover:text-[#FDB913] transition-colors duration-200 flex-shrink-0 ml-2"
+                      className={`text-gray-500 hover:text-[${primaryColor}] dark:text-gray-400 dark:hover:text-[#6A67F0] transition-colors duration-200 flex-shrink-0 ml-2`}
                     >
                       <FaTimes size={16} className="sm:size-5" />
                     </button>
@@ -1182,10 +1200,12 @@ export default function ItemOffersManagement() {
                             }
                           }}
                           disabled={editingId !== null}
-                          className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed text-right"
+                          className={`w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed text-right`}
                         >
                           <span className="flex items-center gap-2 truncate">
-                            <FaHamburger className="text-[#E41E26] flex-shrink-0" />
+                            <FaHamburger
+                              className={`text-[${primaryColor}] flex-shrink-0`}
+                            />
                             {formData.menuItemId
                               ? (() => {
                                   const selectedItem = menuItems.find(
@@ -1213,9 +1233,13 @@ export default function ItemOffersManagement() {
                             transition={{ duration: 0.3 }}
                           >
                             {loadingItems ? (
-                              <FaSpinner className="text-[#E41E26] animate-spin" />
+                              <FaSpinner
+                                className={`text-[${primaryColor}] animate-spin`}
+                              />
                             ) : (
-                              <FaChevronDown className="text-[#E41E26]" />
+                              <FaChevronDown
+                                className={`text-[${primaryColor}]`}
+                              />
                             )}
                           </motion.div>
                         </button>
@@ -1231,7 +1255,9 @@ export default function ItemOffersManagement() {
                             >
                               {loadingItems ? (
                                 <div className="flex items-center justify-center py-4">
-                                  <FaSpinner className="text-[#E41E26] animate-spin text-lg" />
+                                  <FaSpinner
+                                    className={`text-[${primaryColor}] animate-spin text-lg`}
+                                  />
                                   <span className="ml-2 text-gray-600 dark:text-gray-400">
                                     جاري تحميل العناصر...
                                   </span>
@@ -1256,7 +1282,7 @@ export default function ItemOffersManagement() {
                                         );
                                         setOpenDropdown(null);
                                       }}
-                                      className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-600 dark:hover:to-gray-500 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-600 last:border-b-0 flex flex-col text-right"
+                                      className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] dark:hover:from-gray-600 dark:hover:to-gray-500 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-600 last:border-b-0 flex flex-col text-right"
                                     >
                                       <div className="font-medium truncate">
                                         {item.name}
@@ -1310,7 +1336,7 @@ export default function ItemOffersManagement() {
                               onChange={() =>
                                 setFormData({ ...formData, isPercentage: true })
                               }
-                              className="text-[#E41E26] focus:ring-[#E41E26]"
+                              className={`text-[${primaryColor}] focus:ring-[${primaryColor}]`}
                             />
                             <span className="text-sm text-gray-700 dark:text-gray-300">
                               نسبة مئوية (%)
@@ -1327,7 +1353,7 @@ export default function ItemOffersManagement() {
                                   isPercentage: false,
                                 })
                               }
-                              className="text-[#E41E26] focus:ring-[#E41E26]"
+                              className={`text-[${primaryColor}] focus:ring-[${primaryColor}]`}
                             />
                             <span className="text-sm text-gray-700 dark:text-gray-300">
                               مبلغ ثابت (ج.م)
@@ -1342,9 +1368,13 @@ export default function ItemOffersManagement() {
                         </label>
                         <div className="relative group">
                           {formData.isPercentage ? (
-                            <FaPercent className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                            <FaPercent
+                              className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                            />
                           ) : (
-                            <FaMoneyBillWave className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                            <FaMoneyBillWave
+                              className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                            />
                           )}
                           <input
                             type="number"
@@ -1355,7 +1385,7 @@ export default function ItemOffersManagement() {
                             min="0"
                             max={formData.isPercentage ? "100" : ""}
                             step={formData.isPercentage ? "1" : "0.01"}
-                            className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base text-right"
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base text-right`}
                             placeholder={
                               formData.isPercentage ? "0-100" : "0.00"
                             }
@@ -1370,14 +1400,16 @@ export default function ItemOffersManagement() {
                           تاريخ البداية *
                         </label>
                         <div className="relative group">
-                          <FaCalendarAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                          <FaCalendarAlt
+                            className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                          />
                           <input
                             type="date"
                             name="startDate"
                             value={formData.startDate}
                             onChange={handleInputChange}
                             required
-                            className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                           />
                         </div>
                       </div>
@@ -1386,13 +1418,15 @@ export default function ItemOffersManagement() {
                           وقت البداية
                         </label>
                         <div className="relative group">
-                          <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                          <FaClock
+                            className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                          />
                           <input
                             type="time"
                             name="startTime"
                             value={formData.startTime}
                             onChange={handleInputChange}
-                            className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                           />
                         </div>
                       </div>
@@ -1404,7 +1438,9 @@ export default function ItemOffersManagement() {
                           تاريخ النهاية *
                         </label>
                         <div className="relative group">
-                          <FaCalendarAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                          <FaCalendarAlt
+                            className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                          />
                           <input
                             type="date"
                             name="endDate"
@@ -1412,7 +1448,7 @@ export default function ItemOffersManagement() {
                             onChange={handleInputChange}
                             required
                             min={formData.startDate}
-                            className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                           />
                         </div>
                       </div>
@@ -1421,13 +1457,15 @@ export default function ItemOffersManagement() {
                           وقت النهاية
                         </label>
                         <div className="relative group">
-                          <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm" />
+                          <FaClock
+                            className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-[${primaryColor}] text-sm`}
+                          />
                           <input
                             type="time"
                             name="endTime"
                             value={formData.endTime}
                             onChange={handleInputChange}
-                            className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                            className={`w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg sm:rounded-xl pl-3 pr-9 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[${primaryColor}] focus:border-transparent transition-all duration-200 text-sm sm:text-base`}
                           />
                         </div>
                       </div>
@@ -1460,7 +1498,7 @@ export default function ItemOffersManagement() {
                                   onChange={() =>
                                     handleBranchesChange(branch.id)
                                   }
-                                  className="text-[#E41E26] focus:ring-[#E41E26] rounded"
+                                  className={`text-[${primaryColor}] focus:ring-[${primaryColor}] rounded`}
                                 />
                                 <div className="flex items-center gap-2 flex-1 justify-between">
                                   <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -1478,13 +1516,13 @@ export default function ItemOffersManagement() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-[#fff8e7] to-[#ffe5b4] dark:from-gray-700 dark:to-gray-600 rounded-xl border border-[#FDB913]/30 dark:border-gray-500">
+                    <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-[#f0f2ff] to-[#e0e5ff] dark:from-gray-700 dark:to-gray-600 rounded-xl border border-[#6A67F0]/30 dark:border-gray-500">
                       <input
                         type="checkbox"
                         name="isEnabled"
                         checked={formData.isEnabled}
                         onChange={handleInputChange}
-                        className="w-4 h-4 text-[#E41E26] bg-gray-100 border-gray-300 rounded focus:ring-[#E41E26] focus:ring-2"
+                        className={`w-4 h-4 text-[${primaryColor}] bg-gray-100 border-gray-300 rounded focus:ring-[${primaryColor}] focus:ring-2`}
                       />
                       <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         نشط (متاح للاستخدام)
@@ -1497,7 +1535,7 @@ export default function ItemOffersManagement() {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={resetForm}
-                        className="flex-1 py-2.5 sm:py-3 border-2 border-[#E41E26] text-[#E41E26] rounded-lg sm:rounded-xl font-semibold hover:bg-[#E41E26] hover:text-white transition-all duration-300 text-sm sm:text-base"
+                        className={`flex-1 py-2.5 sm:py-3 border-2 border-[${primaryColor}] text-[${primaryColor}] rounded-lg sm:rounded-xl font-semibold hover:bg-[${primaryColor}] hover:text-white transition-all duration-300 text-sm sm:text-base`}
                       >
                         إلغاء
                       </motion.button>
@@ -1514,7 +1552,7 @@ export default function ItemOffersManagement() {
                           isFormValid() &&
                           formData.branchesIds.length > 0 &&
                           !isSubmitting
-                            ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white hover:shadow-xl hover:shadow-[#E41E26]/25 cursor-pointer"
+                            ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[${primaryColor}]/25 cursor-pointer`
                             : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }`}
                       >

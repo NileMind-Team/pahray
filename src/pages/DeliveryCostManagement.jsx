@@ -34,20 +34,34 @@ export default function DeliveryCostManagement() {
     isFormValid,
   } = useDeliveryAreas();
 
+  // اللون الأساسي الجديد
+  const primaryColor = "#4945E7";
+  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
+  const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
+  const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#E41E26]"></div>
+      <div
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
+      >
+        <div
+          className={`animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[${primaryColor}]`}
+        ></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-[#fff8e7] to-[#ffe5b4] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-3 sm:px-4 py-4 sm:py-8 transition-colors duration-300">
+    <div
+      className={`min-h-screen bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-3 sm:px-4 py-4 sm:py-8 transition-colors duration-300`}
+    >
       <div className="max-w-7xl mx-auto" dir="rtl">
         <HeaderStats
           deliveryAreasCount={deliveryAreas.length}
           navigate={navigate}
+          primaryColor={primaryColor}
+          primaryGradient={primaryGradient}
         />
 
         <SearchFilterBar
@@ -56,6 +70,8 @@ export default function DeliveryCostManagement() {
           filter={filter}
           setFilter={setFilter}
           handleAddNewArea={() => setIsAdding(true)}
+          primaryColor={primaryColor}
+          primaryGradient={primaryGradient}
         />
 
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
@@ -74,6 +90,8 @@ export default function DeliveryCostManagement() {
                   onEdit={handleEdit}
                   onDelete={handleDelete}
                   onToggleActive={handleToggleActive}
+                  primaryColor={primaryColor}
+                  primaryGradient={primaryGradient}
                 />
               ))}
             </AnimatePresence>
@@ -97,7 +115,7 @@ export default function DeliveryCostManagement() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsAdding(true)}
-                  className="flex items-center gap-2 bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto"
+                  className={`flex items-center gap-2 bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base mx-auto`}
                 >
                   <span>أضف أول منطقة</span>
                   <FaPlus className="text-xs sm:text-sm" />
@@ -133,6 +151,8 @@ export default function DeliveryCostManagement() {
                     );
                     return branch ? branch.name : "اختر الفرع";
                   }}
+                  primaryColor={primaryColor}
+                  primaryGradient={primaryGradient}
                 />
               </motion.div>
             )}

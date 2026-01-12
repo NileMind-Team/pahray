@@ -23,6 +23,10 @@ const Footer = () => {
   ]);
   const navigate = useNavigate();
 
+  // تحديد ألوان Home الرئيسية
+  const primaryColor = "#4945E7";
+  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
+
   const quickLinks = [
     { name: "الصفحة الرئيسية", path: "/" },
     { name: "عربة التسوق", path: "/cart" },
@@ -136,9 +140,9 @@ const Footer = () => {
       dir="rtl"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-r from-[#E41E26]/10 to-[#FDB913]/10 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-r from-[#FDB913]/10 to-[#E41E26]/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-[#E41E26]/5 to-[#FDB913]/5 rounded-full blur-3xl"></div>
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-r from-[#4945E7]/10 to-[#6A67F0]/10 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-gradient-to-r from-[#6A67F0]/10 to-[#4945E7]/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-gradient-to-r from-[#4945E7]/5 to-[#6A67F0]/5 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
@@ -153,11 +157,13 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <img
                   src={logo}
-                  alt="Chicken One"
+                  alt="pahary"
                   className="w-12 h-12 object-contain"
                 />
-                <span className="text-2xl font-bold bg-gradient-to-r from-[#E41E26] to-[#FDB913] bg-clip-text text-transparent">
-                  Chicken One
+                <span
+                  className={`text-2xl font-bold bg-gradient-to-r ${primaryGradient} bg-clip-text text-transparent`}
+                >
+                  أسماك بحري
                 </span>
               </div>
             </Link>
@@ -169,15 +175,15 @@ const Footer = () => {
 
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                <FaPhone className="text-[#FDB913] text-sm" />
+                <FaPhone className={`text-[${primaryColor}] text-sm`} />
                 <span className="text-sm">+20 115 942 4411</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                <FaEnvelope className="text-[#FDB913] text-sm" />
-                <span className="text-sm">info@ChickenOne.com</span>
+                <FaEnvelope className={`text-[${primaryColor}] text-sm`} />
+                <span className="text-sm">info@pahary.com</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors">
-                <FaMapMarkerAlt className="text-[#FDB913] text-sm" />
+                <FaMapMarkerAlt className={`text-[${primaryColor}] text-sm`} />
                 <span className="text-sm">الجيزة، مصر</span>
               </div>
             </div>
@@ -190,7 +196,9 @@ const Footer = () => {
           >
             <h3 className="text-lg font-bold mb-6 relative inline-block">
               روابط سريعة
-              <div className="absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r from-[#FDB913] to-[#E41E26]"></div>
+              <div
+                className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r ${primaryGradient}`}
+              ></div>
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -199,7 +207,9 @@ const Footer = () => {
                     to={link.path}
                     className="flex items-center gap-3 text-gray-300 hover:text-white transition-all duration-300 group"
                   >
-                    <FaArrowRight className="text-[#FDB913] text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0 rotate-180" />
+                    <FaArrowRight
+                      className={`text-[${primaryColor}] text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0 rotate-180`}
+                    />
                     <span className="group-hover:translate-x-2 transition-transform duration-300">
                       {link.name}
                     </span>
@@ -218,7 +228,9 @@ const Footer = () => {
             >
               <h3 className="text-lg font-bold mb-6 relative inline-block">
                 {columnIndex === 0 ? "الفئات" : " "}
-                <div className="absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r from-[#FDB913] to-[#E41E26]"></div>
+                <div
+                  className={`absolute bottom-0 right-0 w-1/2 h-0.5 bg-gradient-to-r ${primaryGradient}`}
+                ></div>
               </h3>
               <ul className="space-y-3">
                 {columnCategories.map((category) => (
@@ -227,7 +239,9 @@ const Footer = () => {
                       onClick={() => handleCategoryClick(category.id)}
                       className="flex items-center gap-3 text-gray-300 hover:text-white transition-all duration-300 group w-full text-right"
                     >
-                      <FaArrowRight className="text-[#FDB913] text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0 rotate-180" />
+                      <FaArrowRight
+                        className={`text-[${primaryColor}] text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 transform -translate-x-2 group-hover:translate-x-0 rotate-180`}
+                      />
                       <span className="group-hover:translate-x-2 transition-transform duration-300 flex-1">
                         {category.name}
                       </span>
@@ -247,7 +261,7 @@ const Footer = () => {
         >
           <div className="text-center max-w-2xl mx-auto">
             <h3 className="text-lg font-bold mb-4 flex items-center justify-center gap-2">
-              <FaClock className="text-[#FDB913]" />
+              <FaClock className={`text-[${primaryColor}]`} />
               ساعات العمل
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-gray-300">
@@ -275,8 +289,8 @@ const Footer = () => {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm text-center" dir="rtl">
-              © {currentYear} Chicken-One. جميع الحقوق محفوظة. | صنع بواسطة{" "}
-              <span className="text-[#E41E26]">مهند أشرف</span> في مصر
+              © {currentYear} أسماك بحري. جميع الحقوق محفوظة. | صنع بواسطة{" "}
+              <span className={`text-[${primaryColor}]`}>مهند أشرف</span> في مصر
             </p>
 
             <div className="flex gap-6 text-sm text-gray-400">
@@ -310,7 +324,9 @@ const Footer = () => {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#E41E26] via-[#FDB913] to-[#E41E26]"></div>
+      <div
+        className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${primaryGradient}`}
+      ></div>
     </footer>
   );
 };

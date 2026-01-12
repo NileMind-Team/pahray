@@ -29,6 +29,8 @@ const BranchForm = ({
 }) => {
   const [localOpenDropdown, setLocalOpenDropdown] = useState(null);
 
+  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -102,7 +104,7 @@ const BranchForm = ({
           </h3>
           <button
             onClick={onCancel}
-            className="text-gray-500 dark:text-gray-400 hover:text-[#E41E26] transition-colors duration-200 flex-shrink-0 ml-2"
+            className="text-gray-500 dark:text-gray-400 hover:text-[#4945E7] transition-colors duration-200 flex-shrink-0 ml-2"
           >
             <FaTimes size={16} className="sm:size-5" />
           </button>
@@ -114,14 +116,14 @@ const BranchForm = ({
               اسم الفرع *
             </label>
             <div className="relative group">
-              <FaBuilding className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+              <FaBuilding className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 placeholder="اسم الفرع"
               />
             </div>
@@ -132,14 +134,14 @@ const BranchForm = ({
               البريد الإلكتروني *
             </label>
             <div className="relative group">
-              <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+              <FaEnvelope className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 placeholder="البريد الإلكتروني"
               />
             </div>
@@ -150,14 +152,14 @@ const BranchForm = ({
               العنوان *
             </label>
             <div className="relative group">
-              <FaMapMarkerAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+              <FaMapMarkerAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
               <input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleInputChange}
                 required
-                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 placeholder="العنوان الكامل"
               />
             </div>
@@ -168,13 +170,13 @@ const BranchForm = ({
               رابط الموقع
             </label>
             <div className="relative group">
-              <FaGlobe className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+              <FaGlobe className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
               <input
                 type="url"
                 name="locationUrl"
                 value={formData.locationUrl}
                 onChange={handleInputChange}
-                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 placeholder="رابط خرائط جوجل (اختياري)"
               />
             </div>
@@ -193,10 +195,10 @@ const BranchForm = ({
                       currentDropdown === "city" ? null : "city"
                     )
                   }
-                  className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 >
                   <span className="flex items-center gap-2">
-                    <FaCity className="text-[#E41E26]" />
+                    <FaCity className="text-[#4945E7]" />
                     {formData.cityId
                       ? cities.find((c) => c.id === formData.cityId)?.name
                       : "اختر المدينة"}
@@ -207,7 +209,7 @@ const BranchForm = ({
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaChevronDown className="text-[#E41E26]" />
+                    <FaChevronDown className="text-[#4945E7]" />
                   </motion.div>
                 </button>
 
@@ -225,7 +227,7 @@ const BranchForm = ({
                         <li
                           key={city.id}
                           onClick={() => handleSelectChange("cityId", city.id)}
-                          className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
+                          className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
                         >
                           {city.name}
                         </li>
@@ -247,10 +249,10 @@ const BranchForm = ({
                       currentDropdown === "manager" ? null : "manager"
                     )
                   }
-                  className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 >
                   <span className="flex items-center gap-2">
-                    <FaUser className="text-[#E41E26]" />
+                    <FaUser className="text-[#4945E7]" />
                     {formData.managerId
                       ? managers.find((m) => m.id === formData.managerId)
                           ?.firstName +
@@ -265,7 +267,7 @@ const BranchForm = ({
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    <FaChevronDown className="text-[#E41E26]" />
+                    <FaChevronDown className="text-[#4945E7]" />
                   </motion.div>
                 </button>
 
@@ -285,7 +287,7 @@ const BranchForm = ({
                           onClick={() =>
                             handleSelectChange("managerId", manager.id)
                           }
-                          className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
+                          className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
                         >
                           {manager.firstName} {manager.lastName} (
                           {manager.email})
@@ -310,7 +312,7 @@ const BranchForm = ({
                     currentDropdown === "status" ? null : "status"
                   )
                 }
-                className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                className="w-full flex items-center justify-between border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl px-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
               >
                 <span>{formData.status === "Open" ? "مفتوح" : "مغلق"}</span>
                 <motion.div
@@ -319,7 +321,7 @@ const BranchForm = ({
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <FaChevronDown className="text-[#E41E26]" />
+                  <FaChevronDown className="text-[#4945E7]" />
                 </motion.div>
               </button>
 
@@ -337,7 +339,7 @@ const BranchForm = ({
                       <li
                         key={status}
                         onClick={() => handleSelectChange("status", status)}
-                        className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#fff8e7] hover:to-[#ffe5b4] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
+                        className="px-4 py-3 hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] dark:hover:from-gray-500 dark:hover:to-gray-400 cursor-pointer text-gray-700 dark:text-gray-300 transition-all text-sm sm:text-base border-b border-gray-100 dark:border-gray-500 last:border-b-0 text-right"
                       >
                         {status === "Open" ? "مفتوح" : "مغلق"}
                       </li>
@@ -354,14 +356,14 @@ const BranchForm = ({
                 وقت الفتح *
               </label>
               <div className="relative group">
-                <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                 <input
                   type="time"
                   name="openingTime"
                   value={formData.openingTime || ""}
                   onChange={handleInputChange}
                   required
-                  className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 />
               </div>
             </div>
@@ -370,14 +372,14 @@ const BranchForm = ({
                 وقت الإغلاق *
               </label>
               <div className="relative group">
-                <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#E41E26] text-sm transition-all duration-300 group-focus-within:scale-110" />
+                <FaClock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#4945E7] text-sm transition-all duration-300 group-focus-within:scale-110" />
                 <input
                   type="time"
                   name="closingTime"
                   value={formData.closingTime || ""}
                   onChange={handleInputChange}
                   required
-                  className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#E41E26] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                  className="w-full border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-600 text-black dark:text-white rounded-lg sm:rounded-xl pr-9 pl-3 py-2.5 sm:py-3 outline-none focus:ring-2 focus:ring-[#4945E7] focus:border-transparent transition-all duration-200 text-sm sm:text-base"
                 />
               </div>
             </div>
@@ -398,7 +400,7 @@ const BranchForm = ({
                 name="isActive"
                 checked={formData.isActive}
                 onChange={handleInputChange}
-                className="w-4 h-4 text-[#E41E26] bg-gray-100 border-gray-300 rounded focus:ring-[#E41E26] focus:ring-2"
+                className="w-4 h-4 text-[#4945E7] bg-gray-100 border-gray-300 rounded focus:ring-[#4945E7] focus:ring-2"
               />
               <label
                 htmlFor="isActive"
@@ -416,7 +418,7 @@ const BranchForm = ({
                 name="supportsShifts"
                 checked={formData.supportsShifts || false}
                 onChange={handleInputChange}
-                className="w-4 h-4 text-[#E41E26] bg-gray-100 border-gray-300 rounded focus:ring-[#E41E26] focus:ring-2"
+                className="w-4 h-4 text-[#4945E7] bg-gray-100 border-gray-300 rounded focus:ring-[#4945E7] focus:ring-2"
               />
               <label
                 htmlFor="supportsShifts"
@@ -434,7 +436,7 @@ const BranchForm = ({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={onCancel}
-              className="flex-1 py-2.5 sm:py-3 border-2 border-[#E41E26] text-[#E41E26] dark:text-[#FDB913] dark:border-[#FDB913] rounded-lg sm:rounded-xl font-semibold hover:bg-[#E41E26] dark:hover:bg-[#FDB913] hover:text-white transition-all duration-300 text-sm sm:text-base"
+              className="flex-1 py-2.5 sm:py-3 border-2 border-[#4945E7] text-[#4945E7] dark:text-[#6A67F0] dark:border-[#6A67F0] rounded-lg sm:rounded-xl font-semibold hover:bg-[#4945E7] dark:hover:bg-[#6A67F0] hover:text-white transition-all duration-300 text-sm sm:text-base"
             >
               إلغاء
             </motion.button>
@@ -445,7 +447,7 @@ const BranchForm = ({
               disabled={!isFormValid()}
               className={`flex-1 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base flex items-center justify-center gap-1 sm:gap-2 ${
                 isFormValid()
-                  ? "bg-gradient-to-r from-[#E41E26] to-[#FDB913] text-white hover:shadow-xl hover:shadow-[#E41E26]/25"
+                  ? `bg-gradient-to-r ${primaryGradient} text-white hover:shadow-xl hover:shadow-[#4945E7]/25`
                   : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
               }`}
             >

@@ -4,6 +4,7 @@ import { FaCheckCircle, FaUserCircle } from "react-icons/fa";
 
 export default function WelcomeAnimation({ userName, userImage }) {
   const [isVisible, setIsVisible] = useState(true);
+  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,7 +51,9 @@ export default function WelcomeAnimation({ userName, userImage }) {
             className="max-w-md w-full mx-4 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl overflow-hidden border border-gray-200 dark:border-gray-700"
           >
             {/* Header with gradient */}
-            <div className="bg-gradient-to-r from-[#E41E26] to-[#FDB913] p-6 text-center">
+            <div
+              className={`bg-gradient-to-r ${primaryGradient} p-6 text-center`}
+            >
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
@@ -108,15 +111,15 @@ export default function WelcomeAnimation({ userName, userImage }) {
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 0.9, duration: 2 }}
-                className="h-1 bg-gradient-to-r from-[#E41E26] to-[#FDB913] rounded-full"
+                className={`h-1 bg-gradient-to-r ${primaryGradient} rounded-full`}
               />
             </div>
           </motion.div>
 
           {/* Subtle background pattern */}
           <div className="absolute inset-0 -z-10 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-[#E41E26]/5 to-[#FDB913]/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gradient-to-r from-[#FDB913]/5 to-[#E41E26]/5 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-[#4945E7]/5 to-[#6A67F0]/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gradient-to-r from-[#6A67F0]/5 to-[#4945E7]/5 rounded-full blur-3xl"></div>
           </div>
         </motion.div>
       )}
