@@ -62,10 +62,6 @@ const Home = () => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  const primaryColor = "#4945E7";
-  const primaryGradient = "from-[#4945E7] to-[#6A67F0]";
-  const lightBackground = "from-white via-[#f0f2ff] to-[#e0e5ff]";
-  const darkBackground = "from-gray-900 via-gray-800 to-gray-700";
 
   const isMobile = () => {
     return window.innerWidth <= 768;
@@ -83,7 +79,7 @@ const Home = () => {
         confirmButtonText: options.confirmButtonText,
         showCancelButton: options.showCancelButton,
         cancelButtonText: options.cancelButtonText,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         ...options.swalOptions,
       });
@@ -127,7 +123,7 @@ const Home = () => {
         text: text,
         timer: options.timer || 2000,
         showConfirmButton: false,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         ...options.swalOptions,
       });
     }
@@ -544,7 +540,7 @@ const Home = () => {
         text: "يجب تسجيل الدخول لإضافة المنتجات إلى المفضلة",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         confirmButtonText: "تسجيل الدخول",
         cancelButtonText: "إنشاء حساب جديد",
@@ -639,7 +635,7 @@ const Home = () => {
         text: "يجب تسجيل الدخول لإضافة المنتجات إلى السلة",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         confirmButtonText: "تسجيل الدخول",
         cancelButtonText: "إنشاء حساب جديد",
@@ -713,7 +709,7 @@ const Home = () => {
               confirmButtonText: "عرض التفاصيل",
               showCancelButton: true,
               cancelButtonText: "إلغاء",
-              confirmButtonColor: primaryColor,
+              confirmButtonColor: "#4945E7",
               cancelButtonColor: "#6B7280",
             }).then((result) => {
               if (result.isConfirmed) {
@@ -779,7 +775,7 @@ const Home = () => {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -968,7 +964,7 @@ const Home = () => {
         title: "لا يمكن حذف التصنيف",
         text: `يوجد ${productsInCategory.length} منتج في هذا التصنيف. يرجى إعادة تعيين أو حذف هذه المنتجات أولاً.`,
         icon: "warning",
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         confirmButtonText: "حسناً",
       });
       return;
@@ -979,7 +975,7 @@ const Home = () => {
       text: "لن تتمكن من التراجع عن هذا الإجراء!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: primaryColor,
+      confirmButtonColor: "#4945E7",
       cancelButtonColor: "#6B7280",
       confirmButtonText: "نعم، احذفه!",
       cancelButtonText: "إلغاء",
@@ -1128,7 +1124,7 @@ const Home = () => {
   const formatPriceDisplay = (product) => {
     if (product.isPriceBasedOnRequest) {
       return (
-        <div className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}>
+        <div className={`text-[#4945E7] font-bold text-lg sm:text-xl`}>
           السعر حسب الطلب
         </div>
       );
@@ -1141,7 +1137,7 @@ const Home = () => {
             {product.price} ج.م
           </div>
           <div
-            className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}
+            className={`text-[#4945E7] font-bold text-lg sm:text-xl`}
           >
             {product.finalPrice.toFixed(2)} ج.م
           </div>
@@ -1150,7 +1146,7 @@ const Home = () => {
     }
 
     return (
-      <div className={`text-[${primaryColor}] font-bold text-lg sm:text-xl`}>
+      <div className={`text-[#4945E7] font-bold text-lg sm:text-xl`}>
         {product.price} ج.م
       </div>
     );
@@ -1159,7 +1155,7 @@ const Home = () => {
   const formatPriceDisplayMobile = (product) => {
     if (product.isPriceBasedOnRequest) {
       return (
-        <div className={`text-[${primaryColor}] font-bold text-sm`}>
+        <div className={`text-[#4945E7] font-bold text-sm`}>
           السعر حسب الطلب
         </div>
       );
@@ -1171,7 +1167,7 @@ const Home = () => {
           <div className="text-gray-400 dark:text-gray-500 text-xs line-through">
             {product.price} ج.م
           </div>
-          <div className={`text-[${primaryColor}] font-bold text-sm`}>
+          <div className={`text-[#4945E7] font-bold text-sm`}>
             {product.finalPrice.toFixed(2)} ج.م
           </div>
         </>
@@ -1179,7 +1175,7 @@ const Home = () => {
     }
 
     return (
-      <div className={`text-[${primaryColor}] font-bold text-sm`}>
+      <div className={`text-[#4945E7] font-bold text-sm`}>
         {product.price} ج.م
       </div>
     );
@@ -1239,7 +1235,7 @@ const Home = () => {
         text: `يجب تسجيل الدخول للوصول إلى ${action}`,
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: primaryColor,
+        confirmButtonColor: "#4945E7",
         cancelButtonColor: "#6B7280",
         confirmButtonText: "تسجيل الدخول",
         cancelButtonText: "إنشاء حساب جديد",
@@ -1359,7 +1355,7 @@ const Home = () => {
   if (loading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center bg-gradient-to-br ${lightBackground} dark:${darkBackground} px-4`}
+        className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 px-4`}
       >
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#4945E7]"></div>
       </div>
@@ -1368,7 +1364,7 @@ const Home = () => {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br ${lightBackground} dark:${darkBackground} font-sans relative overflow-x-hidden`}
+      className={`min-h-screen bg-gradient-to-br from-white via-[#f0f2ff] to-[#e0e5ff] dark:from-gray-900 dark:via-gray-800 dark:to-gray-700 font-sans relative overflow-x-hidden`}
     >
       <div ref={topOfPageRef}></div>
 
@@ -1414,7 +1410,7 @@ const Home = () => {
                 }}
                 className={`flex-shrink-0 flex items-center gap-2 px-3 md:px-4 py-2 md:py-3 rounded-xl font-semibold text-sm md:text-base ${
                   selectedCategory === category.id
-                    ? `bg-gradient-to-r ${primaryGradient} text-white shadow-lg`
+                    ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white shadow-lg`
                     : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
                 } ${
                   !category.isActive &&
@@ -1472,7 +1468,7 @@ const Home = () => {
                     scrollToCategories();
                   }, 50);
                 }}
-                className={`bg-gradient-to-r ${primaryGradient} text-white px-6 py-3 rounded-xl font-semibold shadow-lg text-sm md:text-base`}
+                className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-6 py-3 rounded-xl font-semibold shadow-lg text-sm md:text-base`}
               >
                 عرض جميع المنتجات
               </button>
@@ -1626,7 +1622,7 @@ const Home = () => {
                             addingToCart === product.id
                               ? "bg-gradient-to-r from-gray-500 to-gray-600 text-white cursor-wait"
                               : isProductAvailableForCart(product)
-                              ? `bg-gradient-to-r ${primaryGradient} text-white`
+                              ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white`
                               : "bg-gray-400 text-gray-200 cursor-not-allowed"
                           }`}
                         >
@@ -1735,7 +1731,7 @@ const Home = () => {
                             addingToCart === product.id
                               ? "bg-gradient-to-r from-gray-500 to-gray-600 text-white cursor-wait"
                               : isProductAvailableForCart(product)
-                              ? `bg-gradient-to-r ${primaryGradient} text-white`
+                              ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white`
                               : "bg-gray-400 text-gray-200 cursor-not-allowed"
                           }`}
                         >
@@ -1800,7 +1796,7 @@ const Home = () => {
                             onClick={() => handlePageChange(pageNum)}
                             className={`px-3 sm:px-4 py-1 sm:py-2 rounded-xl font-semibold ${
                               currentPage === pageNum
-                                ? `bg-gradient-to-r ${primaryGradient} text-white shadow-lg`
+                                ? `bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white shadow-lg`
                                 : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
                             }`}
                           >
@@ -1831,7 +1827,7 @@ const Home = () => {
 
       {/* Cart Button */}
       <div
-        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r ${primaryGradient} text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 no-product-details ${
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white rounded-full p-3 sm:p-4 shadow-2xl z-40 cursor-pointer hover:scale-110 no-product-details ${
           cartItemsCount === 0 ? "opacity-70" : ""
         }`}
         onClick={handleNavigateToCart}
@@ -1929,7 +1925,7 @@ const Home = () => {
               dir="rtl"
             >
               <div
-                className={`bg-gradient-to-r ${primaryGradient} text-white p-4 sm:p-6 relative`}
+                className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white p-4 sm:p-6 relative`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 sm:gap-3">
@@ -2143,7 +2139,7 @@ const Home = () => {
                               </button>
                               <button
                                 onClick={handleSaveCategory}
-                                className={`bg-gradient-to-r ${primaryGradient} text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-bold shadow-lg flex items-center gap-2 text-sm sm:text-base no-product-details`}
+                                className={`bg-gradient-to-r from-[#4945E7] to-[#6A67F0] text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-bold shadow-lg flex items-center gap-2 text-sm sm:text-base no-product-details`}
                               >
                                 <FaSave />
                                 حفظ التغييرات
