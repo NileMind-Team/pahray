@@ -24,7 +24,6 @@ import {
   FaPercent,
   FaChartBar,
   FaArrowLeft,
-  FaClock,
   FaCalendarAlt,
 } from "react-icons/fa";
 import { useState, useRef, useEffect } from "react";
@@ -138,16 +137,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
   const handleTimeDateReportsClick = () => {
     setIsSidebarOpen(false);
     navigate("/admin/time-date-reports");
-  };
-
-  const handleOrderShiftsClick = () => {
-    setIsSidebarOpen(false);
-    navigate("/order-shifts");
-  };
-
-  const handleAdminOrderShiftsClick = () => {
-    setIsSidebarOpen(false);
-    navigate("/admin/order-shifts");
   };
 
   useEffect(() => {
@@ -266,12 +255,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           label: "تقارير المبيعات بالوقت والتاريخ",
           color: "#4945E7",
         },
-        {
-          onClick: handleAdminOrderShiftsClick,
-          icon: FaClock,
-          label: "تقارير الورديات",
-          color: "#4945E7",
-        }
       );
     }
 
@@ -313,12 +296,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           label: "تقارير الوقت والتاريخ",
           color: "#4945E7",
         },
-        {
-          onClick: handleAdminOrderShiftsClick,
-          icon: FaClock,
-          label: "تقارير الورديات",
-          color: "#4945E7",
-        },
       ];
 
       restaurantItems.forEach((item) => {
@@ -333,7 +310,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
   const adminMenuItems = getAdminMenuItems();
   const hasAdminAccess = hasAnyRole(["Admin", "Restaurant"]);
-  const hasOrderShiftsAccess = hasAnyRole(["Admin", "Restaurant", "Branch"]);
 
   if (loading) {
     return (
@@ -697,24 +673,6 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                         </motion.div>
                       ))}
                     </div>
-                  )}
-
-                  {hasOrderShiftsAccess && (
-                    <motion.div
-                      whileHover={{ scale: 1.02, x: -4 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <button
-                        onClick={handleOrderShiftsClick}
-                        className="w-full text-right flex items-center gap-4 px-2 py-2 text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-[#f0f2ff] hover:to-[#e0e5ff] dark:hover:from-gray-700 dark:hover:to-gray-600 transition-all duration-200 font-medium rounded-xl border border-transparent hover:border-[#4945E7]/30 dark:hover:border-gray-500"
-                        dir="rtl"
-                      >
-                        <div className="flex-shrink-0 p-2 bg-[#4945E7]/10 dark:bg-[#6A67F0]/20 rounded-lg">
-                          <FaClock className="text-[#4945E7] dark:text-[#6A67F0] text-lg" />
-                        </div>
-                        <span className="text-lg truncate">الورديات</span>
-                      </button>
-                    </motion.div>
                   )}
 
                   <motion.div
