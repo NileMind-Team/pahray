@@ -31,24 +31,76 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
 
   if (Array.isArray(errorData.errors)) {
     const errorMessages = errorData.errors.map((error) => {
-      if (error.code === "ItemOffer.ItemOfferAlreadyExists") {
-        return "هناك عرض نشط لهذا العنصر بالفعل.";
+      switch (error.code) {
+        case "ItemOffer.ItemOfferAlreadyExists":
+          return "هناك عرض نشط لهذا العنصر بالفعل.";
+        case "ItemOffer.StartDateMustBeInFuture":
+          return "تاريخ البداية يجب أن يكون في المستقبل.";
+        case "ItemOffer.EndDateMustBeAfterStartDate":
+          return "تاريخ النهاية يجب أن يكون بعد تاريخ البداية.";
+        case "ItemOffer.InvalidDiscountValue":
+          return "قيمة الخصم غير صالحة.";
+        case "ItemOffer.DiscountPercentageOutOfRange":
+          return "نسبة الخصم يجب أن تكون بين 0 و 100.";
+        case "ItemOffer.MenuItemNotFound":
+          return "العنصر المحدد غير موجود.";
+        case "ItemOffer.BranchNotFound":
+          return "أحد الفروع المحددة غير موجود.";
+        case "ItemOffer.OfferNotFound":
+          return "العرض المطلوب غير موجود.";
+        case "ItemOffer.OfferAlreadyActive":
+          return "العرض نشط بالفعل.";
+        case "ItemOffer.OfferAlreadyInactive":
+          return "العرض غير نشط بالفعل.";
+        case "ItemOffer.CannotUpdateMenuItem":
+          return "لا يمكن تغيير العنصر أثناء التعديل.";
+        case "ItemOffer.InvalidStartDate":
+          return "تاريخ البداية غير صالح.";
+        case "ItemOffer.InvalidEndDate":
+          return "تاريخ النهاية غير صالح.";
+        default:
+          // إذا كان هناك وصف، حاول ترجمته
+          if (error.description) {
+            const descLower = error.description.toLowerCase();
+
+            // ترجمة الأوصاف الإنجليزية الشائعة
+            if (descLower.includes("start date must be in the future")) {
+              return "تاريخ البداية يجب أن يكون في المستقبل.";
+            }
+            if (descLower.includes("end date must be after start date")) {
+              return "تاريخ النهاية يجب أن يكون بعد تاريخ البداية.";
+            }
+            if (descLower.includes("discount value must be greater than 0")) {
+              return "قيمة الخصم يجب أن تكون أكبر من الصفر.";
+            }
+            if (descLower.includes("menu item not found")) {
+              return "العنصر المحدد غير موجود.";
+            }
+            if (descLower.includes("branch not found")) {
+              return "الفرع المحدد غير موجود.";
+            }
+            if (descLower.includes("offer already exists")) {
+              return "هناك عرض نشط لهذا العنصر بالفعل.";
+            }
+
+            return error.description;
+          }
+          return error.code;
       }
-      return error.description || error.code;
     });
 
     if (errorMessages.length > 1) {
       if (useHTML) {
         const htmlMessages = errorMessages.map(
-          (msg) =>
+          (msg, index) =>
             `<div style="direction: rtl; text-align: right; margin-bottom: 8px; padding-right: 15px; position: relative;">
              ${msg}
-             <span style="position: absolute; right: 0; top: 0;">-</span>
-           </div>`
+             <span style="position: absolute; right: 0; top: 0;">${index + 1}</span>
+           </div>`,
         );
         return htmlMessages.join("");
       } else {
-        return errorMessages.map((msg) => `${msg} -`).join("<br>");
+        return errorMessages.join(" - ");
       }
     } else if (errorMessages.length === 1) {
       return errorMessages[0];
@@ -65,17 +117,20 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
       Array.isArray(errorData.errors.DiscountValue)
     ) {
       errorData.errors.DiscountValue.forEach((msg) => {
-        if (msg.toLowerCase().includes("greater than 0")) {
+        const msgLower = msg.toLowerCase();
+        if (msgLower.includes("greater than 0")) {
           errorMessages.push("قيمة الخصم يجب أن تكون أكبر من الصفر");
-        } else if (msg.toLowerCase().includes("required")) {
+        } else if (msgLower.includes("required")) {
           errorMessages.push("قيمة الخصم مطلوبة");
         } else if (
-          msg.toLowerCase().includes("percentage") &&
-          msg.toLowerCase().includes("100")
+          msgLower.includes("percentage") &&
+          msgLower.includes("100")
         ) {
           errorMessages.push(
-            "قيمة الخصم بالنسبة المئوية يجب أن تكون بين 0 و 100"
+            "قيمة الخصم بالنسبة المئوية يجب أن تكون بين 0 و 100",
           );
+        } else if (msgLower.includes("invalid")) {
+          errorMessages.push("قيمة الخصم غير صالحة");
         } else {
           errorMessages.push(msg);
         }
@@ -84,10 +139,15 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
 
     if (errorData.errors.EndDate && Array.isArray(errorData.errors.EndDate)) {
       errorData.errors.EndDate.forEach((msg) => {
-        if (msg.toLowerCase().includes("after start date")) {
+        const msgLower = msg.toLowerCase();
+        if (msgLower.includes("after start date")) {
           errorMessages.push("تاريخ النهاية يجب أن يكون بعد تاريخ البداية");
-        } else if (msg.toLowerCase().includes("required")) {
+        } else if (msgLower.includes("required")) {
           errorMessages.push("تاريخ النهاية مطلوب");
+        } else if (msgLower.includes("future")) {
+          errorMessages.push("تاريخ النهاية يجب أن يكون في المستقبل");
+        } else if (msgLower.includes("invalid")) {
+          errorMessages.push("تاريخ النهاية غير صالح");
         } else {
           errorMessages.push(msg);
         }
@@ -99,10 +159,13 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
       Array.isArray(errorData.errors.StartDate)
     ) {
       errorData.errors.StartDate.forEach((msg) => {
-        if (msg.toLowerCase().includes("required")) {
+        const msgLower = msg.toLowerCase();
+        if (msgLower.includes("required")) {
           errorMessages.push("تاريخ البداية مطلوب");
-        } else if (msg.toLowerCase().includes("future")) {
+        } else if (msgLower.includes("future")) {
           errorMessages.push("تاريخ البداية يجب أن يكون في المستقبل");
+        } else if (msgLower.includes("invalid")) {
+          errorMessages.push("تاريخ البداية غير صالح");
         } else {
           errorMessages.push(msg);
         }
@@ -114,13 +177,16 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
       Array.isArray(errorData.errors.MenuItemId)
     ) {
       errorData.errors.MenuItemId.forEach((msg) => {
-        if (msg.toLowerCase().includes("required")) {
+        const msgLower = msg.toLowerCase();
+        if (msgLower.includes("required")) {
           errorMessages.push("العنصر مطلوب");
         } else if (
-          msg.toLowerCase().includes("exist") ||
-          msg.toLowerCase().includes("not found")
+          msgLower.includes("exist") ||
+          msgLower.includes("not found")
         ) {
           errorMessages.push("العنصر المحدد غير موجود");
+        } else if (msgLower.includes("invalid")) {
+          errorMessages.push("معرف العنصر غير صالح");
         } else {
           errorMessages.push(msg);
         }
@@ -132,16 +198,16 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
       Array.isArray(errorData.errors.BranchesIds)
     ) {
       errorData.errors.BranchesIds.forEach((msg) => {
-        if (
-          msg.toLowerCase().includes("required") ||
-          msg.toLowerCase().includes("at least")
-        ) {
+        const msgLower = msg.toLowerCase();
+        if (msgLower.includes("required") || msgLower.includes("at least")) {
           errorMessages.push("يجب اختيار فرع واحد على الأقل");
         } else if (
-          msg.toLowerCase().includes("exist") ||
-          msg.toLowerCase().includes("not found")
+          msgLower.includes("exist") ||
+          msgLower.includes("not found")
         ) {
           errorMessages.push("أحد الفروع المحددة غير موجود");
+        } else if (msgLower.includes("invalid")) {
+          errorMessages.push("معرفات الفروع غير صالحة");
         } else {
           errorMessages.push(msg);
         }
@@ -161,7 +227,15 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
         const errorValue = errorData.errors[key];
         if (Array.isArray(errorValue)) {
           errorValue.forEach((msg) => {
-            errorMessages.push(msg);
+            const msgLower = msg.toLowerCase();
+            // ترجمة رسائل الخطأ الإنجليزية الشائعة
+            if (msgLower.includes("required")) {
+              errorMessages.push(`حقل ${key} مطلوب`);
+            } else if (msgLower.includes("invalid")) {
+              errorMessages.push(`قيمة ${key} غير صالحة`);
+            } else {
+              errorMessages.push(msg);
+            }
           });
         } else if (typeof errorValue === "string") {
           errorMessages.push(errorValue);
@@ -178,15 +252,15 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
     if (errorMessages.length > 1) {
       if (useHTML) {
         const htmlMessages = errorMessages.map(
-          (msg) =>
+          (msg, index) =>
             `<div style="direction: rtl; text-align: right; margin-bottom: 8px; padding-right: 15px; position: relative;">
              ${msg}
-             <span style="position: absolute; right: 0; top: 0;">1</span>
-           </div>`
+             <span style="position: absolute; right: 0; top: 0;">${index + 1}</span>
+           </div>`,
         );
         return htmlMessages.join("");
       } else {
-        return errorMessages.map((msg) => `${msg} -`).join("<br>");
+        return errorMessages.join(" - ");
       }
     } else if (errorMessages.length === 1) {
       return errorMessages[0];
@@ -197,18 +271,64 @@ const translateOfferErrorMessage = (errorData, useHTML = true) => {
 
   if (typeof errorData.message === "string") {
     const msg = errorData.message.toLowerCase();
+
     if (msg.includes("network") || msg.includes("internet")) {
       return "يرجى التحقق من اتصالك بالإنترنت";
     }
     if (msg.includes("timeout") || msg.includes("time out")) {
       return "انتهت المهلة، يرجى المحاولة مرة أخرى";
     }
+
     if (msg.includes("unauthorized") || msg.includes("forbidden")) {
       return "ليس لديك صلاحية للقيام بهذا الإجراء";
     }
+
     if (msg.includes("conflict")) {
       return "هناك تعارض في البيانات. قد يكون هناك عرض نشط للعنصر بالفعل.";
     }
+
+    if (msg.includes("not found")) {
+      return "لم يتم العثور على البيانات المطلوبة";
+    }
+
+    if (msg.includes("validation") || msg.includes("invalid")) {
+      return "البيانات المدخلة غير صالحة";
+    }
+
+    if (msg.includes("server") || msg.includes("internal")) {
+      return "حدث خطأ في الخادم، يرجى المحاولة لاحقاً";
+    }
+
+    const englishArabicMap = {
+      "start date must be in the future":
+        "تاريخ البداية يجب أن يكون في المستقبل",
+      "end date must be after start date":
+        "تاريخ النهاية يجب أن يكون بعد تاريخ البداية",
+      "discount value must be greater than 0":
+        "قيمة الخصم يجب أن تكون أكبر من الصفر",
+      "menu item not found": "العنصر المحدد غير موجود",
+      "branch not found": "الفرع المحدد غير موجود",
+      "offer not found": "العرض المطلوب غير موجود",
+      "item offer already exists": "هناك عرض نشط لهذا العنصر بالفعل",
+      "invalid discount value": "قيمة الخصم غير صالحة",
+      "percentage discount must be between 0 and 100":
+        "نسبة الخصم يجب أن تكون بين 0 و 100",
+      "at least one branch is required": "يجب اختيار فرع واحد على الأقل",
+      "start date is required": "تاريخ البداية مطلوب",
+      "end date is required": "تاريخ النهاية مطلوب",
+      "menu item is required": "العنصر مطلوب",
+      "discount value is required": "قيمة الخصم مطلوبة",
+      "invalid start date format": "تنسيق تاريخ البداية غير صالح",
+      "invalid end date format": "تنسيق تاريخ النهاية غير صالح",
+    };
+
+    const lowerMsg = msg.toLowerCase();
+    for (const [english, arabic] of Object.entries(englishArabicMap)) {
+      if (lowerMsg.includes(english.toLowerCase())) {
+        return arabic;
+      }
+    }
+
     return errorData.message;
   }
 
@@ -367,7 +487,7 @@ export default function ItemOffersManagement() {
         }
 
         const branchesResponse = await axiosInstance.get(
-          "/api/Branches/GetList"
+          "/api/Branches/GetList",
         );
         setBranches(branchesResponse.data);
 
@@ -384,7 +504,7 @@ export default function ItemOffersManagement() {
         showMessage(
           "error",
           "خطأ في الاتصال",
-          "حدث خطأ أثناء جلب البيانات. يرجى المحاولة مرة أخرى."
+          "حدث خطأ أثناء جلب البيانات. يرجى المحاولة مرة أخرى.",
         );
       } finally {
         setLoading(false);
@@ -402,7 +522,7 @@ export default function ItemOffersManagement() {
 
     if (selectedOfferId && offers.length > 0) {
       const existingOffer = offers.find(
-        (offer) => offer.id === selectedOfferId
+        (offer) => offer.id === selectedOfferId,
       );
       if (existingOffer) {
         handleEdit(existingOffer);
@@ -429,7 +549,7 @@ export default function ItemOffersManagement() {
         offersData.map(async (offer) => {
           try {
             const menuItemResponse = await axiosInstance.get(
-              `/api/MenuItems/Get/${offer.menuItemId}`
+              `/api/MenuItems/Get/${offer.menuItemId}`,
             );
 
             const adjustedStartDate = adjustTimeFromAPI(offer.startDate);
@@ -462,7 +582,7 @@ export default function ItemOffersManagement() {
               endDate: adjustTimeFromAPI(offer.endDate),
             };
           }
-        })
+        }),
       );
 
       setOffers(offersWithDetails);
@@ -477,7 +597,7 @@ export default function ItemOffersManagement() {
     setLoadingItems(true);
     try {
       const response = await axiosInstance.get(
-        "/api/MenuItems/GetAllWithoutPagination"
+        "/api/MenuItems/GetAllWithoutPagination",
       );
 
       const itemsWithoutActiveOffers = response.data.filter((item) => {
@@ -515,7 +635,7 @@ export default function ItemOffersManagement() {
               .includes(searchTerm.toLowerCase());
 
           const branchMatch = offer.branchNames.some((name) =>
-            name.toLowerCase().includes(searchTerm.toLowerCase())
+            name.toLowerCase().includes(searchTerm.toLowerCase()),
           );
 
           return itemMatch || branchMatch;
@@ -594,7 +714,7 @@ export default function ItemOffersManagement() {
       showMessage(
         "error",
         "لم يتم اختيار فروع",
-        "يرجى اختيار فرع واحد على الأقل"
+        "يرجى اختيار فرع واحد على الأقل",
       );
       return;
     }
@@ -618,13 +738,13 @@ export default function ItemOffersManagement() {
       if (editingId) {
         const res = await axiosInstance.put(
           `/api/ItemOffers/Update/${editingId}`,
-          offerData
+          offerData,
         );
         if (res.status === 200 || res.status === 204) {
           showMessage(
             "success",
             "تم تحديث العرض",
-            "تم تحديث عرض العنصر بنجاح."
+            "تم تحديث عرض العنصر بنجاح.",
           );
         }
       } else {
@@ -633,7 +753,7 @@ export default function ItemOffersManagement() {
           showMessage(
             "success",
             "تم إضافة العرض",
-            "تم إضافة عرض العنصر الجديد بنجاح."
+            "تم إضافة عرض العنصر الجديد بنجاح.",
           );
         }
       }
@@ -643,12 +763,13 @@ export default function ItemOffersManagement() {
       fetchMenuItems();
     } catch (err) {
       console.error("خطأ في حفظ العرض:", err);
+      console.log("بيانات الخطأ من الـ API:", err.response?.data);
 
       setError(err.response?.data);
 
       const translatedMessage = translateOfferErrorMessage(
         err.response?.data,
-        false
+        false,
       );
 
       showMessage("error", "حدث خطأ", translatedMessage, { timer: 2500 });
@@ -729,7 +850,7 @@ export default function ItemOffersManagement() {
     try {
       const response = await axiosInstance.put(
         `/api/ItemOffers/Update/${id}`,
-        offerData
+        offerData,
       );
       if (response.status === 200 || response.status === 204) {
         fetchOffers();
@@ -737,7 +858,7 @@ export default function ItemOffersManagement() {
           "success",
           "تم تحديث الحالة!",
           `تم ${offer.isEnabled ? "تعطيل" : "تفعيل"} عرض العنصر`,
-          { timer: 1500 }
+          { timer: 1500 },
         );
         fetchMenuItems();
       }
@@ -934,7 +1055,7 @@ export default function ItemOffersManagement() {
                             </h3>
                             <span
                               className={`px-3 py-1.5 rounded-full text-sm font-semibold ${getStatusColor(
-                                offer
+                                offer,
                               )} whitespace-nowrap`}
                             >
                               {getStatusText(offer)}
@@ -1184,7 +1305,7 @@ export default function ItemOffersManagement() {
                           onClick={() => {
                             if (editingId) return;
                             setOpenDropdown(
-                              openDropdown === "menuItem" ? null : "menuItem"
+                              openDropdown === "menuItem" ? null : "menuItem",
                             );
                             if (
                               !menuItems.length &&
@@ -1204,7 +1325,8 @@ export default function ItemOffersManagement() {
                               ? (() => {
                                   const selectedItem = menuItems.find(
                                     (item) =>
-                                      item.id.toString() === formData.menuItemId
+                                      item.id.toString() ===
+                                      formData.menuItemId,
                                   );
                                   return selectedItem
                                     ? `${selectedItem.name} - ${
@@ -1231,9 +1353,7 @@ export default function ItemOffersManagement() {
                                 className={`text-[#4945E7] animate-spin`}
                               />
                             ) : (
-                              <FaChevronDown
-                                className={`text-[#4945E7]`}
-                              />
+                              <FaChevronDown className={`text-[#4945E7]`} />
                             )}
                           </motion.div>
                         </button>
@@ -1272,7 +1392,7 @@ export default function ItemOffersManagement() {
                                       onClick={() => {
                                         handleSelectChange(
                                           "menuItemId",
-                                          item.id.toString()
+                                          item.id.toString(),
                                         );
                                         setOpenDropdown(null);
                                       }}
@@ -1487,7 +1607,7 @@ export default function ItemOffersManagement() {
                                 <input
                                   type="checkbox"
                                   checked={formData.branchesIds.includes(
-                                    branch.id
+                                    branch.id,
                                   )}
                                   onChange={() =>
                                     handleBranchesChange(branch.id)
